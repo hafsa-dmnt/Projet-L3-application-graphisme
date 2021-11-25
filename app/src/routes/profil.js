@@ -1,6 +1,5 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import '../App.css';
 
 import {
   BrowserRouter as Router,
@@ -19,5 +18,5 @@ function Profil() {
     </div>
     );
   }
-  
+
   export default Profil;
