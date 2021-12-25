@@ -1,0 +1,77 @@
+
+.page.home{
+  background-color: #e6d9ff;
+  text-align: center;
+  padding: 10px;
+  /*120 : taille du menu de nav*/
+  padding-bottom: 120px;
+  box-sizing: border-box;
+}
+
+.themeHome, .paletteHome{
+  height: auto;
+  min-height: 30px;
+  width: 90%;
+  background-color: #b49fdb;
+  border-radius: 10px;
+  margin: 20px auto;
+  padding: 10px;
+  display: block;
+  position: relative;
+  text-align: left;
+}
+
+.themeHome h3, .paletteHome h3{
+  display: inline-block;
+  font-weight: bold;
+  margin: 10px;
+}
+
+.themeHome p{
+  display: block;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin: 10px 20px;
+}
+
+.palette {
+  margin: auto;
+  text-align: center;
+}
+
+.colorPalette{
+  display: inline-block;
+  width: 22vW;
+  height: 22vW;
+  /*todo colour en fonction de la palette*/
+  background-color: #7d4193;
+  margin: 1% 3%;
+  border-radius: 10px;
+
+}
+
+.btnAddToFav{
+  display: inline-block;
+  right: 3%;
+  position: absolute;
+  background-color: inherit;
+  border: none;
+  height: 40px;
+  width: 40px;
+}
+
+.btnAddToFav svg{
+  height: 100%;
+  width: 100%;
+  color : #4c0068;
+}
+
+.btnGetRandomArt{
+  background-color: #b49fdb;
+  border: 3px solid #7d4193;
+  border-radius: 10px;
+  font-size: large;
+  font-weight: bold;
+  margin: 20px 0;
+  padding: 20px;
+}
