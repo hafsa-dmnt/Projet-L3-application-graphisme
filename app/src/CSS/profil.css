@@ -1,0 +1,76 @@
+#btnFollow{
+    display: inline-block;
+    right: 3%;
+    position: absolute;
+    background-color: inherit;
+    border: none;
+    height: 40px;
+    width: 40px;
+}
+
+#btnFollow svg{
+    height: 100%;
+    width: 100%;
+    color : #4c0068;
+}
+
+.profilContent{
+    height: auto;
+    min-height: 30px;
+    width: 90%;
+    background-color: #b49fdb;
+    border-radius: 10px;
+    margin: 20px auto;
+    padding: 10px;
+    display: block;
+    position: relative;
+    text-align: left;
+}
+
+.publication{
+    display: inline-block;
+    width: 22vW;
+    height: 22vW;
+    /*todo colour en fonction de la palette*/
+    background-color: #7d4193;
+    margin: 1% 3%;
+    border-radius: 10px;
+    position: relative;
+}
+
+.galerie{
+    display: inline-block;
+    text-align: center;
+}
+
+/*PROFIL*/
+.profil{
+    display: inline-block;
+    text-align: center;
+}
+
+.profilHead {
+    height: auto;
+    min-height: 30px;
+    width: 90%;
+    background-color: #b49fdb;
+    border-radius: 10px;
+    margin: 20px auto;
+    padding: 10px;
+    display: inline-block;
+    position: relative;
+    text-align: center;
+}
+
+.profilHead img {
+    border-radius: 100%;
+    width: 40px;
+    height: 40px;
+    left: 3%;
+}
+
+.profilHead h3 {
+    display: inline-block;
+    font-weight: bold;
+    margin: 1vh;
+}
