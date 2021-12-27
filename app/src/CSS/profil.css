@@ -47,6 +47,7 @@
 .profil{
     display: inline-block;
     text-align: center;
+    margin-bottom: 130px;
 }
 
 .profilHead {
@@ -67,6 +68,10 @@
     width: 40px;
     height: 40px;
     left: 3%;
+    display: inline-block;
+    position: absolute;
+    background-color: inherit;
+    border: none;
 }
 
 .profilHead h3 {
