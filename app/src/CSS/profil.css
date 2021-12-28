@@ -1,3 +1,4 @@
+/*PROFIL*/
 #btnFollow{
     display: inline-block;
     right: 3%;
@@ -43,11 +44,14 @@
     text-align: center;
 }
 
-/*PROFIL*/
 .profil{
     display: inline-block;
+    background-color: #e6d9ff;
     text-align: center;
-    margin-bottom: 130px;
+    padding: 10px;
+    /*120 : taille du menu de nav*/
+    padding-bottom: 120px;
+    box-sizing: border-box;
 }
 
 .profilHead {
@@ -70,8 +74,7 @@
     left: 3%;
     display: inline-block;
     position: absolute;
-    background-color: inherit;
-    border: none;
+    border: solid 0.3vh rgb(51, 9, 37);
 }
 
 .profilHead h3 {

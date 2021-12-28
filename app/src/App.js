@@ -32,7 +32,7 @@ function App() {
           <Route exact path="/compte/publication" element={<Publication/>}/>
           <Route exact path="/compte" element={<Compte/>}/>
         </Routes>
-        <nav class="menu_principal">
+        <nav className="menu_principal">
           <ul>
             <li>
               <Link to="calendrier">

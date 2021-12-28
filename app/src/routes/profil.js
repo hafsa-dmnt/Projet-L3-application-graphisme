@@ -24,8 +24,8 @@ class Follow extends React.Component{
 class ProfilHead extends React.Component{
   render(){
     return(
-      <header class="profilHead">
-        <img src={profilepicture} class = "profilePic"></img>
+      <header className="profilHead">
+        <img src={profilepicture} className= "profilePic"></img>
         <h3>{this.props.pseudo}</h3>
         <Follow/>
       </header>
@@ -36,17 +36,17 @@ class ProfilHead extends React.Component{
 class ProfilContent extends React.Component{
   render(){
     return(
-      <section class="profilContent">
+      <section className="profilContent">
         <p><Link to="/profil/mesthemes">Mes thèmes</Link></p>
         <p><Link to="/profil/mespalettes">Mes Palette</Link></p>
         <h2>Galerie</h2>
-        <section class="galerie">
-          <div class="publication"></div>
-          <div class="publication"></div>
-          <div class="publication"></div>
-          <div class="publication"></div>
-          <div class="publication"></div>
-          <div class="publication"></div>
+        <section className="galerie">
+          <div className="publication"></div>
+          <div className="publication"></div>
+          <div className="publication"></div>
+          <div className="publication"></div>
+          <div className="publication"></div>
+          <div className="publication"></div>
         </section>
       </section>
     );
@@ -55,7 +55,7 @@ class ProfilContent extends React.Component{
 
 function Profil() {
     return (
-    <div class="profil">
+    <div className="profil">
       <ProfilHead pseudo = "xXGrenouilledu39Xx"/>
       <ProfilContent />
     </div>
