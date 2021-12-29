@@ -29,29 +29,37 @@ function getRandomPalette(){
   //on génère aléatoirement une palette composée de minPalette couleurs à maxPalette couleurs
   let nbColors = Math.floor(Math.random()*(maxPalette-minPalette+1))+minPalette;
   //on génère aléatoirement un nombre pour savoir quelle méthode utiliser dans la palette 
-  let tabMethode = 2; //Math.floor(Math.random()*(6));
+  let tabMethode = Math.floor(Math.random()*(5));
+  console.log("methode numero ", tabMethode);
   //la palette à renvoyer à la fin
   let palette = [];
 
   //on choisit d'abord une première couleur, format RGB
   var firstColor = {r:Math.floor(Math.random()*(255)), g:Math.floor(Math.random()*(255)), b:Math.floor(Math.random()*(255))};
   palette.push("rgb("+firstColor.r+", "+firstColor.g+", "+firstColor.b+")");
-
-  var i = 1;
-  while(i<nbColors){
-    firstColor.r = (firstColor.r + Math.floor(Math.random()*(255-20+1))+20)%255;
-    firstColor.g = (firstColor.g + Math.floor(Math.random()*(255-20+1))+20)%255;
-    firstColor.b = (firstColor.g + Math.floor(Math.random()*(255-20+1))+20)%255;
-    palette.push("rgb("+firstColor.r+", "+firstColor.g+", "+firstColor.b+")");
-    ++i;
-  }
-  /*
+  
   switch(tabMethode){
-    case 1: //complementaires
-
+    case 0: //complementaires
+      var i = 1;
+      while(i<nbColors){
+        firstColor.r = (firstColor.r + Math.floor(Math.random()*(21))+128)%255;
+        firstColor.g = (firstColor.g + Math.floor(Math.random()*(31))+128)%255;
+        firstColor.b = (firstColor.g + Math.floor(Math.random()*(11))+128)%255;
+        palette.push("rgb("+firstColor.r+", "+firstColor.g+", "+firstColor.b+")");
+        ++i;
+      }
+    break;
+    case 1: //carré
     break;
     case 2: //analogue
-      
+      var i = 1;
+      while(i<nbColors){
+        firstColor.r = (firstColor.r + Math.floor(Math.random()*(50-15+1))+20)%255;
+        firstColor.g = (firstColor.g + Math.floor(Math.random()*(50-15+1))+20)%255;
+        firstColor.b = (firstColor.g + Math.floor(Math.random()*(50-15+1))+20)%255;
+        palette.push("rgb("+firstColor.r+", "+firstColor.g+", "+firstColor.b+")");
+        ++i;
+      }
     break;
     case 3: //triangle
 
@@ -59,10 +67,7 @@ function getRandomPalette(){
     case 4: //rectangle
 
     break;
-    case 5: //carré
-
-    break;
-  }*/
+  }
   return palette;
 }
 
