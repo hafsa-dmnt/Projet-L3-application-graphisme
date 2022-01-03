@@ -21,6 +21,7 @@ import {
 function App() {
   return (
     <Router>
+      <Home/>
       <div>
         <Routes>
           <Route exact path="/home" element={<Home/>}/>
