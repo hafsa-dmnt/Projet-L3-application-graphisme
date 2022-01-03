@@ -1,4 +1,5 @@
 import React from 'react';
+import { Icon } from '@iconify/react';
 import logo from './logo.svg';
 import './App.css';
 import Compte from './routes/compte.js'
@@ -20,20 +21,8 @@ import {
 function App() {
   return (
     <Router>
+      <Home/>
       <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="calendrier">Calendrier</Link>
-            </li>
-            <li>
-              <Link to="home">Home</Link>
-            </li>
-            <li>
-              <Link to="profil">Profil</Link>
-            </li>
-          </ul>
-        </nav>
         <Routes>
           <Route exact path="/home" element={<Home/>}/>
           <Route exact path="/profil" element={<Profil/>}/>
@@ -44,6 +33,25 @@ function App() {
           <Route exact path="/compte/publication" element={<Publication/>}/>
           <Route exact path="/compte" element={<Compte/>}/>
         </Routes>
+        <nav className="menu_principal">
+          <ul>
+            <li>
+              <Link to="calendrier">
+                <Icon icon="fa-solid:calendar-alt" />
+              </Link>
+            </li>
+            <li>
+              <Link to="home">
+                <Icon icon="bi:dice-3-fill" />
+              </Link>
+            </li>
+            <li>
+              <Link to="profil">
+                <Icon icon="bx:bxs-user-circle" />
+              </Link>
+            </li>
+          </ul>
+        </nav>
       </div>
     </Router>
   );
