@@ -32,8 +32,6 @@ function App() {
           <Route exact path="/compte/publication" element={<Publication/>}/>
           <Route exact path="/compte" element={<Compte/>}/>
         </Routes>
-        
-        <Home/>
 
         <nav className="menu_principal">
           <ul>
@@ -60,4 +58,4 @@ function App() {
 }
 
 
-export default App;
+export default <Home/>;
