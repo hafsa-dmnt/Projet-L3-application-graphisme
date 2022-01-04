@@ -21,7 +21,6 @@ import {
 function App() {
   return (
     <Router>
-      <Home/>
       <div>
         <Routes>
           <Route exact path="/home" element={<Home/>}/>
@@ -33,6 +32,9 @@ function App() {
           <Route exact path="/compte/publication" element={<Publication/>}/>
           <Route exact path="/compte" element={<Compte/>}/>
         </Routes>
+        
+        <Home/>
+
         <nav className="menu_principal">
           <ul>
             <li>
