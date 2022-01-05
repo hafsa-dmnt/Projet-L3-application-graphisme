@@ -24,30 +24,30 @@ USE `getrandomart_db`;*/
 -- Structure de la table `user`
 --
 
-CREATE TABLE `user` (
-  `user_pseudo` char(30) COLLATE utf8_general_ci NOT NULL,
-  `user_ID` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `user_email` char(100) COLLATE utf8_general_ci NOT NULL,
-  `user_mdp` char(100) COLLATE utf8_general_ci NOT NULL,
-  `user_pdp` char(100) COLLATE utf8_general_ci NOT NULL,
-  `user_bio` char(100) COLLATE utf8_general_ci NOT NULL DEFAULT 'voici ma bio.',
-  PRIMARY KEY (`user_ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+CREATE TABLE utilisateur (
+  user_pseudo char(30) NOT NULL,
+  user_ID SERIAL NOT NULL,
+  user_email char(100) NOT NULL,
+  user_mdp char(100) NOT NULL,
+  user_pdp char(100) NOT NULL,
+  user_bio char(100) NOT NULL DEFAULT 'voici ma bio.',
+  PRIMARY KEY (user_ID)
+);
 
---
+INSERT INTO utilisateur (user_ID, user_pseudo, user_email, user_mdp, user_pdp, user_bio) VALUES
+('1', 'user1', 'user1@gmail.com', 'user1', '../images/defaultpicture.jpg', '1'),
+('2','user2', 'user2@gmail.com', 'user2', '../images/defaultpicture.jpg', '2'),
+('3','user3', 'user3@gmail.com', 'user3', '../images/defaultpicture.jpg', '3'),
+('4','user4', 'user4@gmail.com', 'user4', '../images/defaultpicture.jpg', '4'),
+('5','user5', 'user5@gmail.com', 'user5', '../images/defaultpicture.jpg', '5'),
+('6','user6', 'user6@gmail.com', 'user6', '../images/defaultpicture.jpg', '6'),
+('7','user7', 'user7@gmail.com', 'user7', '../images/defaultpicture.jpg', '7'),
+('8','user8', 'user8@gmail.com', 'user8', '../images/defaultpicture.jpg', '8'),
+('9','user9', 'user9@gmail.com', 'user9', '../images/defaultpicture.jpg', '9');
 -- Contenu de la table `user`
 --
 
-INSERT INTO `user` (`user_pseudo`, `user_email`, `user_mdp`, `user_pdp`, `user_bio`) VALUES
-('user1', 'user1@gmail.com', 'user1', '../images/defaultpicture.jpg', '1'),
-('user2', 'user2@gmail.com', 'user2', '../images/defaultpicture.jpg', '2'),
-('user3', 'user3@gmail.com', 'user3', '../images/defaultpicture.jpg', '3'),
-('user4', 'user4@gmail.com', 'user4', '../images/defaultpicture.jpg', '4'),
-('user5', 'user5@gmail.com', 'user5', '../images/defaultpicture.jpg', '5'),
-('user6', 'user6@gmail.com', 'user6', '../images/defaultpicture.jpg', '6'),
-('user7', 'user7@gmail.com', 'user7', '../images/defaultpicture.jpg', '7'),
-('user8', 'user8@gmail.com', 'user8', '../images/defaultpicture.jpg', '8'),
-('user9', 'user9@gmail.com', 'user9', '../images/defaultpicture.jpg', '9');
+
 
 -- --------------------------------------------------------
 --
