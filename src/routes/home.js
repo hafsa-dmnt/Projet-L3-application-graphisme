@@ -10,8 +10,8 @@ import {
   Link
 } from "react-router-dom";
 
-let minPalette = 3;
-let maxPalette = 6;
+let minPalette = 5;
+let maxPalette = 5;
 
 /*function Home() {
   return (
@@ -50,7 +50,7 @@ function getRandomPalette(){
   //on génère aléatoirement une palette composée de minPalette couleurs à maxPalette couleurs
   let nbColors = Math.floor(Math.random()*(maxPalette-minPalette+1))+minPalette;
   //on génère aléatoirement un nombre pour savoir quelle méthode utiliser dans la palette 
-  let tabMethode = Math.floor(Math.random()*(5));
+  let tabMethode = 2;//Math.floor(Math.random()*(5));
   console.log("methode numero ", tabMethode);
   //la palette à renvoyer à la fin
   let palette = [];
