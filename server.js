@@ -18,3 +18,14 @@ app.get('/searchUser/:userPseudo', (req, res) => {
     res.status(500).send(error);
   })
 });
+
+app.get('/parametersUser/:userPseudo', (req, res) => {
+  console.log(req.params);
+  basedonnee.getUsersAllInfo(req.params.userPseudo)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});

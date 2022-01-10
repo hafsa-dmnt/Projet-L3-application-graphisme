@@ -23,6 +23,21 @@ const getUsers = (pseudo) => {
     }) 
 }
 
+const getUsersAllInfo = (pseudo) => {
+    return new Promise(function(resolve, reject) {
+        const sql = "SELECT * FROM utilisateur WHERE user_pseudo = '"+pseudo+"';";
+        console.log("requete sql", sql);
+        client.query(sql, (error, results) => {
+        if (error) {
+            reject(error)
+        }
+        console.log('results', results);
+        resolve(JSON.stringify(results.rows));
+        });
+    }) 
+}
+
 module.exports = {
-    getUsers
+    getUsers,
+    getUsersAllInfo
 }
