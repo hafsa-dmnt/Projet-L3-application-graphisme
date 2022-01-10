@@ -22,7 +22,7 @@ class Parameters extends React.Component{
   state = { redirect: null };
   handleClick() {
     let redirect = this.state.redirect;
-    redirect = '/home';
+    redirect = '/parametre';
     this.setState({redirect: redirect});
   }
   render() {

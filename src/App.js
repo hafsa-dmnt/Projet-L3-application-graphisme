@@ -10,6 +10,7 @@ import Calendrier from './routes/calendrier.js'
 import Defijour from './routes/defijour.js'
 import Home from './routes/home.js'
 import Peinture from './routes/peinture.js'
+import Parametre from './routes/parametre.js'
 
 import {
   BrowserRouter as Router,
@@ -41,6 +42,7 @@ class  App extends React.Component{
             <Route exact path="/calendrier/defijour" element={<Defijour/>}/>
             <Route exact path="/compte/publication" element={<Publication/>}/>
             <Route exact path="/compte" element={<Compte/>}/>
+            <Route exact path="/parametre" element={<Parametre/>}/>
           </Routes>
   
           <nav className="menu_principal">
