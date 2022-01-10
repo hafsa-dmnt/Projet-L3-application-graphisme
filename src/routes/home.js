@@ -1,14 +1,11 @@
-import React, {useState} from 'react';
+import React from 'react';
 import '../App.css';
 import '../CSS/home.css';
 import { Icon } from '@iconify/react';
-
+/*
 import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
   Link
-} from "react-router-dom";
+} from "react-router-dom";*/
 
 let minPalette = 5;
 let maxPalette = 5;
@@ -32,7 +29,7 @@ function convertRgbInHex(tab){
   var chaineHexa = "#";
   for(const element of tab){
     var interm = element.toString(16);
-    if(interm.length == 1){
+    if(interm.length === 1){
       chaineHexa += 0+interm;
     }else{
       chaineHexa += interm;
@@ -73,13 +70,13 @@ function getRandomPalette(){
     case 1: //carré
     break;
     case 2: //analogue
-      var i = 1;
-      while(i<nbColors){
+      var j = 1;
+      while(j<nbColors){
         firstColor.r = (firstColor.r + Math.floor(Math.random()*(50-15+1))+20)%255;
         firstColor.g = (firstColor.g + Math.floor(Math.random()*(50-15+1))+20)%255;
         firstColor.b = (firstColor.g + Math.floor(Math.random()*(50-15+1))+20)%255;
         palette.push(convertRgbInHex([firstColor.r, firstColor.g, firstColor.b]));
-        ++i;
+        ++j;
       }
     break;
     case 3: //triangle
@@ -87,6 +84,8 @@ function getRandomPalette(){
     break;
     case 4: //rectangle
 
+    break;
+    default : 
     break;
   }
   return palette;
@@ -127,6 +126,7 @@ class PaletteHome extends React.Component{
   }
 }
 
+/*
 class BoutonGetRandomArt extends React.Component{
   handleClick() {
     super.handleClick();
@@ -137,6 +137,7 @@ class BoutonGetRandomArt extends React.Component{
     );
   }
 }
+*/
 
 class Palette extends React.Component{
   render(){
@@ -160,15 +161,15 @@ class Home extends React.Component{
     super(props);
     this.state = {
       palette: [],
-      theme: ""
+      theme: "",
     }
   }
   handleClick() {
     let tabPal = this.state.palette;
     tabPal = getRandomPalette();
-    console.log(tabPal);
     this.setState({palette: tabPal, theme: "fleur"})
   }
+
   render(){
     return(
       <div className="page home">

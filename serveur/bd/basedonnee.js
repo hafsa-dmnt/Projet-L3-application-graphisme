@@ -1,36 +1,26 @@
-//fonction pour se connecter à la bd  / se déconnecter de la bd ? 
+const { Client } = require('pg');
 
+const client = new Client({
+  connectionString: "postgres://vhaycjrvwoovdh:801dd13e4cb2b375c4940b437ec9fd8db7676d78a9e7039e1bc79b4d6eef5f79@ec2-23-23-199-57.compute-1.amazonaws.com:5432/d7jqv9s53ricm9",
+  ssl: {
+    rejectUnauthorized: false
+  }
+});
 
+client.connect();
 
+const getUsers = (id) => {
+    return new Promise(function(resolve, reject) {
+        client.query('SELECT user_pseudo FROM utilisateur WHERE user_id = 1', (error, results) => {
+        if (error) {
+            reject(error)
+        }
+        console.log('results', results);
+        resolve(JSON.stringify(results.rows));
+        });
+    }) 
+}
 
-//faire une fonction pour exécuter une requête donnée en paramètre 
-//pour se connecter quand on a déjà un compte ; pseudo donné, mdp 
-"SELECT user_mdp \
-FROM utilisateur \
-WHERE utilisateur.pseudo = `pseudo`;"
-
-
-//pour créer un compte 
-"INSERT INTO utilisateur (user_pseudo, user_email, user_mdp, user_pdp) VALUES \
-(`pseudo`, `email`, `mdp`, `path_pdp`);"
-
-
-//pour récupérer les listes de thèmes/palettes/publication d'une personne (peut-être récupérer ça à la connexion)
-
-
-
-//pour follow/unfollow une personne 
-//userFollower follows otheruser
-""
-
-
-//pour récupérer le défi d'une journée donnée : searchedDefiDate
-"SELECT theme_nom, palette_nom \
-FROM defi, palette, theme \
-WHERE `searchedDefiDate` = defi.defi_date AND defi.defi_themeID = theme.theme_ID AND defi.defi_paletteID = palette.paletteID \
-"
-
-
-//pour ajouter un thème ou une palette aux favoris 
-""
-
+module.exports = {
+    getUsers
+}

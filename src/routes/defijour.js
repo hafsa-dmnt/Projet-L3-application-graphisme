@@ -4,9 +4,6 @@ import '../CSS/defijour.css';
 import { Icon } from '@iconify/react';
 
 import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
   Link
 } from "react-router-dom";
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Icon } from '@iconify/react';
-import logo from './logo.svg';
+//import logo from './logo.svg'; //remplacer par notre logo
 import './App.css';
 import Compte from './routes/compte.js'
 import Publication from './routes/publication.js'
@@ -10,7 +10,6 @@ import Calendrier from './routes/calendrier.js'
 import Defijour from './routes/defijour.js'
 import Home from './routes/home.js'
 import Peinture from './routes/peinture.js'
-import BaseDonnee from './routes/basedonnee.js'
 
 import {
   BrowserRouter as Router,
@@ -32,7 +31,6 @@ function App() {
           <Route exact path="/calendrier/defijour" element={<Defijour/>}/>
           <Route exact path="/compte/publication" element={<Publication/>}/>
           <Route exact path="/compte" element={<Compte/>}/>
-          <Route exact path="/basedonnee" element={<BaseDonnee/>}/>
         </Routes>
 
         <nav className="menu_principal">

@@ -1,14 +1,6 @@
 import React from 'react';
 import '../App.css';
 
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Link,
-  renderMatches
-} from "react-router-dom";
-
 class Liste extends React.Component{
   render(){
     const tabListe = this.props.content;

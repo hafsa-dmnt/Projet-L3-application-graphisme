@@ -35,7 +35,7 @@ class ProfilHead extends React.Component{
     }
     return(
       <header className="profilHead">
-        <img src={profilepicture} className= "profilePic"></img>
+        <img src={profilepicture} className= "profilePic" alt="profil"></img>
         <h3>{this.props.pseudo}</h3>
         {btnAfficher}
       </header>
@@ -47,7 +47,7 @@ class Publication extends React.Component {
   render(){
     return(
       <div key={this.props.idx} className="publication">
-        <img src={publicationpicture}></img>
+        <img src={publicationpicture} alt="publication"></img>
       </div>
     );
   }
@@ -59,7 +59,6 @@ class ProfilContent extends React.Component{
     const tabPublication = ['../images/defaultpublic.jpg', '../images/defaultpublic.jpg', '../images/defaultpublic.jpg', '../images/defaultpublic.jpg'];
     const divPubli = tabPublication.map((elt, idx) => 
       <Publication photo = {elt} idx = {idx}/>  );
-    console.log("requete");
     return(
       <section className="profilContent">
         <p><Link to="/profil/mesthemes">Mes thèmes</Link></p>
@@ -73,13 +72,38 @@ class ProfilContent extends React.Component{
   }
 }
 
-function Profil() {
+class Profil extends React.Component{
+  state = {
+    pseudo: null,
+    data: null
+  };
+
+  componentDidMount() {
+    // Call our fetch function below once the component mounts
+    this.callBackendAPI()
+      .then(res => this.setState({ pseudo: res[0].user_pseudo, data:null }))
+      .catch(err => console.log(err));
+  }
+    // Fetches our GET route from the Express server. (Note the route we are fetching matches the GET route from server.js
+  callBackendAPI = async () => {
+    const response = await fetch('./searchUser/1');
+    const reee = await response.json();
+
+    if (response.status !== 200) {
+      throw Error(reee.message) 
+    }
+    console.log("requete", reee);
+    return reee;
+  };
+
+  render(){
     return (
-    <div className="profil">
-      <ProfilHead pseudo = "pseudo"/>
-      <ProfilContent />
-    </div>
+      <div className="profil">
+        <ProfilHead pseudo = {this.state.pseudo}/>
+        <ProfilContent />
+      </div>
     );
   }
+}
 
-  export default Profil;
+export default Profil;

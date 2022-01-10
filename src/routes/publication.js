@@ -5,9 +5,6 @@ import publi from '../images/defaultpublic.jpg';
 import { Icon } from '@iconify/react';
 
 import {
-    BrowserRouter as Router,
-    Routes,
-    Route,
     Link
   } from "react-router-dom";
 
