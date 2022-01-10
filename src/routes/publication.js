@@ -20,6 +20,7 @@ class PublicationDrawing extends React.Component{
 
 class PublicationDrawer extends React.Component{
   render(){
+    
     return(
       <div className="dessinateur">
         <Link to="/compte">{this.props.pseudo}</Link>
@@ -32,9 +33,10 @@ class PublicationDrawer extends React.Component{
 }
 
 class CrossButton extends React.Component{
+  
   render(){
     return(
-      <Link class="cross" to={this.props.to}>
+      <Link class="cross">
         <Icon icon="bi:x-circle"/>
       </Link>
     );
@@ -48,9 +50,7 @@ class Publication extends React.Component{
     return(
       <div className="page page_publication">
         <div className="publication">
-
-
-          <CrossButton to="/home"/>
+          <CrossButton/>
           <PublicationDrawing/>
           <PublicationDrawer pseudo = "jefedesdessins"/>
 

@@ -9,9 +9,11 @@ const client = new Client({
 
 client.connect();
 
-const getUsers = (id) => {
+const getUsers = (pseudo) => {
     return new Promise(function(resolve, reject) {
-        client.query('SELECT user_pseudo FROM utilisateur WHERE user_id = 1', (error, results) => {
+        const sql = "SELECT user_pseudo FROM utilisateur WHERE user_pseudo = '"+pseudo+"';";
+        console.log("requete sql", sql);
+        client.query(sql, (error, results) => {
         if (error) {
             reject(error)
         }

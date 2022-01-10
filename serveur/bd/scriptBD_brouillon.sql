@@ -54,14 +54,14 @@ INSERT INTO utilisateur (user_ID, user_pseudo, user_email, user_mdp, user_pdp, u
 -- Structure de la table `defi`
 --
 
-CREATE TABLE `defi` (
-  `defi_themeID` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `defi_paletteID` int(11) unsigned NOT NULL DEFAULT '0',
-  `defi_date` char(255) COLLATE utf8_general_ci NOT NULL,
-  PRIMARY KEY (`defi_date`),
-  FOREIGN KEY(`defi_themeID`) REFERENCES `theme`(`theme_id`) ON UPDATE CASCADE ON DELETE RESTRICT,
-  FOREIGN KEY(`defi_paletteID`) REFERENCES `palette`(`palette_id`) ON UPDATE CASCADE ON DELETE RESTRICT
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=43 ;
+CREATE TABLE defi (
+  defi_themeID SERIAL NOT NULL,
+  defi_paletteID int(11) unsigned NOT NULL DEFAULT '0',
+  defi_date char(255) COLLATE utf8_general_ci NOT NULL,
+  PRIMARY KEY (defi_date),
+  FOREIGN KEY(defi_themeID) REFERENCES theme(theme_id) ON UPDATE CASCADE ON DELETE RESTRICT,
+  FOREIGN KEY(defi_paletteID) REFERENCES palette(palette_id) ON UPDATE CASCADE ON DELETE RESTRICT
+);
 
 --
 -- Contenu de la table `defi`

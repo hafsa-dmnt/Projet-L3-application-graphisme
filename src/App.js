@@ -18,43 +18,54 @@ import {
   Link
 } from "react-router-dom";
 
-function App() {
-  return (
-    <Router>
-      <div>
-        <Routes>
-          <Route exact path="/home" element={<Home/>}/>
-          <Route exact path="/profil" element={<Profil/>}/>
-          <Route exact path="/profil/mesthemes" element={<Mesthemes/>}/>
-          <Route exact path="/profil/mesthemes/peinture" element={<Peinture/>}/>
-          <Route exact path="/calendrier" element={<Calendrier/>}/>
-          <Route exact path="/calendrier/defijour" element={<Defijour/>}/>
-          <Route exact path="/compte/publication" element={<Publication/>}/>
-          <Route exact path="/compte" element={<Compte/>}/>
-        </Routes>
+class  App extends React.Component{
+  constructor(props) {
+    super(props);
 
-        <nav className="menu_principal">
-          <ul>
-            <li>
-              <Link to="calendrier">
-                <Icon icon="fa-solid:calendar-alt" />
-              </Link>
-            </li>
-            <li>
-              <Link to="home">
-                <Icon icon="bi:dice-3-fill" />
-              </Link>
-            </li>
-            <li>
-              <Link to="profil">
-                <Icon icon="bx:bxs-user-circle" />
-              </Link>
-            </li>
-          </ul>
-        </nav>
-      </div>
-    </Router>
-  );
+    let { pseudo } = "user1";//route pour savoir si on est authentifié ou pas Auth.getCurrentUser() || {};
+
+    this.state = {
+      user: pseudo
+    };
+  }
+  render(){
+    return (
+      <Router>
+        <div>
+          <Routes>
+            <Route exact path="/home" element={<Home/>}/>
+            <Route exact path="/profil" element={<Profil/>}/>
+            <Route exact path="/profil/mesthemes" element={<Mesthemes/>}/>
+            <Route exact path="/profil/mesthemes/peinture" element={<Peinture/>}/>
+            <Route exact path="/calendrier" element={<Calendrier/>}/>
+            <Route exact path="/calendrier/defijour" element={<Defijour/>}/>
+            <Route exact path="/compte/publication" element={<Publication/>}/>
+            <Route exact path="/compte" element={<Compte/>}/>
+          </Routes>
+  
+          <nav className="menu_principal">
+            <ul>
+              <li>
+                <Link to="calendrier">
+                  <Icon icon="fa-solid:calendar-alt" />
+                </Link>
+              </li>
+              <li>
+                <Link to="home">
+                  <Icon icon="bi:dice-3-fill" />
+                </Link>
+              </li>
+              <li>
+                <Link to="profil">
+                  <Icon icon="bx:bxs-user-circle" />
+                </Link>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </Router>
+    );
+  }
 }
 
 

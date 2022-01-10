@@ -4,6 +4,8 @@ import profilepicture from '../images/defaultpicture.jpg';
 import { Icon } from '@iconify/react';
 import publicationpicture from '../images/defaultpublic.jpg';
 import {Link} from "react-router-dom";
+import { Navigate } from "react-router-dom";
+
 
 
 class Follow extends React.Component{
@@ -17,9 +19,18 @@ class Follow extends React.Component{
 }
 
 class Parameters extends React.Component{
-  render(){
+  state = { redirect: null };
+  handleClick() {
+    let redirect = this.state.redirect;
+    redirect = '/home';
+    this.setState({redirect: redirect});
+  }
+  render() {
+    if (this.state.redirect) {
+      return <Navigate to={this.state.redirect} />
+    }
     return(
-      <button id="btnFollow">
+      <button id="btnParameters" onClick={() => this.handleClick()}>
         <Icon icon="ant-design:setting-twotone"/>
       </button>
     );
@@ -81,19 +92,19 @@ class Profil extends React.Component{
   componentDidMount() {
     // Call our fetch function below once the component mounts
     this.callBackendAPI()
-      .then(res => this.setState({ pseudo: res[0].user_pseudo, data:null }))
+      .then(res => this.setState({ pseudo: res[0].user_pseudo.trim(), data:null }))
       .catch(err => console.log(err));
   }
     // Fetches our GET route from the Express server. (Note the route we are fetching matches the GET route from server.js
   callBackendAPI = async () => {
-    const response = await fetch('./searchUser/1');
-    const reee = await response.json();
+    const response = await fetch('./searchUser/user1');
+    const body = await response.json();
 
     if (response.status !== 200) {
-      throw Error(reee.message) 
+      throw Error(body.message) 
     }
-    console.log("requete", reee);
-    return reee;
+    //console.log("requete", reee);
+    return body;
   };
 
   render(){

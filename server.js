@@ -8,9 +8,9 @@ const basedonnee = require('./serveur/bd/basedonnee.js');
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
 // create a GET route
-app.get('/searchUser/:userID', (req, res) => {
+app.get('/searchUser/:userPseudo', (req, res) => {
   console.log(req.params);
-  basedonnee.getUsers(req.params[0])
+  basedonnee.getUsers(req.params.userPseudo)
   .then(response => {
     res.status(200).send(response);
   })
