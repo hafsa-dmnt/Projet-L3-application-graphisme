@@ -125,7 +125,7 @@ class Parametres extends React.Component{
   }
     // Fetches our GET route from the Express server. (Note the route we are fetching matches the GET route from server.js
   callBackendAPI = async () => {
-    const response = await fetch('./parametersUser/user1');
+    const response = await fetch('./parametersUser/user2');
     const body = await response.json();
 
     if (response.status !== 200) {
@@ -137,16 +137,16 @@ class Parametres extends React.Component{
 
   render(){
 
-    /*
-    <div>
+    
+   
+    
+    return (
+      <div className="page page_parametre">
+         <div>
        <p>mon pseudo : {this.state.pseudo}</p>
        <p>mon mail : {this.state.email}</p>
        <p>ma bio : {this.state.bio}</p>
      </div>
-    */
-    return (
-      <div className="page page_parametre">
-
         <div className="section pseudo">
           <SimpleForm type="Pseudo"/>
         </div>
