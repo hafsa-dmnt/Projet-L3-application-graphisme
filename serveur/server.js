@@ -1,7 +1,8 @@
 const express = require('express');
 const app = express();
-const port = 5432;
+const port = process.env.PORT || 3001;
 
+console.log('random');
 const basedonnee = require('./bd/basedonnee.js');
 
 console.log(port);
