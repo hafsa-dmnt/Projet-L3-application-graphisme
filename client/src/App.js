@@ -11,6 +11,8 @@ import Defijour from './routes/defijour.js'
 import Home from './routes/home.js'
 import Peinture from './routes/peinture.js'
 import Parametres from './routes/parametres.js'
+import Inscription from './routes/inscription.js'
+
 
 import {
   BrowserRouter as Router,
@@ -43,8 +45,9 @@ class  App extends React.Component{
             <Route exact path="/compte/publication" element={<Publication/>}/>
             <Route exact path="/compte" element={<Compte/>}/>
             <Route exact path="/parametres" element={<Parametres/>}/>
+            <Route exact path="/inscription" element={<Inscription/>}/>
           </Routes>
-  
+
           <nav className="menu_principal">
             <ul>
               <li>

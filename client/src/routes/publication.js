@@ -3,10 +3,12 @@ import '../App.css';
 import '../CSS/publication.css';
 import publi from '../images/defaultpublic.jpg';
 import { Icon } from '@iconify/react';
+import { withRouter } from 'react-router-dom';
 
 import {
     Link
   } from "react-router-dom";
+
 
 class PublicationDrawing extends React.Component{
   render(){
@@ -20,7 +22,6 @@ class PublicationDrawing extends React.Component{
 
 class PublicationDrawer extends React.Component{
   render(){
-    
     return(
       <div className="dessinateur">
         <Link to="/compte">{this.props.pseudo}</Link>
@@ -33,33 +34,30 @@ class PublicationDrawer extends React.Component{
 }
 
 class CrossButton extends React.Component{
-  
   render(){
     return(
-      <Link class="cross">
+      <Link className="cross" to={this.props.to}>
         <Icon icon="bi:x-circle"/>
       </Link>
     );
   }
 }
 
-class Publication extends React.Component{
-  //TODO : le link vers home dans cross enft c'est un retour a ou on etait
-  // src devient une requete
+
+class Publication extends React.Component {
   render(){
+    console.log(window.location.pathname);
     return(
-      <div className="page page_publication">
-        <div className="publication">
-          <CrossButton/>
-          <PublicationDrawing/>
-          <PublicationDrawer pseudo = "jefedesdessins"/>
-
+        <div className="page page_publication">
+          <div className="publication">
+            <CrossButton to={window.location.pathname}/>
+            <PublicationDrawing/>
+            <PublicationDrawer pseudo = "jefedesdessins"/>
+          </div>
         </div>
-
-      </div>
     );
-
   }
 }
+
 
 export default Publication;

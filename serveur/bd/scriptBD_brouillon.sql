@@ -57,7 +57,7 @@ INSERT INTO utilisateur (user_ID, user_pseudo, user_email, user_mdp, user_pdp, u
 CREATE TABLE defi (
   defi_themeID SERIAL NOT NULL,
   defi_paletteID int(11) unsigned NOT NULL DEFAULT '0',
-  defi_date char(255) COLLATE utf8_general_ci NOT NULL,
+  defi_date char(255) NOT NULL,
   PRIMARY KEY (defi_date),
   FOREIGN KEY(defi_themeID) REFERENCES theme(theme_id) ON UPDATE CASCADE ON DELETE RESTRICT,
   FOREIGN KEY(defi_paletteID) REFERENCES palette(palette_id) ON UPDATE CASCADE ON DELETE RESTRICT
@@ -73,17 +73,17 @@ CREATE TABLE defi (
 -- Structure de la table `theme`
 --
 
-CREATE TABLE `theme` (
-  `theme_ID` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `theme_nom` char(30) COLLATE utf8_general_ci NOT NULL DEFAULT ''
-  PRIMARY KEY (`theme_ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=32 ;
+CREATE TABLE theme (
+  theme_ID SERIAL NOT NULL ,
+  theme_nom char(30) NOT NULL DEFAULT 'theme',
+  PRIMARY KEY (theme_ID)
+);
 
 --
 -- Contenu de la table `theme`
 --
 
-INSERT INTO `theme` (`theme_id`, `theme_nom`) VALUES
+INSERT INTO theme (theme_id, theme_nom) VALUES
 (1, 'carte'),
 (2,'robe'),
 (3,'foret'),
@@ -163,11 +163,11 @@ INSERT INTO `theme` (`theme_id`, `theme_nom`) VALUES
 -- Structure de la table `palette`
 --
 
-CREATE TABLE `palette` (
-  `palette_ID` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `palette_nom` char(255) COLLATE utf8_general_ci NOT NULL DEFAULT ''
-  PRIMARY KEY (`palette_ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=32 ;
+CREATE TABLE palette (
+  palette_ID int(11) unsigned NOT NULL AUTO_INCREMENT,
+  palette_nom char(255) COLLATE utf8_general_ci NOT NULL DEFAULT ''
+  PRIMARY KEY (palette_ID)
+);
 
 --
 -- Contenu de la table `palette`
