@@ -4,9 +4,9 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "node ./serveur/server.js",
+    "dev": "node ./serveur/server.js",
     "frontend": "cd ./client && npm start",
-    "dev": "concurrently \"npm start\" \"npm run frontend\""
+    "start": "concurrently \"npm run dev\" \"npm run frontend\""
   },
   "author": "",
   "license": "ISC",
