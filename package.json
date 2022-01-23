@@ -1,7 +1,7 @@
 {
   "name": "express_react_example",
   "version": "1.0.0",
-  "description": "",
+  "description": "GetRandomArt()\r Projet de 3e année de licence informatique avec @marie-almina et @Eleaaa.",
   "main": "server.js",
   "scripts": {
     "dev": "node ./serveur/server.js",
@@ -15,5 +15,14 @@
     "express": "^4.17.2",
     "pg": "^8.7.1",
     "react-router-dom": "^5.2.0"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hafsa110/Projet-L3-application-graphisme.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hafsa110/Projet-L3-application-graphisme/issues"
+  },
+  "homepage": "https://github.com/hafsa110/Projet-L3-application-graphisme#readme"
 }
