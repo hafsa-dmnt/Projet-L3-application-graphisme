@@ -141,9 +141,12 @@ class Parametres extends React.Component{
    
     
     return (
-
       <div className="page page_parametre">
-
+         <div>
+       <p>mon pseudo : {this.state.pseudo}</p>
+       <p>mon mail : {this.state.email}</p>
+       <p>ma bio : {this.state.bio}</p>
+     </div>
         <div className="section pseudo">
           <SimpleForm type="Pseudo"/>
         </div>
