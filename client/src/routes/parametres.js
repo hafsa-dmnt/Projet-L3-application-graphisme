@@ -117,6 +117,7 @@ class Parametres extends React.Component{
     data: null
   };
 
+<<<<<<< Updated upstream
   componentDidMount() {
     // Call our fetch function below once the component mounts
     this.callBackendAPI()
@@ -147,6 +148,16 @@ class Parametres extends React.Component{
     return (
       <div className="page page_parametre">
 
+=======
+  render(){
+
+    
+   
+    
+    return (
+      <div className="page page_parametre">
+         
+>>>>>>> Stashed changes
         <div className="section pseudo">
           <SimpleForm type="Pseudo"/>
         </div>
