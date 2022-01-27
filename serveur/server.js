@@ -7,6 +7,10 @@ const basedonnee = require('./bd/basedonnee.js');
 // console.log that your server is up and running
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
+
+
+
+
 // create a GET route
 app.get('/searchUser/:userPseudo', (req, res) => {
   console.log(req.params);
@@ -29,7 +33,6 @@ app.get('/parametersUser/:userPseudo', (req, res) => {
     res.status(500).send(error);
   })
 });
-
 /*
 app.get('/list/:userPseudo-:type', (req, res) => {
   console.log(req.params);

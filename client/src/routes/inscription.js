@@ -7,50 +7,10 @@ import {Link} from "react-router-dom";
 import { Navigate } from "react-router-dom";
 
 
-
-
-class SimpleForm extends React.Component {
+class InscriptionForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {value: ''};
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleChange(event) {
-    this.setState({value: event.target.value});
-  }
-
-  handleSubmit(event) {
-    alert('Le nom a été soumis : ' + this.state.value);
-    event.preventDefault();
-  }
-
-  render() {
-    return (
-      <form onSubmit={this.handleSubmit}>
-
-        <label>
-          <h3>{this.props.type} : </h3>
-        </label>
-
-        <div class="form_section">
-          <input type="text" value={this.state.value} onChange={this.handleChange} />
-
-          <button type="submit" >
-            <Icon icon="akar-icons:check-box-fill" />
-          </button>
-        </div>
-
-      </form>
-    );
-  }
-}
-
-class MdpForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {mdp: '',confirm:'',old:''};
+    this.state = {pseudo:'',mail:'',bio:'', mdp: '',confirmMdp:''};
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -72,35 +32,56 @@ class MdpForm extends React.Component {
 }
 
   handleSubmit(event) {
-    alert('Le new mdp : ' + this.state.mdp
-          + "\nconfirm : "+ this.state.confirm
-          +"\nold : "+ this.state.old);
+    alert('Le pseudo : ' + this.state.pseudo +'\nLe mail : ' + this.state.mail + '\nLa bio : ' + this.state.bio
+          + "\nLe mdp : "+ this.state.confirm);
     event.preventDefault();
   }
 
   render() {
     return (
 
-      <form onSubmit={this.handleSubmit} classe = "mdpForm">
-        <h3>Mot de passe </h3>
-        <label>
-          <h3>Nouveau :</h3>
-        </label>
-        <input type="text" name="mdp" value={this.state.mdp} onChange={this.handleChange} />
+      <form onSubmit={this.handleSubmit} className = "inscriptionForm">
 
-        <label>
-          <h3>Confirmation : </h3>
-        </label>
-        <input type="text" name="confirm" value={this.state.confirm} onChange={this.handleChange} />
+        <div className="subSection">
+          <label>
+            <h3>Pseudo :</h3>
+          </label>
+          <input type="text" name="pseudo" value={this.state.pseudo} onChange={this.handleChange} />
+        </div>
 
-        <label>
-          <h3>Ancien : </h3>
-        </label>
-        <input type="text" name="old" value={this.state.old} onChange={this.handleChange} />
+        <div className="subSection">
+          <label>
+            <h3>Mail :</h3>
+          </label>
+          <input type="text" name="mail" value={this.state.mail} onChange={this.handleChange} />
+        </div>
 
-        <button type="submit" >
-          <Icon icon="akar-icons:check-box-fill" />
-        </button>
+        <div className="subSection">
+          <label>
+            <h3>Biographie :</h3>
+          </label>
+          <input type="text" name="mdp" value={this.state.bio} onChange={this.handleChange} />
+        </div>
+
+        <div className="subSection">
+          <label>
+            <h3>Mot de passe :</h3>
+          </label>
+          <input type="text" name="mdp" value={this.state.mdp} onChange={this.handleChange} />
+        </div>
+
+        <div className="subSection">
+          <label>
+            <h3>Confirmation : </h3>
+          </label>
+          <input type="text" name="confirm" value={this.state.confirm} onChange={this.handleChange} />
+        </div>
+
+        <div className="subSection">
+          <button type="submit" >
+            <Icon icon="akar-icons:check-box-fill" />
+          </button>
+        </div>
 
       </form>
     );
@@ -112,19 +93,17 @@ class Inscription extends React.Component{
 
   render(){
     return (
+
       <div className="page page_inscription">
-        <div className="section pseudo">
-          <SimpleForm type="Pseudo"/>
+
+        <div className="section title">
+          <h2>Inscription</h2>
         </div>
-        <div className="section mail">
-          <SimpleForm type="Mail"/>
+
+        <div className="section">
+          <InscriptionForm type="Pseudo"/>
         </div>
-        <div className="section bio">
-          <SimpleForm type="Biographie"/>
-        </div>
-        <div className="section mdp">
-          <MdpForm/>
-        </div>
+
 
       </div>
     );

@@ -12,7 +12,9 @@ import { Navigate } from "react-router-dom";
 class SimpleForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {value: ''};
+    console.log(props);
+    this.state = {value: this.props.value};
+
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -26,6 +28,8 @@ class SimpleForm extends React.Component {
     event.preventDefault();
   }
 
+
+
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
@@ -34,7 +38,7 @@ class SimpleForm extends React.Component {
           <h3>{this.props.type} : </h3>
         </label>
 
-        <div class="form_section">
+        <div className="form_section">
           <input type="text" value={this.state.value} onChange={this.handleChange} />
 
           <button type="submit" >
@@ -69,7 +73,7 @@ class MdpForm extends React.Component {
       [event.target.name]: value
     });
 
-}
+  }
 
   handleSubmit(event) {
     alert('Le new mdp : ' + this.state.mdp
@@ -81,33 +85,40 @@ class MdpForm extends React.Component {
   render() {
     return (
 
-      <form onSubmit={this.handleSubmit} classe = "mdpForm">
+      <form onSubmit={this.handleSubmit} className = "mdpForm">
         <h3>Mot de passe </h3>
-        <label>
-          <h3>Nouveau :</h3>
-        </label>
-        <input type="text" name="mdp" value={this.state.mdp} onChange={this.handleChange} />
 
-        <label>
-          <h3>Confirmation : </h3>
-        </label>
-        <input type="text" name="confirm" value={this.state.confirm} onChange={this.handleChange} />
+        <div className="subSection">
+          <label>
+            <h3>Nouveau :</h3>
+          </label>
+          <input type="text" name="mdp" value={this.state.mdp} onChange={this.handleChange} />
+        </div>
 
-        <label>
-          <h3>Ancien : </h3>
-        </label>
-        <input type="text" name="old" value={this.state.old} onChange={this.handleChange} />
+        <div className="subSection">
+          <label>
+            <h3>Confirmation : </h3>
+          </label>
+          <input type="text" name="confirm" value={this.state.confirm} onChange={this.handleChange} />
+        </div>
 
-        <button type="submit" >
-          <Icon icon="akar-icons:check-box-fill" />
-        </button>
+        <div className="subSection">
+          <label>
+            <h3>Ancien : </h3>
+          </label>
+          <input type="text" name="old" value={this.state.old} onChange={this.handleChange} />
+        </div>
+
+        <div className="subSection">
+          <button type="submit" >
+            <Icon icon="akar-icons:check-box-fill" />
+          </button>
+        </div>
 
       </form>
     );
   }
 }
-
-
 
 
 class Parametres extends React.Component{
@@ -137,31 +148,41 @@ class Parametres extends React.Component{
 
   render(){
 
-    
-   
-    
-    return (
-      <div className="page page_parametre">
-         <div>
-       <p>mon pseudo : {this.state.pseudo}</p>
-       <p>mon mail : {this.state.email}</p>
-       <p>ma bio : {this.state.bio}</p>
-     </div>
-        <div className="section pseudo">
-          <SimpleForm type="Pseudo"/>
-        </div>
-        <div className="section mail">
-          <SimpleForm type="Mail"/>
-        </div>
-        <div className="section bio">
-          <SimpleForm type="Biographie"/>
-        </div>
-        <div className="section mdp">
-          <MdpForm/>
-        </div>
+    const dataLoaded = (this.state.pseudo!=null);
 
-      </div>
-    );
+    if(dataLoaded){
+      return (
+        <div className="page page_parametre">
+          <div className="section pseudo">
+            <SimpleForm type="Pseudo" value={this.state.pseudo} />
+          </div>
+          <div className="section mail">
+            <SimpleForm type="Mail" value={this.state.email}/>
+          </div>
+          <div className="section bio">
+            <SimpleForm type="Biographie" value={this.state.bio}/>
+          </div>
+          <div className="section mdp">
+            <MdpForm/>
+          </div>
+
+        </div>
+      );
+    }else{
+      return (
+        <div className="page page_parametre">
+          <div className="section pseudo">
+          </div>
+          <div className="section mail">
+          </div>
+          <div className="section bio">
+          </div>
+          <div className="section mdp">
+          </div>
+
+        </div>
+      );
+    }
   }
 }
 
