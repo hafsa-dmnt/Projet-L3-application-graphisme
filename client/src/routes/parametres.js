@@ -19,8 +19,6 @@ class SimpleForm extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-
-
   handleChange(event) {
     this.setState({value: event.target.value});
   }
@@ -30,6 +28,8 @@ class SimpleForm extends React.Component {
     event.preventDefault();
   }
 
+
+
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
@@ -38,7 +38,7 @@ class SimpleForm extends React.Component {
           <h3>{this.props.type} : </h3>
         </label>
 
-        <div class="form_section">
+        <div className="form_section">
           <input type="text" value={this.state.value} onChange={this.handleChange} />
 
           <button type="submit" >
@@ -85,7 +85,7 @@ class MdpForm extends React.Component {
   render() {
     return (
 
-      <form onSubmit={this.handleSubmit} classe = "mdpForm">
+      <form onSubmit={this.handleSubmit} className = "mdpForm">
         <h3>Mot de passe </h3>
         <label>
           <h3>Nouveau :</h3>
@@ -139,16 +139,47 @@ class Parametres extends React.Component{
 
   render(){
 
-    /*
-    <p>mon pseudo : {this.state.pseudo}</p>
-    <p>mon mail : {this.state.email}</p>
-    <p>ma bio : {this.state.bio}</p>
-    */
+    const data2 = this.state.pseudo;
 
+    if(data2){
+      return (
+        <div className="page page_parametre">
+          <div className="section pseudo">
+            <SimpleForm type="Pseudo" value={data2} />
+          </div>
+          <div className="section mail">
+            <SimpleForm type="Mail" value={this.state.email}/>
+          </div>
+          <div className="section bio">
+            <SimpleForm type="Biographie" value={this.state.bio}/>
+          </div>
+          <div className="section mdp">
+            <MdpForm/>
+          </div>
+
+        </div>
+      );
+    }else{
+      return (
+        <div className="page page_parametre">
+          <div className="section pseudo">
+          </div>
+          <div className="section mail">
+          </div>
+          <div className="section bio">
+          </div>
+          <div className="section mdp">
+          </div>
+
+        </div>
+      );
+    }
+
+/*
     return (
       <div className="page page_parametre">
         <div className="section pseudo">
-          <p>{this.state.pseudo}</p>
+          <p>{}</p>
           <SimpleForm type="Pseudo" value={this.state.pseudo} />
           <p>{this.state.pseudo}</p>
         </div>
@@ -164,6 +195,7 @@ class Parametres extends React.Component{
 
       </div>
     );
+    */
   }
 }
 
