@@ -12,10 +12,14 @@ import { Navigate } from "react-router-dom";
 class SimpleForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {value: ''};
+    console.log(props);
+    this.state = {value: this.props.value};
+
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+
+
 
   handleChange(event) {
     this.setState({value: event.target.value});
@@ -69,7 +73,7 @@ class MdpForm extends React.Component {
       [event.target.name]: value
     });
 
-}
+  }
 
   handleSubmit(event) {
     alert('Le new mdp : ' + this.state.mdp
@@ -108,8 +112,6 @@ class MdpForm extends React.Component {
 }
 
 
-
-
 class Parametres extends React.Component{
 
   state = {
@@ -137,24 +139,24 @@ class Parametres extends React.Component{
 
   render(){
 
-    
-   
-    
+    /*
+    <p>mon pseudo : {this.state.pseudo}</p>
+    <p>mon mail : {this.state.email}</p>
+    <p>ma bio : {this.state.bio}</p>
+    */
+
     return (
       <div className="page page_parametre">
-         <div>
-       <p>mon pseudo : {this.state.pseudo}</p>
-       <p>mon mail : {this.state.email}</p>
-       <p>ma bio : {this.state.bio}</p>
-     </div>
         <div className="section pseudo">
-          <SimpleForm type="Pseudo"/>
+          <p>{this.state.pseudo}</p>
+          <SimpleForm type="Pseudo" value={this.state.pseudo} />
+          <p>{this.state.pseudo}</p>
         </div>
         <div className="section mail">
-          <SimpleForm type="Mail"/>
+          <SimpleForm type="Mail" value={this.state.email}/>
         </div>
         <div className="section bio">
-          <SimpleForm type="Biographie"/>
+          <SimpleForm type="Biographie" value={this.state.bio}/>
         </div>
         <div className="section mdp">
           <MdpForm/>
