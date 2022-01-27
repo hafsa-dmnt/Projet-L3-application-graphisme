@@ -67,14 +67,14 @@ class InscriptionForm extends React.Component {
           <label>
             <h3>Mot de passe :</h3>
           </label>
-          <input type="text" name="mdp" value={this.state.mdp} onChange={this.handleChange} />
+          <input type="password" name="mdp" value={this.state.mdp} onChange={this.handleChange} />
         </div>
 
         <div className="subSection">
           <label>
             <h3>Confirmation : </h3>
           </label>
-          <input type="text" name="confirm" value={this.state.confirm} onChange={this.handleChange} />
+          <input type="password" name="confirm" value={this.state.confirm} onChange={this.handleChange} />
         </div>
 
         <div className="subSection">
