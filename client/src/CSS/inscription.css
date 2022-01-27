@@ -21,25 +21,24 @@
   text-align: left;
 }
 
-.page_inscription .section label{
+.page_inscription .subSection{
+  min-height: 40px;
+}
+
+.page_inscription .subSection label{
   display: inline-block;
   margin-right: 10px;
   height: 30px;
 }
 
-.page_inscription .section label h3{
+.page_inscription .subSection label h3{
   margin : 0;
 }
 
-.page_inscription .section .form_section{
-  display: inline-block;
-  height: 30px;
+
+.page_inscription .subSection input{
   position: absolute;
   right: 0;
-  margin-right: 10px;
-}
-
-.page_inscription .section input{
   background: inherit;
   border: solid 2px #4c0068;
   border-radius: 5px;
@@ -47,21 +46,32 @@
   margin-right: 10px;
 }
 
-.page_inscription .section button{
-  height: 30px;
-  width: 30px;
+.page_inscription .subSection button svg, .page_inscription .subSection button{
+  height: 40px;
+  width: 40px;
+}
+
+.page_inscription .subSection button{
+
   border-radius: 0;
   border: none;
   padding: 0;
   vertical-align: middle;
   background-color: inherit;
+  position: absolute;
+  right: 0;
+  margin-right: 15px;
 }
 
-.page_inscription .section button:hover{
+.page_inscription .subSection button:hover{
   cursor: pointer;
 }
 
-.page_inscription .section button svg{
-  height: 30px;
-  width: 30px;
+
+.page_inscription .section.title {
+  text-align: center;
+}
+
+.page_inscription .section.title h2{
+  margin : 10px;
 }

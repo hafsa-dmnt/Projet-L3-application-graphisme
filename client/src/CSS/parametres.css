@@ -39,8 +39,6 @@
   margin-right: 10px;
 }
 
-
-
 .page_parametre .section input{
   background: inherit;
   border: solid 2px #4c0068;
@@ -66,4 +64,27 @@
 .page_parametre .section button svg{
   height: 30px;
   width: 30px;
+}
+
+.page_parametre .subSection{
+  min-height: 30px;
+}
+
+.page_parametre .subSection button svg, .page_inscription .subSection button{
+  height: 30px;
+  width: 30px;
+}
+
+.page_parametre .subSection button{
+
+  position: absolute;
+  right: 0;
+  margin-right: 15px;
+}
+
+.page_parametre .subSection input{
+
+  position: absolute;
+  right: 0;
+  margin-right: 15px;
 }
