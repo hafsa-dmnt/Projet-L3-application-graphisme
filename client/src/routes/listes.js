@@ -1,16 +1,26 @@
 import React from 'react';
 import '../CSS/listes.css';
-
+import { Icon } from '@iconify/react';
 
 class Liste extends React.Component{
   render(){
     const tabListe = this.props.content;
-    const divListe = tabListe.map((elt) => <div key= {elt} onClick={this.props.changeTab} className="colorPalette">{elt}</div>  );
-    let titre = "";
-    titre = <h3>Mes thèmes</h3>;
+    let divListe = "";
+    if(this.props.content.length > 0){
+      divListe = tabListe.map((elt) => <div key= {elt} onClick={this.props.changeTab} className="iconlist">
+        <Icon icon="emojione-monotone:sparkles" />
+        {elt}
+      </div>  );
+    }else{
+      divListe = <p>Il n'y a rien :( crée ta première liste !</p>
+    }
+    let titre = <h3>Mes thèmes</h3>;
+    if(!this.props.theme){
+      titre = <h3>Mes palettes</h3>;
+    }
     
     return (
-      <div>
+      <div className="liste_paletteTheme">
         {titre}
         {divListe}
       </div>
@@ -29,7 +39,6 @@ class ThemesAndPalettes extends React.Component{
     }
   } 
 
-  /*
   componentDidMount() {
     // Call our fetch function below once the component mounts
     this.callBackendAPI()
@@ -47,7 +56,7 @@ class ThemesAndPalettes extends React.Component{
     //console.log("requete", reee);
     return body;
   };
-  */
+
   /*
   handleClick =  () => {
     if(this.state.tl_name){
@@ -59,13 +68,15 @@ class ThemesAndPalettes extends React.Component{
   **/
 
   changeCategory = () => {
-
+    let newCategory = !this.state.displayThemes;
+    this.setState({displayThemes: newCategory, liste : []});
   }
 
   render(){
     return (
-      <section>
-        <Liste content={this.state.liste}/>
+      <section className="page_listes">
+        <Liste content={this.state.liste} theme={this.state.displayThemes}/>
+        <button className="btnGetRandomArt" onClick={() => this.changeCategory()}>Changer de catégorie</button>
       </section>
     );
   }
