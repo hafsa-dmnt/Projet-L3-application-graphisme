@@ -5,13 +5,13 @@ import './App.css';
 import Compte from './routes/compte.js'
 import Publication from './routes/publication.js'
 import Profil from './routes/profil.js'
-import Mesthemes from './routes/mesthemes.js'
 import Calendrier from './routes/calendrier.js'
 import Defijour from './routes/defijour.js'
 import Home from './routes/home.js'
 import Peinture from './routes/peinture.js'
 import Parametres from './routes/parametres.js'
 import Inscription from './routes/inscription.js'
+import Listes from './routes/listes.js'
 
 
 import {
@@ -36,9 +36,10 @@ class  App extends React.Component{
       <Router>
         <div>
           <Routes>
+            <Route exact path="/" element={<Home/>}/>
             <Route exact path="/home" element={<Home/>}/>
             <Route exact path="/profil" element={<Profil/>}/>
-            <Route exact path="/profil/mesthemes" element={<Mesthemes/>}/>
+            <Route exact path="/profil/listes" element={<Listes/>}/>
             <Route exact path="/profil/mesthemes/peinture" element={<Peinture/>}/>
             <Route exact path="/calendrier" element={<Calendrier/>}/>
             <Route exact path="/calendrier/defijour" element={<Defijour/>}/>

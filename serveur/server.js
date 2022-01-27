@@ -29,3 +29,14 @@ app.get('/parametersUser/:userPseudo', (req, res) => {
     res.status(500).send(error);
   })
 });
+
+app.get('/list/:userPseudo-:type', (req, res) => {
+  console.log(req.params);
+  basedonnee.getUserLists(req.params.userPseudo, req.params.type)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});

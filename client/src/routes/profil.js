@@ -72,8 +72,7 @@ class ProfilContent extends React.Component{
       <Publication photo = {elt} idx = {idx}/>  );
     return(
       <section className="profilContent">
-        <p><Link to="/profil/mesthemes">Mes thèmes</Link></p>
-        <p><Link to="/profil/mespalettes">Mes Palette</Link></p>
+        <p><Link to="/profil/listes">Mes thèmes et palettes</Link></p>
         <h2>Galerie</h2>
         <section className="galerie">
           {divPubli}
