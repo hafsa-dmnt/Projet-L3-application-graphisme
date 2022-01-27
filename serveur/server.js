@@ -30,6 +30,7 @@ app.get('/parametersUser/:userPseudo', (req, res) => {
   })
 });
 
+/*
 app.get('/list/:userPseudo-:type', (req, res) => {
   console.log(req.params);
   basedonnee.getUserLists(req.params.userPseudo, req.params.type)
@@ -40,3 +41,4 @@ app.get('/list/:userPseudo-:type', (req, res) => {
     res.status(500).send(error);
   })
 });
+*/
