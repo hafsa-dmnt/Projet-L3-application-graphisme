@@ -9,58 +9,8 @@ const client = new Client({
 
 client.connect();
 
-const getUsers = (pseudo) => {
+const getQuery = (sql) => {
     return new Promise(function(resolve, reject) {
-        const sql = "SELECT utilisateur_pseudo FROM utilisateur WHERE utilisateur_pseudo = '"+pseudo+"';";
-        console.log("requete sql", sql);
-        client.query(sql, (error, results) => {
-        if (error) {
-            reject(error)
-        }
-        console.log('results', results);
-        resolve(JSON.stringify(results.rows));
-        });
-    })
-}
-
-const getUsersAllInfo = (pseudo) => {
-    return new Promise(function(resolve, reject) {
-        const sql = "SELECT * FROM utilisateur WHERE utilisateur_pseudo = '"+pseudo+"';";
-        console.log("requete sql", sql);
-        client.query(sql, (error, results) => {
-        if (error) {
-            reject(error)
-        }
-        console.log('results', results);
-        resolve(JSON.stringify(results.rows));
-        });
-    })
-}
-
-const getUserLists = (pseudo) => {
-    return new Promise(function(resolve, reject) {
-        /*
-        const sql = "SELECT * FROM";
-        if(type === "theme"){
-            sql += "theme_list";
-        }else{
-            sql += "palette_list";
-        }
-        sql +=  "WHERE utilisateur_pseudo = '"+pseudo+"';";*/
-        const sql = "SELECT theme_nom FROM theme;"
-        client.query(sql, (error, results) => {
-        if (error) {
-            reject(error)
-        }
-        console.log('results', results);
-        resolve(JSON.stringify(results.rows));
-        });
-    }) 
-}
-
-const getThemeList = (pseudo) => {
-    return new Promise(function(resolve, reject) {
-        const sql = "SELECT theme_nom FROM theme;"
         client.query(sql, (error, results) => {
         if (error) {
             reject(error)
@@ -72,9 +22,6 @@ const getThemeList = (pseudo) => {
 }
 
 module.exports = {
-    getUsers,
-    getUsersAllInfo,
-    getUserLists,
-    getThemeList
+    getQuery
 }
 
