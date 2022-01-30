@@ -92,21 +92,21 @@ class MdpForm extends React.Component {
           <label>
             <h3>Nouveau :</h3>
           </label>
-          <input type="text" name="mdp" value={this.state.mdp} onChange={this.handleChange} />
+          <input type="password" name="mdp" value={this.state.mdp} onChange={this.handleChange} />
         </div>
 
         <div className="subSection">
           <label>
             <h3>Confirmation : </h3>
           </label>
-          <input type="text" name="confirm" value={this.state.confirm} onChange={this.handleChange} />
+          <input type="password" name="confirm" value={this.state.confirm} onChange={this.handleChange} />
         </div>
 
         <div className="subSection">
           <label>
             <h3>Ancien : </h3>
           </label>
-          <input type="text" name="old" value={this.state.old} onChange={this.handleChange} />
+          <input type="password" name="old" value={this.state.old} onChange={this.handleChange} />
         </div>
 
         <div className="subSection">
@@ -119,6 +119,63 @@ class MdpForm extends React.Component {
     );
   }
 }
+
+class ImageForm extends React.Component{
+
+
+  constructor(props){
+    super(props);
+    this.state = {
+      file: null
+    };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({
+      file: URL.createObjectURL(event.target.files[0])
+    })
+  }
+
+  handleSubmit(event) {
+    alert('yay');
+    event.preventDefault();
+  }
+
+  render(){
+
+    return(
+      <form onSubmit={this.handleSubmit}>
+        <label>
+          <h3>Photo de profil :</h3>
+        </label>
+
+        <label htmlFor="file" className="label-file">
+          <p>Parcourir...</p>
+        </label>
+
+        <input id="file" type="file" accept="image/*" onChange={this.handleChange}/>
+
+        <img src={this.state.file}/>
+
+        <div className="subSection">
+          <button type="submit" >
+            <Icon icon="akar-icons:check-box-fill" />
+          </button>
+
+
+
+        </div>
+      </form>
+    );
+
+  }
+
+}
+
+
+
 
 
 class Parametres extends React.Component{
@@ -151,8 +208,17 @@ class Parametres extends React.Component{
     const dataLoaded = (this.state.pseudo!=null);
 
     if(dataLoaded){
+
+
+      // todo mettre la php de base ?
+
       return (
         <div className="page page_parametre">
+
+          <div className="section pdp">
+            <ImageForm/>
+          </div>
+
           <div className="section pseudo">
             <SimpleForm type="Pseudo" value={this.state.pseudo} />
           </div>
@@ -172,12 +238,9 @@ class Parametres extends React.Component{
       return (
         <div className="page page_parametre">
           <div className="section pseudo">
-          </div>
-          <div className="section mail">
-          </div>
-          <div className="section bio">
-          </div>
-          <div className="section mdp">
+
+            <p>Loading ... </p>
+
           </div>
 
         </div>

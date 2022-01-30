@@ -22,7 +22,7 @@
 }
 
 .page_inscription .subSection{
-  min-height: 40px;
+  margin: 15px 0;
 }
 
 .page_inscription .subSection label{
@@ -74,4 +74,31 @@
 
 .page_inscription .section.title h2{
   margin : 10px;
+}
+
+
+.page_inscription .subSection img{
+  margin: 5%;
+  max-width: 90%;
+}
+
+
+.page_inscription .subSection .label-file {
+    cursor: pointer;
+    border: solid 2px #4c0068;
+    border-radius: 5px;
+    background-color: #e6d9ff;
+
+    display:
+
+}
+
+.page_inscription .subSection .label-file p{
+  padding: 5px;
+  margin: 0;
+
+}
+
+.page_inscription .subSection #file-input {
+    display: none;
 }
