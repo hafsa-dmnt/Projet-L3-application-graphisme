@@ -1,8 +1,6 @@
 import React from 'react';
 import '../CSS/inscription.css';
-import profilepicture from '../images/defaultpicture.jpg';
 import { Icon } from '@iconify/react';
-import publicationpicture from '../images/defaultpublic.jpg';
 import {Link} from "react-router-dom";
 import { Navigate } from "react-router-dom";
 

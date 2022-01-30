@@ -1,8 +1,6 @@
 import React from 'react';
 import '../CSS/profil.css';
-import profilepicture from '../images/defaultpicture.jpg';
 import { Icon } from '@iconify/react';
-import publicationpicture from '../images/defaultpublic.jpg';
 import {Link} from "react-router-dom";
 import { Navigate } from "react-router-dom";
 
@@ -46,7 +44,7 @@ class ProfilHead extends React.Component{
     }
     return(
       <header className="profilHead">
-        <img src={profilepicture} className= "profilePic" alt="profil"></img>
+        <img src={'defaultpicture.jpg'} className= "profilePic" alt="profil"></img>
         <h3>{this.props.pseudo}</h3>
         {btnAfficher}
       </header>
@@ -58,7 +56,7 @@ class Publication extends React.Component {
   render(){
     return(
       <div key={this.props.idx} className="publication">
-        <img src={publicationpicture} alt="publication"></img>
+        <img src={'defaultpublic.jpg'} alt="publication"></img>
       </div>
     );
   }

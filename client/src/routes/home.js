@@ -150,7 +150,6 @@ class BoutonGetRandomArt extends React.Component{
 
 class Palette extends React.Component{
   render(){
-    //for avec les bonnes couleurs 
     const tabPalette = this.props.content;
     const divPalette = tabPalette.map((elt) => 
       <div key={elt} className="colorPalette" style={{background:elt}}>
@@ -163,7 +162,6 @@ class Palette extends React.Component{
     );
   }
 }
-
 
 class Home extends React.Component{
   constructor(props) {
