@@ -33,10 +33,10 @@ app.get('/parametersUser/:userPseudo', (req, res) => {
     res.status(500).send(error);
   })
 });
-/*
-app.get('/list/:userPseudo-:type', (req, res) => {
+
+app.get('/list/:userPseudo', (req, res) => {
   console.log(req.params);
-  basedonnee.getUserLists(req.params.userPseudo, req.params.type)
+  basedonnee.getUserLists(req.params.userPseudo)
   .then(response => {
     res.status(200).send(response);
   })
@@ -44,4 +44,14 @@ app.get('/list/:userPseudo-:type', (req, res) => {
     res.status(500).send(error);
   })
 });
-*/
+
+app.get('/themeslist', (req, res) => {
+  console.log(req.params);
+  basedonnee.getThemeList()
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});

@@ -7,10 +7,12 @@ class Liste extends React.Component{
     const tabListe = this.props.content;
     let divListe = "";
     if(this.props.content.length > 0){
-      divListe = tabListe.map((elt) => <div key= {elt} onClick={this.props.changeTab} className="iconlist">
-        <Icon icon="emojione-monotone:sparkles" />
-        {elt}
-      </div>  );
+      divListe = Object.keys(tabListe).map((keyName, i)  => (
+        <div key= {i} onClick={this.props.changeTab} className="iconlist">
+          <Icon icon="emojione-monotone:sparkles" />
+          {tabListe[keyName].theme_nom}
+        </div>
+    ))
     }else{
       divListe = <p>Il n'y a rien :( crée ta première liste !</p>
     }
@@ -35,25 +37,25 @@ class ThemesAndPalettes extends React.Component{
     //ici on récupère à l'aide d'une requête toutes les listes de thèmes existantes (on peut ajouter un bouton supprimer liste)
     this.state = {
       displayThemes: true,
-      liste:  ["Photo", "Peinture", "Cinéma", "Random"]
+      liste:  []
     }
   } 
 
   componentDidMount() {
     // Call our fetch function below once the component mounts
     this.callBackendAPI()
-      .then(res => this.setState({ liste: res[0].tl_name.trim()}))
+      .then(res => this.setState({ liste: res}))
       .catch(err => console.log(err));
   }
     // Fetches our GET route from the Express server. (Note the route we are fetching matches the GET route from server.js
   callBackendAPI = async () => {
-    const response = await fetch('./themeLists/user1-theme');
+    const response = await fetch('/list/user1');
     const body = await response.json();
 
     if (response.status !== 200) {
       throw Error(body.message) 
     }
-    //console.log("requete", reee);
+    console.log("requete", body);
     return body;
   };
 

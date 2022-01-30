@@ -91,6 +91,15 @@ function getRandomPalette(){
   return palette;
 }
 
+/**
+ * Fonction permettant de générer aléatoirement une palette, qui a une taille potentiellement différente à chaque fois et qui est
+ * réalisée à partir de méthodes différentes pour diversifier. 
+ * @returns une palette de couleurs générée aléatoirement 
+ */ 
+ function getRandomTheme(list){
+   let nbRandom =  Math.floor(Math.random()*(list.length+1));
+   return list[nbRandom].theme_nom;
+ }
 
 class AddToFav extends React.Component{
   render(){
@@ -167,10 +176,34 @@ class Home extends React.Component{
   handleClick() {
     let tabPal = this.state.palette;
     tabPal = getRandomPalette();
-    this.setState({palette: tabPal, theme: "fleur"})
+    let newTheme = "";
+    do {
+      newTheme = getRandomTheme(this.state.liste);
+    } while(newTheme === this.state.theme);
+    let liste = this.state.liste;
+    this.setState({palette: tabPal, theme: newTheme, liste: liste});
   }
 
+  componentDidMount() {
+    // Call our fetch function below once the component mounts
+    this.callBackendAPI()
+      .then(res => this.setState({ liste: res, theme:"", palette:[]}))
+      .catch(err => console.log(err));
+  }
+    // Fetches our GET route from the Express server. (Note the route we are fetching matches the GET route from server.js
+  callBackendAPI = async () => {
+    const response = await fetch('/themeslist');
+    const body = await response.json();
+
+    if (response.status !== 200) {
+      throw Error(body.message) 
+    }
+    console.log("requete", body);
+    return body;
+  };
+
   render(){
+    //choix du thème aléatoire au début 
     return(
       <div className="page home">
         <ThemeHome theme={this.state.theme}/>

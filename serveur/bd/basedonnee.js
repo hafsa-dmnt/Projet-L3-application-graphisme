@@ -11,7 +11,7 @@ client.connect();
 
 const getUsers = (pseudo) => {
     return new Promise(function(resolve, reject) {
-        const sql = "SELECT user_pseudo FROM utilisateur WHERE user_pseudo = '"+pseudo+"';";
+        const sql = "SELECT user_pseudo FROM utilisateur WHERE utilisateur_pseudo = '"+pseudo+"';";
         console.log("requete sql", sql);
         client.query(sql, (error, results) => {
         if (error) {
@@ -25,7 +25,7 @@ const getUsers = (pseudo) => {
 
 const getUsersAllInfo = (pseudo) => {
     return new Promise(function(resolve, reject) {
-        const sql = "SELECT * FROM utilisateur WHERE user_pseudo = '"+pseudo+"';";
+        const sql = "SELECT * FROM utilisateur WHERE utilisateur_pseudo = '"+pseudo+"';";
         console.log("requete sql", sql);
         client.query(sql, (error, results) => {
         if (error) {
@@ -37,16 +37,17 @@ const getUsersAllInfo = (pseudo) => {
     }) 
 }
 
-const getUserLists = (pseudo, type) => {
+const getUserLists = (pseudo) => {
     return new Promise(function(resolve, reject) {
+        /*
         const sql = "SELECT * FROM";
         if(type === "theme"){
             sql += "theme_list";
         }else{
             sql += "palette_list";
         }
-        sql +=  "WHERE user_pseudo = '"+pseudo+"';";
-        console.log("requete sql", sql);
+        sql +=  "WHERE utilisateur_pseudo = '"+pseudo+"';";*/
+        const sql = "SELECT theme_nom FROM theme;"
         client.query(sql, (error, results) => {
         if (error) {
             reject(error)
@@ -56,8 +57,23 @@ const getUserLists = (pseudo, type) => {
         });
     }) 
 }
+
+const getThemeList = (pseudo) => {
+    return new Promise(function(resolve, reject) {
+        const sql = "SELECT theme_nom FROM theme;"
+        client.query(sql, (error, results) => {
+        if (error) {
+            reject(error)
+        }
+        console.log('results', results);
+        resolve(JSON.stringify(results.rows));
+        });
+    }) 
+}
+
 module.exports = {
     getUsers,
     getUsersAllInfo,
-    getUserLists
+    getUserLists,
+    getThemeList
 }
