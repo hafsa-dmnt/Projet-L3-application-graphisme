@@ -120,6 +120,63 @@ class MdpForm extends React.Component {
   }
 }
 
+class ImageForm extends React.Component{
+
+
+  constructor(props){
+    super(props);
+    this.state = {
+      file: null
+    };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({
+      file: URL.createObjectURL(event.target.files[0])
+    })
+  }
+
+  handleSubmit(event) {
+    alert('yay');
+    event.preventDefault();
+  }
+
+  render(){
+
+    return(
+      <form onSubmit={this.handleSubmit}>
+        <label>
+          <h3>Photo de profil :</h3>
+        </label>
+
+        <label htmlFor="file" className="label-file">
+          <p>Parcourir...</p>
+        </label>
+
+        <input id="file" type="file" accept="image/*" onChange={this.handleChange}/>
+
+        <img src={this.state.file}/>
+
+        <div className="subSection">
+          <button type="submit" >
+            <Icon icon="akar-icons:check-box-fill" />
+          </button>
+
+
+
+        </div>
+      </form>
+    );
+
+  }
+
+}
+
+
+
+
 
 class Parametres extends React.Component{
 
@@ -131,7 +188,7 @@ class Parametres extends React.Component{
   componentDidMount() {
     // Call our fetch function below once the component mounts
     this.callBackendAPI()
-      .then(res => this.setState({ pseudo: res[0].user_pseudo.trim(), email: res[0].user_email.trim(), bio: res[0].user_bio.trim(), data:null }))
+      .then(res => this.setState({ pseudo: res[0].utilisateur_pseudo.trim(), email: res[0].utilisateur_email.trim(), bio: res[0].utilisateur_bio.trim(), data:null }))
       .catch(err => console.log(err));
   }
     // Fetches our GET route from the Express server. (Note the route we are fetching matches the GET route from server.js
@@ -151,8 +208,17 @@ class Parametres extends React.Component{
     const dataLoaded = (this.state.pseudo!=null);
 
     if(dataLoaded){
+
+
+      // todo mettre la php de base ?
+
       return (
         <div className="page page_parametre">
+
+          <div className="section pdp">
+            <ImageForm/>
+          </div>
+
           <div className="section pseudo">
             <SimpleForm type="Pseudo" value={this.state.pseudo} />
           </div>
@@ -172,12 +238,9 @@ class Parametres extends React.Component{
       return (
         <div className="page page_parametre">
           <div className="section pseudo">
-          </div>
-          <div className="section mail">
-          </div>
-          <div className="section bio">
-          </div>
-          <div className="section mdp">
+
+            <p>Loading ... </p>
+
           </div>
 
         </div>

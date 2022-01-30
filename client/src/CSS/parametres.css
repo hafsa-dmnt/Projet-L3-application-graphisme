@@ -83,8 +83,33 @@
 }
 
 .page_parametre .subSection input{
-
   position: absolute;
   right: 0;
   margin-right: 15px;
+}
+
+.page_parametre .pdp img{
+  margin: 5%;
+  max-width: 90%;
+}
+
+
+.page_parametre .pdp .label-file {
+    cursor: pointer;
+    border: solid 2px #4c0068;
+    border-radius: 5px;
+    background-color: #e6d9ff;
+
+    display:
+
+}
+
+.page_parametre .pdp .label-file p{
+  padding: 5px;
+  margin: 0;
+
+}
+
+.page_parametre .pdp input {
+    display: none;
 }
