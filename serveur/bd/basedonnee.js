@@ -11,7 +11,7 @@ client.connect();
 
 const getUsers = (pseudo) => {
     return new Promise(function(resolve, reject) {
-        const sql = "SELECT user_pseudo FROM utilisateur WHERE user_pseudo = '"+pseudo+"';";
+        const sql = "SELECT utilisateur_pseudo FROM utilisateur WHERE utilisateur_pseudo = '"+pseudo+"';";
         console.log("requete sql", sql);
         client.query(sql, (error, results) => {
         if (error) {
@@ -20,12 +20,12 @@ const getUsers = (pseudo) => {
         console.log('results', results);
         resolve(JSON.stringify(results.rows));
         });
-    }) 
+    })
 }
 
 const getUsersAllInfo = (pseudo) => {
     return new Promise(function(resolve, reject) {
-        const sql = "SELECT * FROM utilisateur WHERE user_pseudo = '"+pseudo+"';";
+        const sql = "SELECT * FROM utilisateur WHERE utilisateur_pseudo = '"+pseudo+"';";
         console.log("requete sql", sql);
         client.query(sql, (error, results) => {
         if (error) {
@@ -34,7 +34,7 @@ const getUsersAllInfo = (pseudo) => {
         console.log('results', results);
         resolve(JSON.stringify(results.rows));
         });
-    }) 
+    })
 }
 
 module.exports = {
