@@ -207,7 +207,6 @@ class Home extends React.Component{
         <ThemeHome theme={this.state.theme}/>
         <PaletteHome palette={this.state.palette}/>
         <button className="btnGetRandomArt" onClick={() => this.handleClick()}>GetRandomArt()</button>
-        <p>j'ai changé :)</p>
       </div>
     );
   }
