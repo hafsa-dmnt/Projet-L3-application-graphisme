@@ -33,3 +33,25 @@ app.get('/parametersUser/:userPseudo', (req, res) => {
     res.status(500).send(error);
   })
 });
+
+app.get('/list/:userPseudo', (req, res) => {
+  console.log(req.params);
+  basedonnee.getUserLists(req.params.userPseudo)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});
+
+app.get('/themeslist', (req, res) => {
+  console.log(req.params);
+  basedonnee.getThemeList()
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});

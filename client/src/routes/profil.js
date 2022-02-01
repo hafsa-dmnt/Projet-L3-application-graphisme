@@ -1,8 +1,6 @@
 import React from 'react';
 import '../CSS/profil.css';
-import profilepicture from '../images/defaultpicture.jpg';
 import { Icon } from '@iconify/react';
-import publicationpicture from '../images/defaultpublic.jpg';
 import {Link} from "react-router-dom";
 import { Navigate } from "react-router-dom";
 
@@ -46,7 +44,7 @@ class ProfilHead extends React.Component{
     }
     return(
       <header className="profilHead">
-        <img src={profilepicture} className= "profilePic" alt="profil"></img>
+        <img src={'defaultpicture.jpg'} className= "profilePic" alt="profil"></img>
         <h3>{this.props.pseudo}</h3>
         {btnAfficher}
       </header>
@@ -58,7 +56,7 @@ class Publication extends React.Component {
   render(){
     return(
       <div key={this.props.idx} className="publication">
-        <img src={publicationpicture} alt="publication"></img>
+        <img src={'defaultpublic.jpg'} alt="publication"></img>
       </div>
     );
   }
@@ -72,8 +70,7 @@ class ProfilContent extends React.Component{
       <Publication photo = {elt} idx = {idx}/>  );
     return(
       <section className="profilContent">
-        <p><Link to="/profil/mesthemes">Mes thèmes</Link></p>
-        <p><Link to="/profil/mespalettes">Mes Palette</Link></p>
+        <p><Link to="/profil/listes">Mes thèmes et palettes</Link></p>
         <h2>Galerie</h2>
         <section className="galerie">
           {divPubli}
@@ -89,28 +86,11 @@ class Profil extends React.Component{
     data: null
   };
 
-  componentDidMount() {
-    // Call our fetch function below once the component mounts
-    this.callBackendAPI()
-      .then(res => this.setState({ pseudo: res[0].user_pseudo.trim(), data:null }))
-      .catch(err => console.log(err));
-  }
-    // Fetches our GET route from the Express server. (Note the route we are fetching matches the GET route from server.js
-  callBackendAPI = async () => {
-    const response = await fetch('./searchUser/user1');
-    const body = await response.json();
-
-    if (response.status !== 200) {
-      throw Error(body.message) 
-    }
-    //console.log("requete", reee);
-    return body;
-  };
 
   render(){
     return (
       <div className="profil">
-        <ProfilHead pseudo = {this.state.pseudo}/>
+        <ProfilHead pseudo = "pseudo"/>
         <ProfilContent />
       </div>
     );

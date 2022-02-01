@@ -37,7 +37,44 @@ const getUsersAllInfo = (pseudo) => {
     })
 }
 
+const getUserLists = (pseudo) => {
+    return new Promise(function(resolve, reject) {
+        /*
+        const sql = "SELECT * FROM";
+        if(type === "theme"){
+            sql += "theme_list";
+        }else{
+            sql += "palette_list";
+        }
+        sql +=  "WHERE utilisateur_pseudo = '"+pseudo+"';";*/
+        const sql = "SELECT theme_nom FROM theme;"
+        client.query(sql, (error, results) => {
+        if (error) {
+            reject(error)
+        }
+        console.log('results', results);
+        resolve(JSON.stringify(results.rows));
+        });
+    }) 
+}
+
+const getThemeList = (pseudo) => {
+    return new Promise(function(resolve, reject) {
+        const sql = "SELECT theme_nom FROM theme;"
+        client.query(sql, (error, results) => {
+        if (error) {
+            reject(error)
+        }
+        console.log('results', results);
+        resolve(JSON.stringify(results.rows));
+        });
+    }) 
+}
+
 module.exports = {
     getUsers,
-    getUsersAllInfo
+    getUsersAllInfo,
+    getUserLists,
+    getThemeList
 }
+

@@ -1,7 +1,6 @@
 import React from 'react';
 import '../App.css';
 import '../CSS/publication.css';
-import publi from '../images/defaultpublic.jpg';
 import { Icon } from '@iconify/react';
 import { withRouter } from 'react-router-dom';
 
@@ -14,7 +13,7 @@ class PublicationDrawing extends React.Component{
   render(){
     return(
       <div className="dessin">
-        <img src={publi} alt="Logo" />
+        <img src='defaultpublic.jpg' alt="Logo" />
       </div>
     );
   }
