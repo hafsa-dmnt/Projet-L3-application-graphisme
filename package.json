@@ -4,7 +4,7 @@
   "description": "GetRandomArt()\r Projet de 3e année de licence informatique avec @marie-almina et @Eleaaa.",
   "main": "server.js",
   "scripts": {
-    "dev": "cd ./serveur && node .",
+    "dev": "cd ./serveur && node index.js",
     "frontend": "cd ./client && npm start",
     "start": "concurrently \"npm run dev\" \"npm run frontend\""
   },
