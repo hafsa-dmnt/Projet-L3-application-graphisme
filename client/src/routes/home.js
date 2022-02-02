@@ -97,7 +97,7 @@ function getRandomPalette(){
  * @returns une palette de couleurs générée aléatoirement 
  */ 
  function getRandomTheme(list){
-   let nbRandom =  Math.floor(Math.random()*(list.length+1));
+   let nbRandom =  Math.floor(Math.random()*(list.length));
    return list[nbRandom].theme_nom;
  }
 
