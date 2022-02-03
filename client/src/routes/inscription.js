@@ -8,7 +8,7 @@ import { Navigate } from "react-router-dom";
 class InscriptionForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {pseudo:'',mail:'',bio:'', mdp: '',confirmMdp:'',pdp:''};
+    this.state = {pseudo:'',mail:'',bio:'', mdp: '',confirm:'',pdp:''};
     this.handleChange = this.handleChange.bind(this);
     this.handleChangeImage = this.handleChangeImage.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -38,7 +38,7 @@ class InscriptionForm extends React.Component {
 
   handleSubmit(event) {
     alert('Le pseudo : ' + this.state.pseudo +'\nLe mail : ' + this.state.mail + '\nLa bio : ' + this.state.bio
-          + "\nLe mdp : "+ this.state.confirm);
+          + "\nLe mdp : "+ this.state.mdp);
     event.preventDefault();
   }
 

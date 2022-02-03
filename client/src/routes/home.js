@@ -97,7 +97,7 @@ function getRandomPalette(){
  * @returns une palette de couleurs générée aléatoirement 
  */ 
  function getRandomTheme(list){
-   let nbRandom =  Math.floor(Math.random()*(list.length+1));
+   let nbRandom =  Math.floor(Math.random()*(list.length));
    return list[nbRandom].theme_nom;
  }
 
@@ -207,6 +207,7 @@ class Home extends React.Component{
         <ThemeHome theme={this.state.theme}/>
         <PaletteHome palette={this.state.palette}/>
         <button className="btnGetRandomArt" onClick={() => this.handleClick()}>GetRandomArt()</button>
+        <p>j'ai changé :)</p>
       </div>
     );
   }
