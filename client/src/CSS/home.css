@@ -1,6 +1,11 @@
 
 .page.home{
+  background-color: #e6d9ff;
   text-align: center;
+  padding: 10px;
+  /*120 : taille du menu de nav*/
+  padding-bottom: 120px;
+  box-sizing: border-box;
 }
 
 .themeHome, .paletteHome{
@@ -36,18 +41,17 @@
 
 .colorPalette{
   display: inline-block;
-  width: 22vW;
-  height: 22vW;
+  width:10vW;
+  height: 40vW;
   /*todo colour en fonction de la palette*/
-  background-color: #7d4193;
-  margin: 1% 3%;
   border-radius: 10px;
+  border: 1px solid;
 }
 
 .colorPalette p{
-  padding-top: 23vW;
+  padding-top: 42vW;
   display: inline-block;
-  margin: 1% 3%;
+  font-size: 11px;
 }
 
 .btnAddToFav{
