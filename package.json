@@ -4,7 +4,7 @@
   "description": "GetRandomArt()\r Projet de 3e année de licence informatique avec @marie-almina et @Eleaaa.",
   "main": "server.js",
   "scripts": {
-    "dev": "cd ./serveur && node index.js",
+    "dev": "node ./serveur/server.js",
     "frontend": "cd ./client && npm start",
     "start": "concurrently \"npm run dev\" \"npm run frontend\""
   },
@@ -18,7 +18,8 @@
     "react-calendar": "^3.6.0",
     "react-dom": "^17.0.2",
     "react-router-dom": "^5.2.0",
-    "sassy-datepicker": "^0.7.0"
+    "sassy-datepicker": "^0.7.0",
+    "react-scripts": "4.0.3"
   },
   "devDependencies": {
     "case-sensitive-paths-webpack-plugin": "^2.4.0"
