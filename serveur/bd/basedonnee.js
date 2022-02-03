@@ -1,7 +1,3 @@
-<<<<<<< Updated upstream
-const getQuery = (sql, client) => {
-    return new Promise(function(resolve, reject) {
-=======
 const { Client } = require('pg');
 
 const client = new Client({
@@ -16,7 +12,6 @@ client.connect();
 const getQuery = (sql) => {
     return new Promise(function(resolve, reject) {
         console.log("requete sql", sql);
->>>>>>> Stashed changes
         client.query(sql, (error, results) => {
         if (error) {
             reject(error)
@@ -24,11 +19,7 @@ const getQuery = (sql) => {
         console.log('results', results);
         resolve(JSON.stringify(results.rows));
         });
-<<<<<<< Updated upstream
     }) 
-=======
-    })
->>>>>>> Stashed changes
 }
 
 module.exports = {
