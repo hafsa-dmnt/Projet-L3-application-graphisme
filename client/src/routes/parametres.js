@@ -191,7 +191,7 @@ class Parametres extends React.Component{
   }
     // Fetches our GET route from the Express server. (Note the route we are fetching matches the GET route from server.js
   callBackendAPI = async () => {
-    const response = await fetch('./parametersUser/user2');
+    const response = await fetch('/parametersUser/user2');
     const body = await response.json();
 
     if (response.status !== 200) {
