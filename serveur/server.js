@@ -1,12 +1,12 @@
 const express = require('express');
 const app = express();
-const port = process.env.PORT || 3001;
-console.log("port :", port);
+//const port = process.env.PORT || 3001;
+//console.log("port :", port);
 
 const basedonnee = require('./bd/basedonnee.js');
 
 // console.log that your server is up and running
-app.listen(port, () => console.log(`Listening on port ${port}`));
+//app.listen(port, () => console.log(`Listening on port ${port}`));
 
 // create a GET route
 app.get('/searchUser/:userPseudo', (req, res) => {
