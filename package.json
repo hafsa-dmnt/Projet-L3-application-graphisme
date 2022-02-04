@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "node ./serveur/server.js",
     "frontend": "cd ./client && npm start",
-    "start": "concurrently \"npm run dev\" \"npm run frontend\""
+    "start": "concurrently \"npm run dev\" \"npm run frontend\"",
+    "heroku-postbuild": "npm install client && npm run build client"
   },
   "author": "",
   "license": "ISC",
