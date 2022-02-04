@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
-const port = 8080;
-console.log("port", port);
+const port = process.env.PORT || 3001;
+console.log("port :", port);
 
 const basedonnee = require('./bd/basedonnee.js');
 
