@@ -5,6 +5,12 @@ console.log("port :", port);
 
 const basedonnee = require('./bd/basedonnee.js');
 
+if (process.env.NODE_ENV === 'production') {
+  // Exprees will serve up production assets
+  app.use(express.static('client/build'));
+
+}
+
 // console.log that your server is up and running
 app.listen(port, '0.0.0.0', () => console.log(`Listening on port ${port}`));
 
