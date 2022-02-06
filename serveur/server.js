@@ -6,13 +6,6 @@ const basedonnee = require('./bd/basedonnee.js');
 
 // console.log that your server is up and running
 app.listen(port, () => console.log(`Listening on port ${port}`));
-<<<<<<< Updated upstream:serveur/serveur.js
-
-
-
-
-=======
->>>>>>> Stashed changes:serveur/server.js
 
 // create a GET route
 app.get('/searchUser/:userPseudo', (req, res) => {

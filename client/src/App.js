@@ -12,6 +12,8 @@ import Peinture from './routes/peinture.js'
 import Parametres from './routes/parametres.js'
 import Inscription from './routes/inscription.js'
 import Listes from './routes/listes.js'
+import CreerPublication from './routes/creerPublication.js'
+
 
 
 import {
@@ -47,6 +49,7 @@ class  App extends React.Component{
             <Route exact path="/compte" element={<Compte/>}/>
             <Route exact path="/parametres" element={<Parametres/>}/>
             <Route exact path="/inscription" element={<Inscription/>}/>
+            <Route exact path="/creerPublication" element={<CreerPublication/>}/>
           </Routes>
 
           <nav className="menu_principal">

@@ -1,0 +1,16 @@
+.page.page_creerPubli{
+  text-align: left;
+}
+
+.page_creerPubli .section{
+  height: auto;
+  min-height: 30px;
+  width: 90%;
+  background-color: #b49fdb;
+  border-radius: 10px;
+  margin: 20px auto;
+  padding: 10px;
+  display: block;
+  position: relative;
+  text-align: left;
+}
