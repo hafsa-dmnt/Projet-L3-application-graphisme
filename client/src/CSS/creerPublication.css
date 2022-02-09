@@ -14,3 +14,90 @@
   position: relative;
   text-align: left;
 }
+
+
+.page_creerPubli .subSection{
+  margin: 15px 0;
+}
+
+.page_creerPubli .subSection label{
+  display: inline-block;
+  margin-right: 10px;
+  height: 30px;
+}
+
+.page_creerPubli .subSection label h3{
+  margin : 0;
+}
+
+
+.page_creerPubli .subSection input{
+  position: absolute;
+  right: 0;
+  background: inherit;
+  border: solid 2px #4c0068;
+  border-radius: 5px;
+  vertical-align: middle;
+  margin-right: 10px;
+}
+
+
+
+
+
+.page_creerPubli .subSection button svg, .page_inscription .subSection button{
+  height: 40px;
+  width: 40px;
+}
+
+.page_creerPubli .subSection button{
+
+  border-radius: 0;
+  border: none;
+  padding: 0;
+  vertical-align: middle;
+  background-color: inherit;
+  position: absolute;
+  right: 0;
+  margin-right: 15px;
+}
+
+.page_creerPubli .subSection button:hover{
+  cursor: pointer;
+}
+
+
+.page_creerPubli .section.title {
+  text-align: center;
+}
+
+.page_creerPubli .section.title h2{
+  margin : 10px;
+}
+
+
+.page_creerPubli .subSection img{
+  margin: 5%;
+  max-width: 90%;
+}
+
+
+.page_creerPubli .subSection .label-file {
+    cursor: pointer;
+    border: solid 2px #4c0068;
+    border-radius: 5px;
+    background-color: #e6d9ff;
+
+    display:
+
+}
+
+.page_creerPubli .subSection .label-file p{
+  padding: 5px;
+  margin: 0;
+
+}
+
+.page_creerPubli .subSection #file-input {
+    display: none;
+}
