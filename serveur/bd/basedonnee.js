@@ -19,7 +19,7 @@ const getQuery = (sql) => {
         console.log('results', results);
         resolve(JSON.stringify(results.rows));
         });
-    })
+    }) 
 }
 
 module.exports = {

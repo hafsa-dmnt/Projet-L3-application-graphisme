@@ -2,7 +2,7 @@ import React from 'react';
 import '../CSS/profil.css';
 import { Icon } from '@iconify/react';
 import {Link} from "react-router-dom";
-import { Navigate } from "react-router-dom";
+//import { Navigate } from "react-router-dom";
 
 
 
@@ -24,9 +24,9 @@ class Parameters extends React.Component{
     this.setState({redirect: redirect});
   }
   render() {
-    if (this.state.redirect) {
-      return <Navigate to={this.state.redirect} />
-    }
+    //if (this.state.redirect) {
+      //return <Navigate to={this.state.redirect} />
+    //}
     return(
       <button id="btnParameters" onClick={() => this.handleClick()}>
         <Icon icon="ant-design:setting-twotone"/>
