@@ -17,35 +17,59 @@
 
 
 .page_creerPubli .subSection{
-  margin: 15px 0;
+  min-height: 50px;
+  margin-block-start: 15px;
 }
 
 .page_creerPubli .subSection label{
   display: inline-block;
   margin-right: 10px;
   height: 30px;
+  vertical-align: top;
 }
 
 .page_creerPubli .subSection label h3{
   margin : 0;
 }
 
+.datePickerContainer{
+  max-width: 150px;
+  display: inline-block;
+  position: absolute;
+  right: 25px;
+}
+
+.page_creerPubli .subSection.submitSection{
+  text-align: right;
+  margin: 0;
+}
 
 .page_creerPubli .subSection input{
-  position: absolute;
+  position: relative;
   right: 0;
   background: inherit;
   border: solid 2px #4c0068;
   border-radius: 5px;
   vertical-align: middle;
   margin-right: 10px;
+  max-width: 150px;
+  text-align: center;
+  display: inline-block;
 }
 
 
+.page_creerPubli .subSection label.label-file{
+  position: absolute;
+  right: 0;
+  margin-right: 15px;
+}
 
+.page_creerPubli .subSection input{
+  right: 0;
+  margin-right: 15px;
+}
 
-
-.page_creerPubli .subSection button svg, .page_inscription .subSection button{
+.page_creerPubli .subSection button svg, .page_creerPubli .subSection button{
   height: 40px;
   width: 40px;
 }
@@ -57,7 +81,7 @@
   padding: 0;
   vertical-align: middle;
   background-color: inherit;
-  position: absolute;
+  position: relative;
   right: 0;
   margin-right: 15px;
 }
@@ -100,4 +124,64 @@
 
 .page_creerPubli .subSection #file-input {
     display: none;
+}
+
+
+
+.page_creerPubli .subSection .switch {
+  position: absolute;
+  right: 0;
+  margin-right: 15px;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.page_creerPubli .subSection .switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.page_creerPubli .subSection .slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.page_creerPubli .subSection .slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.page_creerPubli .subSection input:checked + .slider {
+  background-color: #4c0068;
+}
+
+.page_creerPubli .subSection input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.page_creerPubli .subSection .slider.round {
+  border-radius: 34px;
+}
+
+.page_creerPubli .subSection .slider.round:before {
+  border-radius: 50%;
 }
