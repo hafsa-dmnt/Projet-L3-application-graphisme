@@ -13,6 +13,7 @@ import Parametres from './routes/parametres.js'
 import Inscription from './routes/inscription.js'
 import Listes from './routes/listes.js'
 import CreerPublication from './routes/creerPublication.js'
+import Connexion from './routes/connexion.js'
 
 
 
@@ -50,6 +51,7 @@ class  App extends React.Component{
             <Route exact path="/parametres" element={<Parametres/>}/>
             <Route exact path="/inscription" element={<Inscription/>}/>
             <Route exact path="/creerPublication" element={<CreerPublication/>}/>
+            <Route exact path="/connexion" element={<Connexion/>}/>
           </Routes>
 
           <nav className="menu_principal">

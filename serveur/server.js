@@ -1,12 +1,15 @@
 const express = require('express');
 const app = express();
-const port = process.env.PORT || 3001;
-console.log("port :", port);
+
+const dotenv = require('dotenv');
+dotenv.config();
+
+const port = process.env.PORT;
 
 const basedonnee = require('./bd/basedonnee.js');
 
 if (process.env.NODE_ENV === 'production') {
-  // Exprees will serve up production assets
+  // Express will serve up production assets
   app.use(express.static('client/build'));
 
 }
