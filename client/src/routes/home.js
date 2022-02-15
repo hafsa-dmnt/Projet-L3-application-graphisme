@@ -39,6 +39,21 @@ function convertRgbInHex(tab){
 }
 
 /**
+ * Fonction permettant de convertir une couleur sous forme h, s, l en rgb 
+ * (fonction de https://stackoverflow.com/questions/36721830/convert-hsl-to-rgb-and-hex/54014428#54014428)
+ * @param {*} h 
+ * @param {*} s 
+ * @param {*} l 
+ * @returns 
+ */
+function hsl2rgb(h,s,l) 
+{
+  let a= s*Math.min(l,1-l);
+  let f= (n,k=(n+h/30)%12) => l - a*Math.max(Math.min(k-3,9-k,1),-1);
+  return [f(0),f(8),f(4)];
+}  
+
+/**
  * Fonction permettant de générer aléatoirement une palette, qui a une taille potentiellement différente à chaque fois et qui est
  * réalisée à partir de méthodes différentes pour diversifier. 
  * @returns une palette de couleurs générée aléatoirement 
@@ -47,7 +62,7 @@ function getRandomPalette(){
   //on génère aléatoirement une palette composée de minPalette couleurs à maxPalette couleurs
   let nbColors = Math.floor(Math.random()*(maxPalette-minPalette+1))+minPalette;
   //on génère aléatoirement un nombre pour savoir quelle méthode utiliser dans la palette 
-  let tabMethode = 2;//Math.floor(Math.random()*(5));
+  let tabMethode = Math.floor(Math.random()*(5));
   console.log("methode numero ", tabMethode);
   //la palette à renvoyer à la fin
   let palette = [];
@@ -59,13 +74,10 @@ function getRandomPalette(){
   switch(tabMethode){
     case 0: //complementaires
       var i = 1;
-      while(i<nbColors){
         firstColor.r = (firstColor.r + Math.floor(Math.random()*(21))+128)%255;
         firstColor.g = (firstColor.g + Math.floor(Math.random()*(31))+128)%255;
         firstColor.b = (firstColor.g + Math.floor(Math.random()*(11))+128)%255;
         palette.push(convertRgbInHex([firstColor.r, firstColor.g, firstColor.b]));
-        ++i;
-      }
     break;
     case 1: //carré
     break;
@@ -148,6 +160,14 @@ class BoutonGetRandomArt extends React.Component{
 }
 */
 
+/*
+TODO : adapter l'affichage des palettes
+  - un cercle avec un demi cercle par couleur pour complémentaires
+  - des rectangles collés pour analogues
+  - un carré pour carré mdr
+  - un triangle pour triangle ;.... 
+  - comme carré pour rectangle 
+*/
 class Palette extends React.Component{
   render(){
     const tabPalette = this.props.content;
@@ -207,7 +227,6 @@ class Home extends React.Component{
         <ThemeHome theme={this.state.theme}/>
         <PaletteHome palette={this.state.palette}/>
         <button className="btnGetRandomArt" onClick={() => this.handleClick()}>GetRandomArt()</button>
-        <p>j'ai changé :)</p>
       </div>
     );
   }
