@@ -7,16 +7,20 @@ import { Navigate } from "react-router-dom";
 import "react-datepicker/dist/react-datepicker.css";
 import { registerLocale, setDefaultLocale } from  "react-datepicker";
 import fr from 'date-fns/locale/fr';
-import axios from 'axios';
+
+import {AdvancedImage} from '@cloudinary/react';
+import {Cloudinary} from "@cloudinary/url-gen";
+
 registerLocale('fr', fr)
 
 
 function CreateForm(props){
     const [dateDefi, setDateDefi] = useState(new Date());
-    const [image,setImage] = useState();
-    const [imageUrl,setImageUrl] = useState("");
     const [defi, setDefi] = useState(false);
     const today = new Date();
+    const [imageUrl, setImageUrl] = useState("false");
+    const [image, setImage ] = useState("");
+    const [ url, setUrl ] = useState("");
 
     const handleSubmit = (event) => {
       event.preventDefault();
@@ -26,28 +30,24 @@ function CreateForm(props){
       }
       // envoyer a la bd tout le bordel
       // chemin de l'image + si c un defi + date du defi + date dans today
-      // enregistrer image dans dossier publication
 
-      // Create an object of formData
       const formData = new FormData();
 
+      formData.append("file", image)
+      // public id c ce que on va aller chercher du coup hehhehe
+      formData.append("public_id", "test1")
+      formData.append("upload_preset", "hhd3mufr")
+      formData.append("cloud_name","hzcpqfz4w")
+
       console.log({image});
 
-      // Update the formData object
-      formData.append(
-        "myFile",
-        {image}
-      );
+      fetch(" https://api.cloudinary.com/v1_1/hzcpqfz4w/image/upload",{
+        method:"post",
+        body: formData
+      }).then(resp => resp.json()).then(data => {
+                                                  setUrl(data.url)
+                                            }).catch(err => console.log(err))}
 
-      // Details of the uploaded file
-      console.log({image});
-
-      // Request made to the backend api
-      // Send formData object
-      axios.post("/images", formData);
-
-
-    }
 
     const handleChangeImage = (event) => {
       const value = URL.createObjectURL(event.target.files[0]);
@@ -122,24 +122,23 @@ function CreateForm(props){
 
 function CreerPublication() {
 
-  /*
+  const cld = new Cloudinary({
+    cloud: {
+      cloudName: 'hzcpqfz4w'
+    }
+  });
 
-    image
-    defi ?
-    date jour courant : auto
-    date defi si defi : datepicker
-    date picker pas dans le futur que dans passé (jusqua quelle date ??)
-    envoyer
+  const myImage = cld.image('test');
 
-  */
+//<AdvancedImage cldImg={myImage} />
+  return (
+      <section className="page page_creerPubli">
+          <CreateForm/>
 
+          <AdvancedImage cldImg={myImage} />
 
-    return (
-        <section className="page page_creerPubli">
-            <CreateForm/>
-
-        </section>
-    );
+      </section>
+  );
 }
 
 export default CreerPublication;
