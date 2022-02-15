@@ -165,7 +165,7 @@ TODO : adapter l'affichage des palettes
   - un cercle avec un demi cercle par couleur pour complémentaires
   - des rectangles collés pour analogues
   - un carré pour carré mdr
-  - un triangle pour triangle ;.... 
+  - un triangle pour triangle .... 
   - comme carré pour rectangle 
 */
 class Palette extends React.Component{
