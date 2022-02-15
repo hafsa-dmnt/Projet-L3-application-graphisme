@@ -4,10 +4,6 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { useNavigate } from "react-router-dom";
 
-import {
-    Link
-  } from "react-router-dom";
-
 function Calendrier() {
     const value = useState(new Date());
     const navigate = useNavigate();
@@ -24,7 +20,7 @@ function Calendrier() {
     return (
         <section className="page_calendrier">
             <h2>{month}</h2>
-            <Calendar value={value}  onChange={handleChange} />
+            <Calendar value={value} onChange={handleChange} />
         </section>
     );
 }

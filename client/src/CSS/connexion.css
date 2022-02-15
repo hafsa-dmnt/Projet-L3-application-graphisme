@@ -1,0 +1,98 @@
+.page.page_connexion{
+    text-align: left;
+}
+
+.page_connexion .section{
+    height: auto;
+    min-height: 30px;
+    width: 90%;
+    background-color: #b49fdb;
+    border-radius: 10px;
+    margin: 20px auto;
+    padding: 10px;
+    display: block;
+    position: relative;
+    text-align: left;
+}
+
+.page_connexion .subSection{
+    margin: 15px 0;
+}
+
+.page_connexion .subSection label{
+    display: inline-block;
+    margin-right: 10px;
+    height: 30px;
+}
+
+.page_connexion .subSection label h3{
+    margin : 0;
+}
+
+
+.page_connexion .subSection input{
+    position: absolute;
+    right: 0;
+    background: inherit;
+    border: solid 2px #4c0068;
+    border-radius: 5px;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+.page_connexion .subSection button svg, .page_connexion .subSection button{
+    height: 40px;
+    width: 40px;
+}
+
+.page_connexion .subSection button{
+    border-radius: 0;
+    border: none;
+    padding: 0;
+    vertical-align: middle;
+    background-color: inherit;
+    position: absolute;
+    right: 0;
+    margin-right: 15px;
+}
+
+.page_connexion .subSection button:hover{
+    cursor: pointer;
+}
+
+
+.page_connexion .section.title {
+    text-align: center;
+}
+
+.page_connexion .section.title h2{
+    margin : 10px;
+}
+
+
+.page_connexion .subSection img{
+    margin: 5%;
+    max-width: 90%;
+}
+
+
+.page_connexion .subSection .label-file {
+    cursor: pointer;
+    border: solid 2px #4c0068;
+    border-radius: 5px;
+    background-color: #e6d9ff;
+
+    display:inline-block;
+
+}
+
+.page_connexion .subSection .label-file p{
+padding: 5px;
+margin: 0;
+
+}
+
+.page_connexion .subSection #file-input {
+    display: none;
+}
+  

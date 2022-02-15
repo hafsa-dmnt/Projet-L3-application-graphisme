@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import '../CSS/creerPublication.css';
 import DatePicker from "react-datepicker";
 import { Icon } from '@iconify/react';
-import {Link} from "react-router-dom";
-import { Navigate } from "react-router-dom";
 import "react-datepicker/dist/react-datepicker.css";
 import { registerLocale, setDefaultLocale } from  "react-datepicker";
 import fr from 'date-fns/locale/fr';
