@@ -29,6 +29,10 @@
     margin : 0;
 }
 
+.page_connexion .subSection{
+    min-height: 30px;
+  }
+  
 
 .page_connexion .subSection input{
     position: absolute;
@@ -41,14 +45,13 @@
 }
 
 .page_connexion .subSection button svg, .page_connexion .subSection button{
-    height: 40px;
-    width: 40px;
+    height: 30px;
+    width: 30px;
 }
 
 .page_connexion .subSection button{
     border-radius: 0;
     border: none;
-    padding: 0;
     vertical-align: middle;
     background-color: inherit;
     position: absolute;
@@ -81,15 +84,12 @@
     border: solid 2px #4c0068;
     border-radius: 5px;
     background-color: #e6d9ff;
-
     display:inline-block;
-
 }
 
 .page_connexion .subSection .label-file p{
-padding: 5px;
-margin: 0;
-
+    padding: 5px;
+    margin: 0;
 }
 
 .page_connexion .subSection #file-input {
