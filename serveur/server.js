@@ -6,7 +6,6 @@ dotenv.config();
 
 const port = process.env.PORT;
 
-const path = require("path");
 
 
 const basedonnee = require('./bd/basedonnee.js');
@@ -74,11 +73,4 @@ app.get('/themeslist', (req, res) => {
   .catch(error => {
     res.status(500).send(error);
   })
-});
-
-
-app.get('*', (req, res) => res.sendFile(path.resolve('build', '/client/build/index.html'));
-
-app.get('*', (request, response) => {
-	response.sendFile(path.join('build', 'client/build', 'index.html'));
 });
