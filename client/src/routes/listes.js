@@ -4,20 +4,33 @@ import { Icon } from '@iconify/react';
 
 class Liste extends React.Component{
   render(){
-    const tabListe = this.props.content;
+    const tabListeTheme = this.props.listeTheme;
+    const tabListePalette = this.props.listePalette;
     let divListe = "";
-    if(this.props.content.length > 0){
-      divListe = Object.keys(tabListe).map((keyName, i)  => (
-        <div key= {i} onClick={this.props.changeTab} className="iconlist">
-          <Icon icon="emojione-monotone:sparkles" />
-          {tabListe[keyName].theme_nom}
-        </div>
-    ))
+    if(this.props.istheme){
+      if(this.props.listeTheme.length > 0){
+        divListe = Object.keys(tabListeTheme).map((keyName, i)  => (
+          <div key= {i} onClick={this.props.changeTab} className="iconlist">
+            <Icon icon="emojione-monotone:sparkles" />
+            {tabListeTheme[keyName].tl_nom}
+          </div>
+      ))
+      }else{
+        divListe = <p>Il n'y a rien :( crée ta première liste theme!</p>
+      }
     }else{
-      divListe = <p>Il n'y a rien :( crée ta première liste !</p>
+      if(this.props.listePalette.length > 0){
+        divListe = Object.keys(tabListePalette).map((keyName, i)  => (
+          <div key= {i} onClick={this.props.changeTab} className="iconlist">
+            <Icon icon="emojione-monotone:sparkles" />
+            {tabListePalette[keyName].pl_nom}
+          </div>))
+      }else{
+        divListe = <p>Il n'y a rien :( crée ta première liste palette!</p>
+      }
     }
     let titre = <h3>Mes thèmes</h3>;
-    if(!this.props.theme){
+    if(!this.props.istheme){
       titre = <h3>Mes palettes</h3>;
     }
     
@@ -37,49 +50,58 @@ class ThemesAndPalettes extends React.Component{
     //ici on récupère à l'aide d'une requête toutes les listes de thèmes existantes (on peut ajouter un bouton supprimer liste)
     this.state = {
       displayThemes: true,
-      liste:  []
+      listeTheme:  [],
+      listePalette:  []
     }
   } 
 
-  componentDidMount() {
-    // Call our fetch function below once the component mounts
-    this.callBackendAPI()
-      .then(res => this.setState({ liste: res}))
-      .catch(err => console.log(err));
-  }
-    // Fetches our GET route from the Express server. (Note the route we are fetching matches the GET route from server.js
-  callBackendAPI = async () => {
-    const response = await fetch('/list/user1');
-    const body = await response.json();
+  componentDidMount(){
+      const chemin = [
+        "/list/user1-theme",
+        "/list/user1-palette"
+    ];
 
-    if (response.status !== 200) {
-      throw Error(body.message) 
+      Promise.all(chemin.map(url =>
+        fetch(url)
+            .then(checkStatus)  // check the response of our APIs
+            .then(parseJSON)    // parse it to Json
+            .catch(error => console.log('There was a problem!', error))
+    ))
+        .then(data => {
+            // assign to requested URL as define in array with array index.
+            const data_theme = data[0];
+            const data_palette = data[1];
+            this.setState({
+              listeTheme: data_theme,
+              listePalette: data_palette,
+            })
+        })
+
+    function checkStatus(response) {
+    if (response.ok) {
+        return Promise.resolve(response);
+    } else {
+        return Promise.reject(new Error(response.statusText));
     }
-    console.log("requete", body);
-    return body;
-  };
+    }
 
-  /*
-  handleClick =  () => {
-    if(this.state.tl_name){
-      this.setState({liste : []});
-    }else{
-      this.setState({liste : []});
+    function parseJSON(response) {
+    return response.json();
     }
   }
-  **/
 
-  changeCategory = () => {
-    let newCategory = !this.state.displayThemes;
-    this.setState({displayThemes: newCategory, liste : []});
+  handleClick = () => {
+    var newCategory = !this.state.displayThemes;
+    this.setState({displayThemes: newCategory});
+    
   }
 
   render(){
     return (
       <section className="page_listes">
         <img src={"defaultpublic.jpg}"}/>
-        <Liste content={this.state.liste} theme={this.state.displayThemes}/>
-        <button className="btnGetRandomArt" onClick={() => this.changeCategory()}>Changer de catégorie</button>
+        <Liste listeTheme={this.state.listeTheme} listePalette={this.state.listePalette} istheme={this.state.displayThemes}/>
+        <button className="btnGetRandomArt" onClick={() => this.handleClick()}>Changer de catégorie</button>
       </section>
     );
   }

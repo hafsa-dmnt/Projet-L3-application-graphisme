@@ -1,15 +1,12 @@
 const express = require('express');
 const app = express();
-
-const dotenv = require('dotenv');
-dotenv.config();
-
-const port = process.env.PORT;
+const port = process.env.PORT || 3001;
+console.log("port :", port);
 
 const basedonnee = require('./bd/basedonnee.js');
 
 if (process.env.NODE_ENV === 'production') {
-  // Express will serve up production assets
+  // Exprees will serve up production assets
   app.use(express.static('client/build'));
 
 }
@@ -44,13 +41,13 @@ app.get('/parametersUser/:userPseudo', (req, res) => {
 
 app.get('/list/:userPseudo-:type', (req, res) => {
   console.log(req.params);
-  const sql = "SELECT * FROM";
+  sql = "SELECT * FROM ";
   if(req.params.type === "theme"){
-      sql += "theme_list";
+      sql += "theme_list WHERE tl_utilisateurpseudo =";
   }else{
-      sql += "palette_list";
+      sql += "palette_list WHERE pl_utilisateurpseudo =";
   }
-  sql +=  "WHERE utilisateur_pseudo = '"+req.params.pseudo+"';";
+  sql +=  " '"+req.params.userPseudo+"';";
   basedonnee.getQuery(sql)
   .then(response => {
     res.status(200).send(response);
@@ -63,6 +60,34 @@ app.get('/list/:userPseudo-:type', (req, res) => {
 app.get('/themeslist', (req, res) => {
   console.log(req.params);
   const sql = "SELECT theme_nom FROM theme;";
+  basedonnee.getQuery(sql)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});
+
+app.get('/palette_list/:userPseudo-:nomListPalette', (req, res) => {
+  console.log(req.params);
+  sql = "SELECT * FROM palette_list";
+  sql +="WHERE pl_utilisateurpseudo = '"+req.params.userPseudo+"';";
+  sql +="AND pl_nom = '"+req.params.nomListPalette+"';";
+  basedonnee.getQuery(sql)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});
+
+app.get('/theme_list/:userPseudo-:nomListTheme', (req, res) => {
+  console.log(req.params);
+  sql = "SELECT * FROM theme_list";
+  sql +="WHERE tl_utilisateurpseudo = '"+req.params.userPseudo+"';";
+  sql +="AND tl_nom = '"+req.params.nomListTheme+"';";
   basedonnee.getQuery(sql)
   .then(response => {
     res.status(200).send(response);
