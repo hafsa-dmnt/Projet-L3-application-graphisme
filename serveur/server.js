@@ -8,13 +8,19 @@ const port = process.env.PORT;
 
 const basedonnee = require('./bd/basedonnee.js');
 
+
 if (process.env.NODE_ENV === 'production') {
-  // Express will serve up production assets
+  // Exprees will serve up production assets
   app.use(express.static('client/build'));
 
+  // Express serve up index.html file if it doesn't recognize route
+  const path = require('path');
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve('/app/client/build/index.html'))
+  });
 }
 
-app.get('*', (req, res) => res.sendFile(path.resolve('client/build', 'client/src/index.js'));
+
 
 // console.log that your server is up and running
 app.listen(port, '0.0.0.0', () => console.log(`Listening on port ${port}`));
