@@ -64,15 +64,16 @@ class Publication extends React.Component {
 
 class ProfilContent extends React.Component{
   render(){
-    //requête pour aller chercher les publications d'une personne 
+    //requête pour aller chercher les publications d'une personne
     const tabPublication = ['../images/defaultpublic.jpg', '../images/defaultpublic.jpg', '../images/defaultpublic.jpg', '../images/defaultpublic.jpg'];
-    const divPubli = tabPublication.map((elt, idx) => 
+    const divPubli = tabPublication.map((elt, idx) =>
       <Publication photo = {elt} idx = {idx}/>  );
     return(
       <section className="profilContent">
         <p><Link to="/profil/listes">Mes thèmes et palettes</Link></p>
         <h2>Galerie</h2>
         <section className="galerie">
+          <p><Link to="/creerPublication">Créer publication</Link></p>
           {divPubli}
         </section>
       </section>
