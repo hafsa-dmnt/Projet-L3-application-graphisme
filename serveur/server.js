@@ -14,7 +14,7 @@ if (process.env.NODE_ENV === 'production') {
 
 }
 
-app.get('*', (req, res) => res.sendFile(path.resolve('build', 'index.html'));
+app.get('*', (req, res) => res.sendFile(path.resolve('client/build', 'client/src/index.js'));
 
 // console.log that your server is up and running
 app.listen(port, '0.0.0.0', () => console.log(`Listening on port ${port}`));
