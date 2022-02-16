@@ -14,7 +14,7 @@ class ConnexionForm extends React.Component {
   handleChange(event) {
 
     const value = event.target.value;
-
+    
     this.setState({
       ...this.state,
       [event.target.name]: value
@@ -24,7 +24,12 @@ class ConnexionForm extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    alert(this.state.pseudo, this.state.mdp);
     //connexion avec le serveur 
+    /*
+    SELECT mdp FROM utilisateur WHERE pseudo = this.state.pseudo;
+    //redirect to paramètres si le mot de passe est bon, message d'erreur sinon 
+    */
   }
 
   render() {
@@ -46,7 +51,7 @@ class ConnexionForm extends React.Component {
         </div>
 
         <div className="subSection">
-          <button type="submit" >
+          <button type="submit" onClick={this.handleSubmit}>
             <Icon icon="akar-icons:check-box-fill" />
           </button>
         </div>
