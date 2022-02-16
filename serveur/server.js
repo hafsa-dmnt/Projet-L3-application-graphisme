@@ -12,6 +12,10 @@ if (process.env.NODE_ENV === 'production') {
   // Express will serve up production assets
   app.use(express.static('client/build'));
 
+  app.get('*',(req, res) => {
+      res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
+
 }
 
 
@@ -71,9 +75,4 @@ app.get('/themeslist', (req, res) => {
   .catch(error => {
     res.status(500).send(error);
   })
-});
-
-
-app.get('*',(req, res) => {
-    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
 });
