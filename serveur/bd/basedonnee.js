@@ -2,7 +2,7 @@ const { Client } = require('pg');
 const dotenv = require('dotenv');
 dotenv.config();
 
-const urlDB = process.env.DATABASE_URL;
+const urlDB = process.env.HEROKU_POSTGRESQL_PINK_URL;
 
 const client = new Client({
   connectionString: urlDB,
