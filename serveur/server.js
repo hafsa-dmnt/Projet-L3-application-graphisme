@@ -6,9 +6,10 @@ dotenv.config();
 
 const port = process.env.PORT;
 
-const basedonnee = require('./bd/basedonnee.js');
-
 const path = require("path");
+
+
+const basedonnee = require('./bd/basedonnee.js');
 
 if (process.env.NODE_ENV === 'production') {
   // Express will serve up production assets
@@ -76,6 +77,4 @@ app.get('/themeslist', (req, res) => {
 });
 
 
-app.get('*',(req, res) => {
-    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
-});
+app.get('*', (req, res) => res.sendFile(path.resolve('build', '/client/build/index.html'));
