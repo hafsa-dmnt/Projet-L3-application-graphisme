@@ -2,19 +2,21 @@ import React from 'react';
 import '../CSS/inscription.css';
 import { Icon } from '@iconify/react';
 
+import {AdvancedImage} from '@cloudinary/react';
+import {Cloudinary} from "@cloudinary/url-gen";
+
 class InscriptionForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {pseudo:'',mail:'',bio:'', mdp: '',confirm:'',pdp:''};
-    this.handleChange = this.handleChange.bind(this);
+    this.state = {pseudo:'',mail:'',bio:'', mdp: '',confirm:'',pdp:'',url:'',pdp_url:''};
     this.handleChangeImage = this.handleChangeImage.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(event) {
-
     const value = event.target.value;
-
     this.setState({
       // ...this.state c pour garder les 2 autres pas modifiés
       ...this.state,
@@ -26,18 +28,52 @@ class InscriptionForm extends React.Component {
   handleChangeImage(event) {
 
     const value = URL.createObjectURL(event.target.files[0]);
-
     this.setState({
       ...this.state,
-      pdp: value
+      pdp: event.target.files[0],
+      pdp_url:value
     });
+
   }
 
   handleSubmit(event) {
     alert('Le pseudo : ' + this.state.pseudo +'\nLe mail : ' + this.state.mail + '\nLa bio : ' + this.state.bio
           + "\nLe mdp : "+ this.state.mdp);
     event.preventDefault();
-  }
+
+
+      if(this.state.pdp_url == '""'){
+        alert('Pas d\'image.');
+        return;
+      }
+
+      const formData = new FormData();
+
+      // todo :
+        // image mettre le id correctement
+        // envoie a la bd
+
+
+      formData.append("file", this.state.pdp)
+      // public id c ce que on va aller chercher du coup hehhehe
+      formData.append("public_id", "test2")
+      formData.append("upload_preset", "hhd3mufr")
+      formData.append("cloud_name","hzcpqfz4w")
+
+
+      fetch(" https://api.cloudinary.com/v1_1/hzcpqfz4w/image/upload",{
+        method:"post",
+        body: formData
+      }).then(resp =>
+                resp.json()).then(data => {
+                                        this.setState({
+                                          ...this.state,
+                                          url: data.url
+                                        })
+                                            }).catch(err => console.log(err));
+
+    }
+
 
   render() {
     return (
@@ -55,7 +91,7 @@ class InscriptionForm extends React.Component {
 
           <input id="file-input" type="file" accept="image/*" onChange={this.handleChangeImage}/>
 
-          <img src={this.state.pdp}/>
+          <img src={this.state.pdp_url}/>
 
         </div>
 

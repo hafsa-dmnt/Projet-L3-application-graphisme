@@ -44,7 +44,9 @@ function CreateForm(props){
         body: formData
       }).then(resp => resp.json()).then(data => {
                                                   setUrl(data.url)
-                                            }).catch(err => console.log(err))}
+                                            }).catch(err => console.log(err));
+
+      }
 
 
     const handleChangeImage = (event) => {
