@@ -124,7 +124,9 @@ class ImageForm extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-      file: null
+      image: '',
+      imageUrl : '',
+      url : ''
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -132,13 +134,35 @@ class ImageForm extends React.Component{
 
   handleChange(event) {
     this.setState({
-      file: URL.createObjectURL(event.target.files[0])
+      imageUrl: URL.createObjectURL(event.target.files[0]),
+      image: event.target.files[0]
     })
   }
 
   handleSubmit(event) {
     alert('yay');
     event.preventDefault();
+
+    const formData = new FormData();
+    formData.append("file", this.state.image);
+    // public id c ce que on va aller chercher du coup hehhehe
+    formData.append("public_id", "param");
+    formData.append("upload_preset", "hhd3mufr");
+    formData.append("cloud_name","hzcpqfz4w");
+
+
+    fetch(" https://api.cloudinary.com/v1_1/hzcpqfz4w/image/upload",{
+      method:"post",
+      body: formData
+    }).then(resp =>
+              resp.json()).then(data => {
+                                      this.setState({
+                                        ...this.state,
+                                        url: data.url
+                                      })
+                                          }).catch(err => console.log(err));
+
+
   }
 
   render(){

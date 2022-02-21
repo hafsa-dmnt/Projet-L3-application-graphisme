@@ -54,11 +54,11 @@ class InscriptionForm extends React.Component {
         // envoie a la bd
 
 
-      formData.append("file", this.state.pdp)
+      formData.append("file", this.state.pdp);
       // public id c ce que on va aller chercher du coup hehhehe
-      formData.append("public_id", "test2")
-      formData.append("upload_preset", "hhd3mufr")
-      formData.append("cloud_name","hzcpqfz4w")
+      formData.append("public_id", "test2");
+      formData.append("upload_preset", "hhd3mufr");
+      formData.append("cloud_name","hzcpqfz4w");
 
 
       fetch(" https://api.cloudinary.com/v1_1/hzcpqfz4w/image/upload",{
