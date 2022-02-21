@@ -7,7 +7,7 @@
     "dev": "node ./serveur/server.js",
     "frontend": "cd ./client && npm start",
     "start": "concurrently \"npm run dev\" \"npm run frontend\"",
-    "heroku-postbuild": "cd client && npm install && npm run build"
+    "heroku-postbuild": "npm install client && npm run build client"
   },
   "author": "",
   "license": "ISC",
