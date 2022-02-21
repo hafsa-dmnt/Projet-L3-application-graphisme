@@ -8,8 +8,12 @@ const port = process.env.PORT;
 
 const basedonnee = require('./bd/basedonnee.js');
 
+console.log("coucou");
 
 if (process.env.NODE_ENV === 'production') {
+
+  console.log("coucou2");
+
   // Exprees will serve up production assets
   app.use(express.static('client/build'));
 
