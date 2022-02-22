@@ -8,19 +8,6 @@
     height: 100vh;
 }
 
-.page_calendrier .section{
-    height: auto;
-    min-height: 30px;
-    width: 90%;
-    background-color: #b49fdb;
-    border-radius: 10px;
-    margin: 20px auto;
-    padding: 10px;
-    display: block;
-    position: relative;
-    text-align: left;
-}
-
 .page_calendrier .section label{
     display: inline-block;
     margin-right: 10px;
