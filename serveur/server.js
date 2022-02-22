@@ -83,3 +83,11 @@ app.get('/themeslist', (req, res) => {
     res.status(500).send(error);
   })
 });
+
+
+if (process.env.NODE_ENV === 'production') {
+  const path = require('path');
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve('/app/client/build/index.html'))
+  });
+}
