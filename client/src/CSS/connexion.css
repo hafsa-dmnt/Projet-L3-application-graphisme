@@ -2,19 +2,6 @@
     text-align: left;
 }
 
-.page_connexion .section{
-    height: auto;
-    min-height: 30px;
-    width: 90%;
-    background-color: #b49fdb;
-    border-radius: 10px;
-    margin: 20px auto;
-    padding: 10px;
-    display: block;
-    position: relative;
-    text-align: left;
-}
-
 .page_connexion .subSection{
     margin: 15px 0;
 }
@@ -32,7 +19,7 @@
 .page_connexion .subSection{
     min-height: 30px;
   }
-  
+
 
 .page_connexion .subSection input{
     position: absolute;
@@ -95,4 +82,3 @@
 .page_connexion .subSection #file-input {
     display: none;
 }
-  

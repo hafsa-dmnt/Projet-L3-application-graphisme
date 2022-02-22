@@ -8,11 +8,18 @@ const port = process.env.PORT;
 
 const basedonnee = require('./bd/basedonnee.js');
 
+console.log("coucou");
+
 if (process.env.NODE_ENV === 'production') {
-  // Express will serve up production assets
+
+  console.log("coucou2");
+
+  // Exprees will serve up production assets
   app.use(express.static('client/build'));
 
 }
+
+
 
 // console.log that your server is up and running
 app.listen(port, '0.0.0.0', () => console.log(`Listening on port ${port}`));
@@ -71,3 +78,11 @@ app.get('/themeslist', (req, res) => {
     res.status(500).send(error);
   })
 });
+
+
+if (process.env.NODE_ENV === 'production') {
+  const path = require('path');
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve('/app/client/build/index.html'))
+  });
+}
