@@ -6,7 +6,6 @@ class Liste extends React.Component{
   render(){
     const tabListeTheme = this.props.listeThemes;
     let divListe = "";
-    console.log("CA C'EST LES THEMES",this.props.listeThemes)
     if(this.props.listeThemes.length > 0){
       divListe = Object.keys(tabListeTheme).map((keyName, i)  => (
         <div key= {i} className="iconlist">
@@ -14,7 +13,7 @@ class Liste extends React.Component{
         </div>
     ))
     }else{
-      divListe = <p>Il n'y a rien :( ajoute un theme!</p>
+      divListe = <p>Il n'y a rien :( ajoute un theme !</p>
     }
     
     return (
@@ -42,8 +41,10 @@ class ListeThemes extends React.Component {
   }
 
   callBackendAPI = async () => {
-    console.log("HEEEEEEEEEEEEEEy");
-    const response = await fetch('/listthemes/user1-1');
+    const queryParams = new URLSearchParams(window.location.search);
+    const id = queryParams.get('idlist')
+    const lien="/listthemes/"+id;
+    const response = await fetch(lien);
     const body = await response.json();
     if (response.status !== 200) {
       throw Error(body.message) 

@@ -41,7 +41,10 @@ class ListePalettes extends React.Component {
   }
 
   callBackendAPI = async () => {
-    const response = await fetch('/listPalettes/user1-1');
+    const queryParams = new URLSearchParams(window.location.search);
+    const id = queryParams.get('idlist')
+    const lien="/listpalettes/"+id;
+    const response = await fetch(lien);
     const body = await response.json();
     if (response.status !== 200) {
       throw Error(body.message) 

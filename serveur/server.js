@@ -69,7 +69,7 @@ app.get('/themeslist', (req, res) => {
   })
 });
 
-app.get('/listthemes/:userPseudo-:idList', (req, res) => {
+app.get('/listthemes/:idList', (req, res) => {
   console.log(req.params);
   var sql = "SELECT theme_nom FROM lien_list_theme, theme WHERE ";
   sql+="l_theme_list_id="+req.params.idList+"AND l_theme_id = theme_id ;";
@@ -82,9 +82,9 @@ app.get('/listthemes/:userPseudo-:idList', (req, res) => {
   })
 });
 
-app.get('/listpalettes/:userPseudo-:idList', (req, res) => {
+app.get('/listpalettes/:idList', (req, res) => {
   console.log(req.params);
-  var sql = "SELECT palette_nom FROM lien_list_palette, theme WHERE ";
+  var sql = "SELECT palette_nom FROM lien_list_palette, palette WHERE ";
   sql+="l_palette_list_id="+req.params.idList+"AND l_palette_id = palette_id ;";
   basedonnee.getQuery(sql)
   .then(response => {
