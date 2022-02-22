@@ -8,6 +8,7 @@ import Profil from './routes/profil.js'
 import Calendrier from './routes/calendrier.js'
 import Defijour from './routes/defijour.js'
 import Home from './routes/home.js'
+import ListePalettes from './routes/listepalettes.js'
 import ListeThemes from './routes/listethemes.js'
 import Parametres from './routes/parametres.js'
 import Inscription from './routes/inscription.js'
@@ -43,6 +44,7 @@ class  App extends React.Component{
             <Route exact path="/profil" element={<Profil/>}/>
             <Route exact path="/profil/listes" element={<Listes/>}/>
             <Route exact path="/profil/listethemes" element={<ListeThemes/>}/>
+            <Route exact path="/profil/listepalettes" element={<ListePalettes/>}/>
             <Route exact path="/calendrier" element={<Calendrier/>}/>
             <Route exact path="/calendrier/defijour" element={<Defijour/>}/>
             <Route exact path="/compte/publication" element={<Publication/>}/>

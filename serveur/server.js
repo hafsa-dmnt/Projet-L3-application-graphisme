@@ -82,6 +82,19 @@ app.get('/listthemes/:userPseudo-:idList', (req, res) => {
   })
 });
 
+app.get('/listpalettes/:userPseudo-:idList', (req, res) => {
+  console.log(req.params);
+  var sql = "SELECT palette_nom FROM lien_list_palette, theme WHERE ";
+  sql+="l_palette_list_id="+req.params.idList+"AND l_palette_id = palette_id ;";
+  basedonnee.getQuery(sql)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});
+
 /*app.get('/palette_list/:userPseudo-:nomListPalette', (req, res) => {
   console.log(req.params);
   sql = "SELECT * FROM palette_list";
