@@ -69,7 +69,20 @@ app.get('/themeslist', (req, res) => {
   })
 });
 
-app.get('/palette_list/:userPseudo-:nomListPalette', (req, res) => {
+app.get('/listthemes/:userPseudo-:idList', (req, res) => {
+  console.log(req.params);
+  var sql = "SELECT theme_nom FROM lien_list_theme, theme WHERE ";
+  sql+="l_theme_list_id="+req.params.idList+"AND l_theme_id = theme_id ;";
+  basedonnee.getQuery(sql)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});
+
+/*app.get('/palette_list/:userPseudo-:nomListPalette', (req, res) => {
   console.log(req.params);
   sql = "SELECT * FROM palette_list";
   sql +="WHERE pl_utilisateurpseudo = '"+req.params.userPseudo+"';";
@@ -81,8 +94,9 @@ app.get('/palette_list/:userPseudo-:nomListPalette', (req, res) => {
   .catch(error => {
     res.status(500).send(error);
   })
-});
+});*/
 
+/*
 app.get('/theme_list/:userPseudo-:nomListTheme', (req, res) => {
   console.log(req.params);
   sql = "SELECT * FROM theme_list";
@@ -95,4 +109,4 @@ app.get('/theme_list/:userPseudo-:nomListTheme', (req, res) => {
   .catch(error => {
     res.status(500).send(error);
   })
-});
+});*/
