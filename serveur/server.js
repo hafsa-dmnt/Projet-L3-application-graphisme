@@ -12,11 +12,6 @@ if (process.env.NODE_ENV === 'production') {
   // Express will serve up production assets
   app.use(express.static('client/build'));
 
-  const path = require('path');
-  app.get('*', (req, res) => {
-    res.sendFile(path.resolve('/app/client/build/index.html'))
-  });
-
 }
 
 // console.log that your server is up and running
@@ -76,3 +71,11 @@ app.get('/themeslist', (req, res) => {
     res.status(500).send(error);
   })
 });
+
+
+if (process.env.NODE_ENV === 'production') {
+  const path = require('path');
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve('/app/client/build/index.html'))
+  });
+}
