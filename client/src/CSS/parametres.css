@@ -1,7 +1,14 @@
-
 .page.page_parametre{
   text-align: left;
 }
+
+.page_parametre .subSection{
+  min-height: 30px;
+}
+
+
+
+
 
 .page_parametre .section label{
   display: inline-block;
@@ -23,7 +30,7 @@
 
 .page_parametre .section input{
   background: inherit;
-  border: solid 2px #4c0068;
+  border: solid 2px var(--accentcolor);
   border-radius: 5px;
   vertical-align: middle;
   margin-right: 10px;
@@ -39,17 +46,13 @@
   background-color: inherit;
 }
 
-.page_parametre .section button:hover{
+.page_parametre .section button{
   cursor: pointer;
 }
 
 .page_parametre .section button svg{
   height: 30px;
   width: 30px;
-}
-
-.page_parametre .subSection{
-  min-height: 30px;
 }
 
 .page_parametre .subSection button svg, .page_inscription .subSection button{
@@ -78,9 +81,9 @@
 
 .page_parametre .pdp .label-file {
     cursor: pointer;
-    border: solid 2px #4c0068;
+    border: solid 2px var(--accentcolor);
     border-radius: 5px;
-    background-color: #e6d9ff;
+    background-color: var(--sectioncolor);
 }
 
 .page_parametre .pdp .label-file p{

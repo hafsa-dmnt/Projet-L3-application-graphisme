@@ -43,7 +43,7 @@ class ProfilHead extends React.Component{
       btnAfficher = <Parameters/>;
     }
     return(
-      <header className="profilHead">
+      <header className="profilHead section">
         <img src={'defaultpicture.jpg'} className= "profilePic" alt="profil"></img>
         <h3>{this.props.pseudo}</h3>
         {btnAfficher}
@@ -90,7 +90,7 @@ class Profil extends React.Component{
 
   render(){
     return (
-      <div className="profil">
+      <div className="profil page">
         <ProfilHead pseudo = "pseudo"/>
         <ProfilContent />
       </div>

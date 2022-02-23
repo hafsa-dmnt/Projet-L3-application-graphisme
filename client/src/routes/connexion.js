@@ -14,7 +14,7 @@ class ConnexionForm extends React.Component {
   handleChange(event) {
 
     const value = event.target.value;
-    
+
     this.setState({
       ...this.state,
       [event.target.name]: value
@@ -25,17 +25,17 @@ class ConnexionForm extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     alert(this.state.pseudo, this.state.mdp);
-    //connexion avec le serveur 
+    //connexion avec le serveur
     /*
     SELECT mdp FROM utilisateur WHERE pseudo = this.state.pseudo;
-    //redirect to paramètres si le mot de passe est bon, message d'erreur sinon 
+    //redirect to paramètres si le mot de passe est bon, message d'erreur sinon
     */
   }
 
   render() {
     return (
 
-      <form onSubmit={this.handleSubmit} className = "inscriptionForm">
+      <form onSubmit={this.handleSubmit} className = "connexionForm">
         <div className="subSection">
           <label>
             <h3>Pseudo :</h3>

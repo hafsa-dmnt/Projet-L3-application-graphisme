@@ -8,7 +8,7 @@
   height: auto;
   min-height: 30px;
   width: 90%;
-  background-color: #b49fdb;
+  background-color: var(--sectioncolor);
   border-radius: 10px;
   margin: 20px auto;
   padding: 10px;
@@ -35,7 +35,7 @@
 
 .publication .cross svg{
   border-radius: 10px;
-  color : #4c0068;
+  color : var(--accentcolor);
   height: 100%;
   width: 100%;
 }
@@ -43,7 +43,7 @@
 .page_publication .publication .dessinateur{
   padding: 10px;
   display: block;
-  background-color: #e6d9ff;
+  background-color: var(--backgroundcolor);
   margin: 20px;
   border-radius: 10px;
   position: relative;
@@ -72,5 +72,5 @@
 .page_publication .follow svg{
   height: 100%;
   width: 100%;
-  color : #4c0068;
+  color : var(--accentcolor);
 }

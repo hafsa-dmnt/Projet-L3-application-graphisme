@@ -7,7 +7,7 @@
     height: auto;
     min-height: 30px;
     width: 90%;
-    /* /*background-color: #b49fdb;* */
+    /* /*background-color: var(--sectioncolor);* */
     border-radius: 10px;
     margin: 20px auto;
     padding: 10px;
@@ -57,5 +57,5 @@
   .btnAddToFav svg{
     height: 100%;
     width: 100%;
-    color : #4c0068;
+    color : var(--accentcolor);
   }

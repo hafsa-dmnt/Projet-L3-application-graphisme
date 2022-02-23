@@ -13,12 +13,12 @@ function Calendrier() {
 
     const handleChange = value => {
         //const defiDay = {day: value[0], month: value[0].getMonth(), year: value[0].getFullYear()}
-        //navigate to right date : get date, with year and month, to send a query in defijour route 
+        //navigate to right date : get date, with year and month, to send a query in defijour route
         navigate("/calendrier/defijour");
       };
 
     return (
-        <section className="page_calendrier">
+        <section className="page page_calendrier">
             <h2>{month}</h2>
             <Calendar value={value} onChange={handleChange} />
         </section>
