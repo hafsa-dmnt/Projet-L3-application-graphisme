@@ -8,12 +8,12 @@ import Profil from './routes/profil.js'
 import Calendrier from './routes/calendrier.js'
 import Defijour from './routes/defijour.js'
 import Home from './routes/home.js'
-import Peinture from './routes/peinture.js'
+import ListePalettes from './routes/listepalettes.js'
+import ListeThemes from './routes/listethemes.js'
 import Parametres from './routes/parametres.js'
 import Inscription from './routes/inscription.js'
 import Listes from './routes/listes.js'
 import CreerPublication from './routes/creerPublication.js'
-import Connexion from './routes/connexion.js'
 
 
 
@@ -43,7 +43,8 @@ class  App extends React.Component{
             <Route exact path="/home" element={<Home/>}/>
             <Route exact path="/profil" element={<Profil/>}/>
             <Route exact path="/profil/listes" element={<Listes/>}/>
-            <Route exact path="/profil/mesthemes/peinture" element={<Peinture/>}/>
+            <Route exact path="/profil/listethemes" element={<ListeThemes/>}/>
+            <Route exact path="/profil/listepalettes" element={<ListePalettes/>}/>
             <Route exact path="/calendrier" element={<Calendrier/>}/>
             <Route exact path="/calendrier/defijour" element={<Defijour/>}/>
             <Route exact path="/compte/publication" element={<Publication/>}/>
@@ -51,7 +52,6 @@ class  App extends React.Component{
             <Route exact path="/parametres" element={<Parametres/>}/>
             <Route exact path="/inscription" element={<Inscription/>}/>
             <Route exact path="/creerPublication" element={<CreerPublication/>}/>
-            <Route exact path="/connexion" element={<Connexion/>}/>
           </Routes>
 
           <nav className="menu_principal">
