@@ -54,15 +54,45 @@ class Palette extends React.Component{
   }
 }
 
-function Defijour() {
+class Defijour extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      palette: "",
+      theme:"",
+      day:""
+    }
+  }
+
+  componentDidMount(){
+    this.callBackendAPI()
+      .then(res => this.setState())
+      .catch(err => console.log(err));
+  }
+
+  callBackendAPI = async () => {
+    const queryParams = new URLSearchParams(window.location.search);
+    const date = queryParams.get('date')
+    const lien="/defijour/"+date;
+    const response = await fetch(lien);
+    const body = await response.json();
+    if (response.status !== 200) {
+      throw Error(body.message) 
+    }
+    console.log("date", body);
+    return body;
+  };
+
+  render(){
     return (
       <section className="page home">
-        <h2>18 novembre</h2>
-        <ThemeHome theme="La mer"/>
-        <PaletteHome palette = {["blue", "yellow", "orange"]}/>
+        <h2>{this.state.day}</h2>
+        <ThemeHome theme={this.state.theme}/>
+        <PaletteHome palette = {this.state.palette}/>
         <p><Link to="/compte/publication">Dessin d'un autre compte</Link></p>
       </section>
     );
+  }
 }
 
 export default Defijour;
