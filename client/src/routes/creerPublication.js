@@ -16,13 +16,13 @@ function CreateForm(props){
     const [dateDefi, setDateDefi] = useState(new Date());
     const [defi, setDefi] = useState(false);
     const today = new Date();
-    const [imageUrl, setImageUrl] = useState("false");
+    const [imageUrl, setImageUrl] = useState();
     const [image, setImage ] = useState("");
     const [ url, setUrl ] = useState("");
 
     const handleSubmit = (event) => {
       event.preventDefault();
-      if(imageUrl == ""){
+      if(!imageUrl){
         alert('Pas d\'image.');
         return;
       }
@@ -32,7 +32,6 @@ function CreateForm(props){
       const formData = new FormData();
 
       formData.append("file", image)
-      // public id c ce que on va aller chercher du coup hehhehe
       formData.append("public_id", "test1")
       formData.append("upload_preset", "hhd3mufr")
       formData.append("cloud_name","hzcpqfz4w")
@@ -58,10 +57,6 @@ function CreateForm(props){
     const handleChangeCheck = (event) => {
       setDefi(event.target.checked);
     }
-
-
-    //<DatePicker selected={dateDefi} onChange={dateDefi => setDate2(dateDefi)} />
-
 
     return (
 
@@ -131,11 +126,10 @@ function CreerPublication() {
   const myImage = cld.image('test');
 
 //<AdvancedImage cldImg={myImage} />
+
   return (
       <section className="page page_creerPubli">
           <CreateForm/>
-
-          <AdvancedImage cldImg={myImage} />
 
       </section>
   );

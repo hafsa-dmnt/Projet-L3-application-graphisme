@@ -2,10 +2,6 @@
   text-align: left;
 }
 
-.page_creerPubli .subSection{
-  min-height: 50px;
-  margin-block-start: 15px;
-}
 
 .page_creerPubli .subSection label{
   display: inline-block;
@@ -18,11 +14,23 @@
   margin : 0;
 }
 
-.datePickerContainer{
-  max-width: 150px;
-  display: inline-block;
+.page_creerPubli .subSection label.label-file{
   position: absolute;
-  right: 25px;
+  right: 0;
+  margin-right: 15px;
+}
+
+
+.page_creerPubli .subSection .label-file {
+    cursor: pointer;
+    border: solid 2px var(--accentcolor);
+    border-radius: 5px;
+    background-color: var(--sectioncolor);
+}
+
+.page_creerPubli .subSection .label-file p{
+  padding: 5px;
+  margin: 0;
 }
 
 .page_creerPubli .subSection.submitSection{
@@ -30,11 +38,24 @@
   margin: 0;
 }
 
+
+
+
+
+.datePickerContainer{
+  max-width: 150px;
+  display: inline-block;
+  position: absolute;
+  right: 25px;
+}
+
+
+
 .page_creerPubli .subSection input{
   position: relative;
   right: 0;
   background: inherit;
-  border: solid 2px #4c0068;
+  border: solid 2px var(--accentcolor);
   border-radius: 5px;
   vertical-align: middle;
   margin-right: 10px;
@@ -43,12 +64,6 @@
   display: inline-block;
 }
 
-
-.page_creerPubli .subSection label.label-file{
-  position: absolute;
-  right: 0;
-  margin-right: 15px;
-}
 
 .page_creerPubli .subSection input{
   right: 0;
@@ -72,7 +87,7 @@
   margin-right: 15px;
 }
 
-.page_creerPubli .subSection button:hover{
+.page_creerPubli .subSection button{
   cursor: pointer;
 }
 
@@ -92,27 +107,12 @@
 }
 
 
-.page_creerPubli .subSection .label-file {
-    cursor: pointer;
-    border: solid 2px #4c0068;
-    border-radius: 5px;
-    background-color: #e6d9ff;
-
-    display:
-
-}
-
-.page_creerPubli .subSection .label-file p{
-  padding: 5px;
-  margin: 0;
-
-}
 
 .page_creerPubli .subSection #file-input {
     display: none;
 }
 
-
+/* Bouton switch */
 
 .page_creerPubli .subSection .switch {
   position: absolute;
@@ -154,7 +154,7 @@
 }
 
 .page_creerPubli .subSection input:checked + .slider {
-  background-color: #4c0068;
+  background-color: var(--accentcolor);
 }
 
 .page_creerPubli .subSection input:checked + .slider:before {
@@ -163,7 +163,7 @@
   transform: translateX(26px);
 }
 
-/* Rounded sliders */
+/* switch rond */
 .page_creerPubli .subSection .slider.round {
   border-radius: 34px;
 }

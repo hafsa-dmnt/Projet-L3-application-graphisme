@@ -2,8 +2,22 @@
     text-align: left;
 }
 
+
+/* Titre de la page */
+.page_connexion .section.title {
+    text-align: center;
+}
+
+.page_connexion .section.title h2{
+    margin : 10px;
+}
+
+/* Section du formulaire de connexion */
+
+/* Subsections formulaire */
+
 .page_connexion .subSection{
-    margin: 15px 0;
+    min-height: 30px;
 }
 
 .page_connexion .subSection label{
@@ -16,16 +30,11 @@
     margin : 0;
 }
 
-.page_connexion .subSection{
-    min-height: 30px;
-  }
-
-
 .page_connexion .subSection input{
     position: absolute;
     right: 0;
     background: inherit;
-    border: solid 2px #4c0068;
+    border: solid 2px var(--accentcolor);
     border-radius: 5px;
     vertical-align: middle;
     margin-right: 10px;
@@ -46,39 +55,6 @@
     margin-right: 15px;
 }
 
-.page_connexion .subSection button:hover{
+.page_connexion .subSection button{
     cursor: pointer;
-}
-
-
-.page_connexion .section.title {
-    text-align: center;
-}
-
-.page_connexion .section.title h2{
-    margin : 10px;
-}
-
-
-.page_connexion .subSection img{
-    margin: 5%;
-    max-width: 90%;
-}
-
-
-.page_connexion .subSection .label-file {
-    cursor: pointer;
-    border: solid 2px #4c0068;
-    border-radius: 5px;
-    background-color: #e6d9ff;
-    display:inline-block;
-}
-
-.page_connexion .subSection .label-file p{
-    padding: 5px;
-    margin: 0;
-}
-
-.page_connexion .subSection #file-input {
-    display: none;
 }
