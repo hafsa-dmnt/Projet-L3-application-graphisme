@@ -44,7 +44,8 @@ class PaletteHome extends React.Component{
 class Palette extends React.Component{
   render(){
     //for avec les bonnes couleurs 
-    const tabPalette = this.props.content;
+    const stringtabpalette = this.props.content;
+    const tabPalette = stringtabpalette.split(',');
     const divPalette = tabPalette.map((elt) =>    <div className="colorPalette" style={{background:elt}}></div>  );
     return(
       <section className="palette">
@@ -57,29 +58,29 @@ class Palette extends React.Component{
 class Defijour extends React.Component {
   constructor(props){
     super(props);
+    const queryParams = new URLSearchParams(window.location.search);
+    const date = queryParams.get('date');
     this.state = {
       palette: "",
       theme:"",
-      day:""
+      day:date
     }
   }
 
   componentDidMount(){
     this.callBackendAPI()
-      .then(res => this.setState())
+      .then(res => this.setState({palette: res[0].palette_nom, theme: res[0].theme_nom, day: this.state.day}))
       .catch(err => console.log(err));
   }
 
   callBackendAPI = async () => {
-    const queryParams = new URLSearchParams(window.location.search);
-    const date = queryParams.get('date')
-    const lien="/defijour/"+date;
+    const lien="/defiatdate/"+this.state.day;
     const response = await fetch(lien);
     const body = await response.json();
     if (response.status !== 200) {
       throw Error(body.message) 
     }
-    console.log("date", body);
+    console.log("res", body);
     return body;
   };
 

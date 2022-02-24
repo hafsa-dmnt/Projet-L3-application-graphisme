@@ -99,6 +99,17 @@ app.get('/listpalettes/:idList', (req, res) => {
   })
 });
 
+app.get('/defiatdate/:dateselected', (req, res) => {
+  var sql = "SELECT theme.theme_nom, palette.palette_nom FROM theme, palette, defi WHERE defi_date = '"+req.params.dateselected+"' AND defi_themeid = theme_id AND defi_paletteid = palette_id;";
+  basedonnee.getQuery(sql)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});
+
 /*app.get('/palette_list/:userPseudo-:nomListPalette', (req, res) => {
   console.log(req.params);
   sql = "SELECT * FROM palette_list";
@@ -134,3 +145,4 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile(path.resolve('/app/client/build/index.html'))
   });
 }
+

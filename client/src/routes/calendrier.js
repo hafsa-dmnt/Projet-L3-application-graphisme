@@ -7,8 +7,7 @@ import { useNavigate } from "react-router-dom";
 function Calendrier() {
     const today = new Date();
     const navigate = useNavigate();
-    const minimumDate = new Date();
-
+    const minimumDate = new Date(2022,1,1);
     const monthTab = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
     let month = monthTab[today.getMonth()];
 
@@ -30,13 +29,13 @@ function Calendrier() {
         var year = 2000 + (Number(dateSelected.getYear())-100);
         var dateDefi = year +"-"+month+"-"+day;
         console.log(dateDefi);
-        //navigate("/calendrier/defijour");
+        navigate("/calendrier/defijour?date="+dateDefi);
       };
-
+    
     return (
         <section className="page page_calendrier">
             <h2>{month}</h2>
-            <Calendar value={today} onChange={handleChange} maxDate={today}/>
+            <Calendar value={today} onChange={handleChange} maxDate={today} minDate={minimumDate}/>
         </section>
     );
 }
