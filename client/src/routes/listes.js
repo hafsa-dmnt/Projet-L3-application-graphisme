@@ -1,6 +1,7 @@
 import React from 'react';
 import '../CSS/listes.css';
 import { Icon } from '@iconify/react';
+import {Link} from "react-router-dom";
 
 class Liste extends React.Component{
   render(){
@@ -10,10 +11,10 @@ class Liste extends React.Component{
     if(this.props.istheme){
       if(this.props.listeTheme.length > 0){
         divListe = Object.keys(tabListeTheme).map((keyName, i)  => (
-          <div key= {i} onClick={this.props.changeTab} className="iconlist">
+          <Link to={"/profil/listethemes?idlist="+tabListeTheme[keyName].tl_id} key= {i} onClick={this.props.changeTab} className="iconlist">
             <Icon icon="emojione-monotone:sparkles" />
             {tabListeTheme[keyName].tl_nom}
-          </div>
+          </Link>
       ))
       }else{
         divListe = <p>Il n'y a rien :( crée ta première liste theme!</p>
@@ -21,10 +22,11 @@ class Liste extends React.Component{
     }else{
       if(this.props.listePalette.length > 0){
         divListe = Object.keys(tabListePalette).map((keyName, i)  => (
-          <div key= {i} onClick={this.props.changeTab} className="iconlist">
+          <Link to={"/profil/listepalettes?idlist="+tabListePalette[keyName].pl_id} key= {i} onClick={this.props.changeTab} className="iconlist">
             <Icon icon="emojione-monotone:sparkles" />
             {tabListePalette[keyName].pl_nom}
-          </div>))
+          </Link>
+      ))
       }else{
         divListe = <p>Il n'y a rien :( crée ta première liste palette!</p>
       }
