@@ -85,12 +85,15 @@ class Defijour extends React.Component {
   };
 
   render(){
+    const monthTab = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
+    var dateAffichee = this.state.day.split('-');
+    dateAffichee = Number(dateAffichee[2]) + " " + monthTab[Number(dateAffichee[1])-1] + " " + dateAffichee[0];
     return (
       <section className="page home">
-        <h2>{this.state.day}</h2>
+        <h2>{dateAffichee}</h2>
         <ThemeHome theme={this.state.theme}/>
         <PaletteHome palette = {this.state.palette}/>
-        <p><Link to="/compte/publication">Dessin d'un autre compte</Link></p>
+        <p><Link to="/compte/publication">Publications réalisées ce jour là</Link></p>
       </section>
     );
   }

@@ -46,12 +46,14 @@ function convertRgbInHex(tab){
  * @param {*} l 
  * @returns 
  */
+/*
 function hsl2rgb(h,s,l) 
 {
   let a= s*Math.min(l,1-l);
   let f= (n,k=(n+h/30)%12) => l - a*Math.max(Math.min(k-3,9-k,1),-1);
   return [f(0),f(8),f(4)];
 }  
+*/
 
 /**
  * Fonction permettant de générer aléatoirement une palette, qui a une taille potentiellement différente à chaque fois et qui est
@@ -73,7 +75,7 @@ function getRandomPalette(){
   
   switch(tabMethode){
     case 0: //complementaires
-      var i = 1;
+      //var i = 1;
         firstColor.r = (firstColor.r + Math.floor(Math.random()*(21))+128)%255;
         firstColor.g = (firstColor.g + Math.floor(Math.random()*(31))+128)%255;
         firstColor.b = (firstColor.g + Math.floor(Math.random()*(11))+128)%255;

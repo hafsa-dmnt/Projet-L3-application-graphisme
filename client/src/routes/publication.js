@@ -2,7 +2,6 @@ import React from 'react';
 import '../App.css';
 import '../CSS/publication.css';
 import { Icon } from '@iconify/react';
-import { withRouter } from 'react-router-dom';
 
 import {
     Link

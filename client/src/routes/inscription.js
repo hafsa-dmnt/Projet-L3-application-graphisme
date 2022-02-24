@@ -42,7 +42,7 @@ class InscriptionForm extends React.Component {
     event.preventDefault();
 
 
-      if(this.state.pdp_url == '""'){
+      if(this.state.pdp_url === '""'){
         alert('Pas d\'image.');
         return;
       }

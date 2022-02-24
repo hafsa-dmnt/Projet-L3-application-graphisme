@@ -1,6 +1,7 @@
 import React from 'react';
 import '../CSS/listes.css';
 import { Icon } from '@iconify/react';
+import {Link} from "react-router-dom";
 
 class Liste extends React.Component{
   render(){
@@ -55,11 +56,12 @@ class ListeThemes extends React.Component {
 
   render(){
     return (
-      
-      <section className="page_listes">
+      <section className="page page_listes">
+        <Link to={"/profil/listes"} className="btnRetour">
+          <Icon icon="akar-icons:arrow-back" />
+        </Link>
         <Liste listeThemes={this.state.listeThemes}></Liste>
       </section>
-      
     );
   }
 }
