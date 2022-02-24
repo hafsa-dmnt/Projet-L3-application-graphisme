@@ -34,6 +34,13 @@ class ListePalettes extends React.Component {
     }
   } 
 
+  delete(){
+    const queryParams = new URLSearchParams(window.location.search);
+    const id = queryParams.get('idlist')
+    const lien="/listpalettes/delete/"+id;
+    const response = fetch(lien);
+  }
+
   componentDidMount(){
     this.callBackendAPI()
       .then(res => this.setState({listePalettes: res}))
