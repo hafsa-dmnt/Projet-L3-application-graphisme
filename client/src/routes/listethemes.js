@@ -3,6 +3,14 @@ import '../CSS/listes.css';
 import { Icon } from '@iconify/react';
 
 class Liste extends React.Component{
+
+  delete(idTheme){
+    const queryParams = new URLSearchParams(window.location.search);
+    const id = queryParams.get('idlist');
+    const lien="/listthemes/element/delete/"+id+"-"+idTheme;
+    const response = fetch(lien);
+  }
+
   render(){
     const tabListeTheme = this.props.listeThemes;
     let divListe = "";
@@ -10,6 +18,7 @@ class Liste extends React.Component{
       divListe = Object.keys(tabListeTheme).map((keyName, i)  => (
         <div key= {i} className="iconlist">
           {tabListeTheme[keyName].theme_nom}
+          <button onClick={() => this.delete(tabListeTheme[keyName].theme_id)}>x</button>
         </div>
     ))
     }else{

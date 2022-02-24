@@ -3,6 +3,13 @@ import '../CSS/listes.css';
 import { Icon } from '@iconify/react';
 
 class Liste extends React.Component{
+  delete(idPalette){
+    const queryParams = new URLSearchParams(window.location.search);
+    const id = queryParams.get('idlist');
+    const lien="/listpalettes/element/delete/"+id+"-"+idPalette;
+    const response = fetch(lien);
+  }
+
   render(){
     const tabListePalette = this.props.listePalettes;
     let divListe = "";
@@ -10,6 +17,7 @@ class Liste extends React.Component{
       divListe = Object.keys(tabListePalette).map((keyName, i)  => (
         <div key= {i} className="iconlist">
           {tabListePalette[keyName].palette_nom}
+          <button onClick={() => this.delete(tabListePalette[keyName].palette_id)}>x</button>
         </div>
     ))
     }else{
