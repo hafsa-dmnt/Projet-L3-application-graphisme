@@ -1,3 +1,4 @@
+const createDefi = require("./cron-scripts/cron-tasks");
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 3001;
