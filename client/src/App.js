@@ -15,6 +15,7 @@ import Inscription from './routes/inscription.js'
 import Listes from './routes/listes.js'
 import CreerPublication from './routes/creerPublication.js'
 import Connexion from './routes/connexion.js'
+import useToken from './classes/useToken';
 
 
 import {
@@ -86,8 +87,12 @@ class AppComponent extends React.Component{
   }
 }
 
+
+
 export default function App() {
-  const [token, setToken] = useState();
+
+  const { token, setToken } = useToken();
+
   if(!token) {
     console.log(setToken);
     return(
