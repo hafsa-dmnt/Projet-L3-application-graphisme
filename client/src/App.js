@@ -91,10 +91,10 @@ class AppComponent extends React.Component{
 
 export default function App() {
 
-  const { token, setToken } = useToken();
 
-  if(!token) {
-    console.log(setToken);
+  const { token, setToken} = useToken();
+
+  if(!token){
     return(
       <Connexion setToken={setToken} />
     );

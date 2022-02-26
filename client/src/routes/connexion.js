@@ -18,9 +18,6 @@ async function loginUser(credentials) {
     }).then(data => data.json())
 }
 
-// TODOOOOOO
-
-//  tout transformer en fonction ca marchera mieux paske ca c de la merde
 
 Connexion.propTypes = {
   setToken: PropTypes.func.isRequired
@@ -28,7 +25,6 @@ Connexion.propTypes = {
 
 
 export default function Connexion({setToken}) {
-  console.log(setToken);
 
   const [pseudo, setPseudo] = useState('');
   const [mdp, setMdp] = useState('');
@@ -45,6 +41,7 @@ export default function Connexion({setToken}) {
 
   const handleSubmit = async e => {
     e.preventDefault();
+    // verif bd
     const token = await loginUser({
       pseudo,
       mdp
