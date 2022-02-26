@@ -7,12 +7,21 @@ console.log("port :", port);
 const basedonnee = require('./bd/basedonnee.js');
 
 
+function generateToken(n) {
+  var chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  var token = '';
+  for(var i = 0; i < n; i++) {
+      token += chars[Math.floor(Math.random() * chars.length)];
+  }
+  return token;
+}
+
 
 app.use(cors());
 
 app.use('/connexion', (req, res) => {
   res.send({
-    token: 'test123'
+    token: generateToken(15)
   });
 });
 
