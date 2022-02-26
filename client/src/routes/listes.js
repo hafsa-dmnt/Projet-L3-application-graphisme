@@ -103,6 +103,7 @@ class ThemesAndPalettes extends React.Component{
       <section className="page_listes">
         <img src={"defaultpublic.jpg}"}/>
         <Liste listeTheme={this.state.listeTheme} listePalette={this.state.listePalette} istheme={this.state.displayThemes}/>
+        <Link to={"/profil/listethemes/creer"}>ajouter liste</Link><br></br>
         <button className="btnGetRandomArt" onClick={() => this.handleClick()}>Changer de catégorie</button>
       </section>
     );

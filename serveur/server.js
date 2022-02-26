@@ -71,7 +71,7 @@ app.get('/themeslist', (req, res) => {
 
 app.get('/listthemes/:idList', (req, res) => {
   console.log(req.params);
-  var sql = `SELECT theme_nom FROM lien_list_theme, theme WHERE `;
+  var sql = `SELECT * FROM lien_list_theme, theme WHERE `;
   sql+=`l_theme_list_id=${req.params.idList} AND l_theme_id = theme_id ;`;
   basedonnee.getQuery(sql)
   .then(response => {
@@ -84,7 +84,7 @@ app.get('/listthemes/:idList', (req, res) => {
 
 app.get('/listpalettes/:idList', (req, res) => {
   console.log(req.params);
-  var sql = `SELECT palette_nom FROM lien_list_palette, palette WHERE `;
+  var sql = `SELECT * FROM lien_list_palette, palette WHERE `;
   sql+=`l_palette_list_id=${req.params.idList} AND l_palette_id = palette_id ;`;
   basedonnee.getQuery(sql)
   .then(response => {
@@ -119,18 +119,66 @@ app.use('/listpalettes/delete/:idList', (req, res) => {
   })
 });
 
+app.use('/listthemes/element/delete/:idList-:idTheme', (req, res) => {
+  console.log(req.params);
+  const sql = `DELETE from lien_list_theme WHERE l_theme_list_id = ${req.params.idList} AND l_theme_id= ${req.params.idTheme};`;
+  basedonnee.getQuery(sql)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});
+
+app.use('/listpalettes/element/delete/:idList-:idPalette', (req, res) => {
+  console.log(req.params);
+  const sql = `DELETE from lien_list_palette WHERE l_palette_list_id = ${req.params.idList} AND l_palette_id= ${req.params.idPalette};`;
+  basedonnee.getQuery(sql)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});
+
+app.use('/listthemes/creer?userpseudo=:userpseudo&nom=:nom&icon=:icon', (req, res) => {
+  console.log(req.params);
+  const sql = `INSERT INTO theme_list (tl_utilisateurpseudo, tl_nom, tl_icon) VALUES ( 'user1', 'dessin3', '');`;
+  basedonnee.query(sql)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});
 /*
-delete une liste depuis la page de la liste
+app.use('/listpalettes/element/delete/:idList-:idPalette', (req, res) => {
+  console.log(req.params);
+  const sql = `DELETE from lien_list_palette WHERE l_palette_list_id = ${req.params.idList} AND l_palette_id= ${req.params.idPalette};`;
+  basedonnee.getQuery(sql)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});*/
+
+/*
+delete une liste depuis la page de la liste : fait
 "DELETE from theme_list WHERE tl_id = "+req.params.idList+";"
 "DELETE from palette_list WHERE tl_id = "+req.params.idList+";"
 
-delete un element d'une liste
-"DELETE from lien_list_theme WHERE l_theme_list_id = "+req.params.idList+" AND l_theme_id= "+req.params.idTheme+";"
-"DELETE from lien_list_palette WHERE l_palette_list_id = "+req.params.idList+" AND l_palette_id= "+req.params.idPalette+";"
+delete un element d'une liste : fait
+`DELETE from lien_list_theme WHERE l_theme_list_id = ${req.params.idList} AND l_theme_id= ${req.params.idTheme};`
+"DELETE from lien_list_palette WHERE l_palette_list_id = ${req.params.idList} AND l_palette_id= ${req.params.idPalette};"
 
-ajouter element à liste
-"INSERT INTO lien_list_theme (l_theme_id, l_theme_list_id) VALUES ( "+req.params.idTheme+", "+req.params.idList+");"
-"INSERT INTO lien_list_palette (l_palette_id, l_palette_list_id) VALUES ( "+req.params.idPalette+", "+req.params.idList+");"
+ajouter element à liste :
+"INSERT INTO lien_list_theme (l_theme_id, l_theme_list_id) VALUES ( ${req.params.idTheme}, ${req.params.idList});"
+"INSERT INTO lien_list_palette (l_palette_id, l_palette_list_id) VALUES ( ${req.params.idPalette}, ${req.params.idList});"
 
 ajouter nouvelle liste
 "INSERT INTO theme_list (tl_utilisateurpseudo, tl_nom, tl_icon) VALUES ( "+req.params.userPseudo+", "+req.params.nom+", "+req.params.icon+");"
@@ -141,4 +189,6 @@ modifier liste
 "UPDATE palette_list SET pl_nom = "+req.params.nom+", pl_icon = "+req.params.icon+" WHERE pl_id = "+req.params.idList+";"
 
 
-INSERT INTO theme_list (tl_utilisateurpseudo, tl_nom) VALUES ( 'user1', 'dessin');*/
+INSERT INTO theme_list (tl_utilisateurpseudo, tl_nom) VALUES ( 'user1', 'dessin');
+INSERT INTO lien_list_theme (l_theme_id, l_theme_list_id) VALUES ( 1, 1);
+*/
