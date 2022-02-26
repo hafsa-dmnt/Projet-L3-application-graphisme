@@ -3,6 +3,8 @@ import '../CSS/parametres.css';
 import { Icon } from '@iconify/react';
 import {Link} from "react-router-dom";
 import { Navigate } from "react-router-dom";
+import useToken from '../classes/useToken';
+
 
 
 
@@ -225,13 +227,18 @@ class Parametres extends React.Component{
     return body;
   };
 
+
+  deleteToken(){
+    localStorage.removeItem('token');
+    window.location.reload(false);
+  }
+
   render(){
 
     const dataLoaded = (this.state.pseudo!=null);
 
     if(dataLoaded){
-
-
+      
       // todo mettre la php de base ?
 
       return (
@@ -252,6 +259,9 @@ class Parametres extends React.Component{
           </div>
           <div className="section mdp">
             <MdpForm/>
+          </div>
+          <div className="section deco">
+            <button onClick={this.deleteToken}>Déconnexion</button>
           </div>
 
         </div>
