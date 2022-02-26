@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from "react";
 import { Icon } from '@iconify/react';
 //import logo from './logo.svg'; //remplacer par notre logo
 import './App.css';
@@ -14,17 +14,18 @@ import Parametres from './routes/parametres.js'
 import Inscription from './routes/inscription.js'
 import Listes from './routes/listes.js'
 import CreerPublication from './routes/creerPublication.js'
-
+import Connexion from './routes/connexion.js'
 
 
 import {
   BrowserRouter as Router,
-  Routes,
   Route,
-  Link
+  Switch,
+  Routes,
+  Link,
 } from "react-router-dom";
 
-class  App extends React.Component{
+class AppComponent extends React.Component{
   constructor(props) {
     super(props);
 
@@ -33,8 +34,13 @@ class  App extends React.Component{
     this.state = {
       user: pseudo
     };
+
+
   }
+
+
   render(){
+
     return (
       <Router>
         <div>
@@ -52,6 +58,7 @@ class  App extends React.Component{
             <Route exact path="/parametres" element={<Parametres/>}/>
             <Route exact path="/inscription" element={<Inscription/>}/>
             <Route exact path="/creerPublication" element={<CreerPublication/>}/>
+            <Route exact path="/connexion" element={<Connexion  setToken={this.props.setToken}/>}/>
           </Routes>
 
           <nav className="menu_principal">
@@ -79,5 +86,16 @@ class  App extends React.Component{
   }
 }
 
+export default function App() {
+  const [token, setToken] = useState();
+  if(!token) {
+    console.log(setToken);
+    return(
+      <Connexion setToken={setToken} />
+    );
+  }
+  return(
+    <AppComponent setToken={setToken}/>
+  );
 
-export default App;
+}

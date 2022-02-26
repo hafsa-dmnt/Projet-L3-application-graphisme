@@ -1,85 +1,94 @@
-import React from 'react';
+import React, { useState } from "react";
 import '../CSS/connexion.css';
 import { Icon } from '@iconify/react';
-import {Link} from "react-router-dom";
+//import {Link} from "react-router-dom";
+import PropTypes from 'prop-types';
 
-class ConnexionForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {pseudo:'', mdp: ''};
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
 
-  handleChange(event) {
 
-    const value = event.target.value;
+async function loginUser(credentials) {
+  //TODO chemin en bien
+  //
+  return fetch('http://localhost:3001/Connexion', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(credentials)
+    }).then(data => data.json())
+}
 
-    this.setState({
-      ...this.state,
-      [event.target.name]: value
-    });
+// TODOOOOOO
 
-  }
+//  tout transformer en fonction ca marchera mieux paske ca c de la merde
 
-  handleSubmit(event) {
+Connexion.propTypes = {
+  setToken: PropTypes.func.isRequired
+}
+
+
+export default function Connexion({setToken}) {
+  console.log(setToken);
+
+  const [pseudo, setPseudo] = useState('');
+  const [mdp, setMdp] = useState('');
+
+  const handleChangePseudo = (event) => {
     event.preventDefault();
-    alert(this.state.pseudo, this.state.mdp);
-    //connexion avec le serveur
-    /*
-    SELECT mdp FROM utilisateur WHERE pseudo = this.state.pseudo;
-    //redirect to paramètres si le mot de passe est bon, message d'erreur sinon
-    */
+    setPseudo(event.target.value);
   }
 
-  render() {
-    return (
-
-      <form onSubmit={this.handleSubmit} className = "connexionForm">
-        <div className="subSection">
-          <label>
-            <h3>Pseudo :</h3>
-          </label>
-          <input type="text" name="pseudo" value={this.state.pseudo} onChange={this.handleChange} />
-        </div>
-
-        <div className="subSection">
-          <label>
-            <h3>Mot de passe :</h3>
-          </label>
-          <input type="password" name="mdp" value={this.state.mdp} onChange={this.handleChange} />
-        </div>
-
-        <div className="subSection">
-          <button type="submit" onClick={this.handleSubmit}>
-            <Icon icon="akar-icons:check-box-fill" />
-          </button>
-        </div>
-
-        <div className="subSection">
-            <p>Pas encore de compte ? Vous pouvez en créer un <Link to="/inscription">ici</Link>.</p>
-        </div>
-
-      </form>
-    );
+  const handleChangeMdp = (event) => {
+    event.preventDefault();
+    setMdp(event.target.value);
   }
-}
 
+  const handleSubmit = async e => {
+    e.preventDefault();
+    const token = await loginUser({
+      pseudo,
+      mdp
+    });
+    setToken(token);
+  }
 
-class Connexion extends React.Component{
-  render(){
-    return (
-      <div className="page page_connexion">
-        <div className="section title">
-          <h2>Connexion</h2>
-        </div>
-
-        <div className="section">
-          <ConnexionForm/>
-        </div>
+  return(
+    <div className="page page_connexion">
+      <div className="section title">
+        <h2>Connexion</h2>
       </div>
-    );
-  }
-}
 
-export default Connexion;
+      <div className="section">
+
+        <form onSubmit={handleSubmit} className = "connexionForm">
+          <div className="subSection">
+            <label>
+              <h3>Pseudo :</h3>
+            </label>
+            <input type="text" name="pseudo" value={pseudo} onChange={handleChangePseudo} />
+          </div>
+
+          <div className="subSection">
+            <label>
+              <h3>Mot de passe :</h3>
+            </label>
+            <input type="password" name="mdp" value={mdp} onChange={handleChangeMdp} />
+          </div>
+
+          <div className="subSection">
+            <button type="submit" onClick={handleSubmit}>
+              <Icon icon="akar-icons:check-box-fill" />
+            </button>
+          </div>
+
+          <div className="subSection">
+              <p>Pas encore de compte ? Vous pouvez en créer un .</p>
+          </div>
+
+        </form>
+
+      </div>
+
+    </div>
+  )
+}
