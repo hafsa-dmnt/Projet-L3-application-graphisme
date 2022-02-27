@@ -24,10 +24,25 @@ class SimpleForm extends React.Component {
   }
 
   handleSubmit(event) {
-    alert('Le nom a été soumis : ' + this.state.value);
     event.preventDefault();
-  }
+    // this.props.type = le truc qu'on envoie
+    // pseudo mail ou bio
+    alert('Le nom a été soumis : ' + this.state.value);
 
+/////// TODO
+
+    // verif mail pas meme que Ancien (en fonction de this.props.type)
+    // verif pseudo pas meme que ancien
+    // verif mail pas deja dans bd
+    // verif pseudo pas deja dans bd
+    // verif pas de script etc
+
+    // update bd
+
+
+
+
+  }
 
 
   render() {
@@ -76,10 +91,19 @@ class MdpForm extends React.Component {
   }
 
   handleSubmit(event) {
+    event.preventDefault();
     alert('Le new mdp : ' + this.state.mdp
           + "\nconfirm : "+ this.state.confirm
           +"\nold : "+ this.state.old);
-    event.preventDefault();
+
+    if(this.state.mdp != this.state.mdp){
+      alert("Les mots de passes ne correpondent pas.");
+      return;
+    }
+/////// TODO
+    // verifier old mdp correspond a celui enregistrer dans bd
+    // update mdp
+
   }
 
   render() {
@@ -145,14 +169,23 @@ class ImageForm extends React.Component{
     alert('yay');
     event.preventDefault();
 
+///////// TODOOOO
+    // BD : get id utilisateur
+
+    // var id = nomUti + 'pdp'
+
+    // pas besoin update bd paske l'id ne change pas
+
+
+    var id = "test";
+
     const formData = new FormData();
     formData.append("file", this.state.image);
-    // public id c ce que on va aller chercher du coup hehhehe
-    formData.append("public_id", "param");
+    formData.append("public_id", id);
     formData.append("upload_preset", "hhd3mufr");
     formData.append("cloud_name","hzcpqfz4w");
 
-
+    // TODO  : verifier si on envoie nouvo truc avec meme id ca ecrit par dessus ou pas 
     fetch(" https://api.cloudinary.com/v1_1/hzcpqfz4w/image/upload",{
       method:"post",
       body: formData
@@ -163,7 +196,6 @@ class ImageForm extends React.Component{
                                         url: data.url
                                       })
                                           }).catch(err => console.log(err));
-
 
   }
 
@@ -238,7 +270,7 @@ class Parametres extends React.Component{
     const dataLoaded = (this.state.pseudo!=null);
 
     if(dataLoaded){
-      
+
       // todo mettre la php de base ?
 
       return (
@@ -249,13 +281,13 @@ class Parametres extends React.Component{
           </div>
 
           <div className="section pseudo">
-            <SimpleForm type="Pseudo" value={this.state.pseudo} />
+            <SimpleForm type="pseudo" value={this.state.pseudo} />
           </div>
           <div className="section mail">
-            <SimpleForm type="Mail" value={this.state.email}/>
+            <SimpleForm type="mail" value={this.state.email}/>
           </div>
           <div className="section bio">
-            <SimpleForm type="Biographie" value={this.state.bio}/>
+            <SimpleForm type="bio" value={this.state.bio}/>
           </div>
           <div className="section mdp">
             <MdpForm/>

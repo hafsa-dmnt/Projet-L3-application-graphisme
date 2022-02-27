@@ -37,40 +37,57 @@ class InscriptionForm extends React.Component {
   }
 
   handleSubmit(event) {
-    alert('Le pseudo : ' + this.state.pseudo +'\nLe mail : ' + this.state.mail + '\nLa bio : ' + this.state.bio
-          + "\nLe mdp : "+ this.state.mdp);
     event.preventDefault();
 
-
-      if(this.state.pdp_url === '""'){
-        alert('Pas d\'image.');
-        return;
-      }
-
-      const formData = new FormData();
-
-      // todo :
-        // image mettre le id correctement
-        // envoie a la bd
+////// TODO
+    // verifier si pas de truc pas bo comme des scripts
+    // verifier que peseudo et mail renseignés et si mail a une bonne tete
 
 
-      formData.append("file", this.state.pdp);
-      // public id c ce que on va aller chercher du coup hehhehe
-      formData.append("public_id", "test2");
-      formData.append("upload_preset", "hhd3mufr");
-      formData.append("cloud_name","hzcpqfz4w");
+    if(this.state.mdp != this.state.confirm){
+      alert('Les mots de passes ne correspondent pas.');
+      return;
+    }
+
+    if(this.state.pdp_url === '""'){
+      alert('Pas d\'image de profil.');
+      return;
+    }
+
+    const formData = new FormData();
+
+//////// TODO
+    // BD : get id utilisateur
+    // var id = nomUti + "pdp"
+    // bd verifier mail pas deja la
+    // bd verifier pseudo pas deja pris 
+
+    // envoie a la bd
+      // id photo = id
+      // pseudo = this.state.pseudo
+      // mail = this.state.mail
+      // bio = this.state.bio
+      // mdp = this.state.mdp
+
+    var id = 'testpdp';
 
 
-      fetch(" https://api.cloudinary.com/v1_1/hzcpqfz4w/image/upload",{
-        method:"post",
-        body: formData
-      }).then(resp =>
-                resp.json()).then(data => {
-                                        this.setState({
-                                          ...this.state,
-                                          url: data.url
-                                        })
-                                            }).catch(err => console.log(err));
+    formData.append("file", this.state.pdp);
+    formData.append("public_id", id);
+    formData.append("upload_preset", "hhd3mufr");
+    formData.append("cloud_name","hzcpqfz4w");
+
+
+    fetch(" https://api.cloudinary.com/v1_1/hzcpqfz4w/image/upload",{
+      method:"post",
+      body: formData
+    }).then(resp =>
+              resp.json()).then(data => {
+                                      this.setState({
+                                        ...this.state,
+                                        url: data.url
+                                      })
+                                          }).catch(err => console.log(err));
 
     }
 
