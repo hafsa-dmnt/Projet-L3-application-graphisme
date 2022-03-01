@@ -11,10 +11,13 @@ import Home from './routes/home.js'
 import ListePalettes from './routes/listepalettes.js'
 import ListeThemes from './routes/listethemes.js'
 import CreerListeThemes from './routes/creerlistethemes.js'
+import CreerListePalettes from './routes/creerlistepalettes.js'
 import Parametres from './routes/parametres.js'
 import Inscription from './routes/inscription.js'
 import Listes from './routes/listes.js'
 import CreerPublication from './routes/creerPublication.js'
+import ModifierListePalettes from './routes/modifierlistepalettes.js'
+import ModifierListeThemes from './routes/modifierlistethemes.js'
 
 
 
@@ -54,6 +57,9 @@ class  App extends React.Component{
             <Route exact path="/inscription" element={<Inscription/>}/>
             <Route exact path="/creerPublication" element={<CreerPublication/>}/>
             <Route exact path="/profil/listethemes/creer" element={<CreerListeThemes/>}/>
+            <Route exact path="/profil/listepalettes/creer" element={<CreerListePalettes/>}/>
+            <Route exact path="/profil/listethemes/modifier" element={<ModifierListeThemes/>}/>
+            <Route exact path="/profil/listepalettes/modifier" element={<ModifierListePalettes/>}/>
           </Routes>
 
           <nav className="menu_principal">

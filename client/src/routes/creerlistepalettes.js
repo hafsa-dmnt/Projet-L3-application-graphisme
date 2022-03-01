@@ -3,7 +3,7 @@ import '../CSS/inscription.css';
 import { Icon } from '@iconify/react';
 import {Link} from "react-router-dom";
 
-class CreerListeThemes extends React.Component{
+class CreerListePalettes extends React.Component{
     constructor(props) {
         super(props);
         this.state = {nom:'',icon:'empty'};
@@ -21,7 +21,7 @@ class CreerListeThemes extends React.Component{
     }
 
     handleSubmit= async () => {
-        const lien="/listthemes/creer/user1-"+this.state.nom+"-"+this.state.icon;
+        const lien="/listpalettes/creer/user1-"+this.state.nom+"-"+this.state.icon;
         const response = await fetch(lien);
     }
 
@@ -29,7 +29,7 @@ class CreerListeThemes extends React.Component{
         return (
         <div className="page page_inscription">
             <div className="section title">
-                <h2>Créer une liste de thèmes</h2>
+                <h2>Créer une liste de palettes</h2>
             </div>
             <div className="section">
                 <div className="subSection">
@@ -55,4 +55,4 @@ class CreerListeThemes extends React.Component{
     }
 }
 
-export default CreerListeThemes;
+export default CreerListePalettes;

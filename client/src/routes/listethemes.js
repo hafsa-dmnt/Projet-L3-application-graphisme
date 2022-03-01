@@ -1,5 +1,6 @@
 import React from 'react';
 import '../CSS/listes.css';
+import {Link} from "react-router-dom";
 import { Icon } from '@iconify/react';
 
 class Liste extends React.Component{
@@ -45,7 +46,7 @@ class ListeThemes extends React.Component {
 
   delete(){
     const queryParams = new URLSearchParams(window.location.search);
-    const id = queryParams.get('idlist')
+    const id = queryParams.get('idlist');
     const lien="/listthemes/delete/"+id;
     const response = fetch(lien);
   }
@@ -74,6 +75,7 @@ class ListeThemes extends React.Component {
       
       <section className="page_listes">
         <button onClick={this.delete}>Supprimer la liste</button>
+        <Link to={"/profil/listethemes/modifier"}>modifier</Link>
         <Liste listeThemes={this.state.listeThemes}></Liste>
       </section>
       
