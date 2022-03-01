@@ -1,6 +1,7 @@
 import React from 'react';
 import '../CSS/listes.css';
 import { Icon } from '@iconify/react';
+import {Link} from "react-router-dom";
 
 class Liste extends React.Component{
   delete(idPalette){
@@ -36,7 +37,6 @@ class Liste extends React.Component{
 class ListePalettes extends React.Component {
   constructor(props) {
     super(props);
-    //ici on récupère à l'aide d'une requête toutes les listes de thèmes existantes (on peut ajouter un bouton supprimer liste)
     this.state = {
       listePalettes:  ""
     }
@@ -70,12 +70,12 @@ class ListePalettes extends React.Component {
 
   render(){
     return (
-      
-      <section className="page_listes">
-        <button onClick={this.delete}>Supprimer la liste</button>
+      <section className="page page_listes">
+        <Link to={"/profil/listes"} className="btnRetour">
+          <Icon icon="akar-icons:arrow-back" />
+        </Link>
         <Liste listePalettes={this.state.listePalettes}></Liste>
       </section>
-      
     );
   }
 }

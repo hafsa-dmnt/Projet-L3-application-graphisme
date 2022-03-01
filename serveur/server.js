@@ -1,9 +1,35 @@
+const dotenv = require('dotenv');
+dotenv.config();
+
+
+const createDefi = require("./cron-scripts/cron-tasks");
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 3001;
+const cors = require('cors');
 console.log("port :", port);
 
 const basedonnee = require('./bd/basedonnee.js');
+
+
+function generateToken(n) {
+  var chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  var token = '';
+  for(var i = 0; i < n; i++) {
+      token += chars[Math.floor(Math.random() * chars.length)];
+  }
+  return token;
+}
+
+
+app.use(cors());
+
+app.use('/connexion', (req, res) => {
+  res.send({
+    token: generateToken(15)
+  });
+});
+
 
 if (process.env.NODE_ENV === 'production') {
   // Exprees will serve up production assets
@@ -11,13 +37,19 @@ if (process.env.NODE_ENV === 'production') {
 
 }
 
+
+
+
 // console.log that your server is up and running
 app.listen(port, '0.0.0.0', () => console.log(`Listening on port ${port}`));
+
+
+
 
 // create a GET route
 app.get('/searchUser/:userPseudo', (req, res) => {
   console.log(req.params);
-  const sql = `SELECT utilisateur_pseudo FROM utilisateur WHERE utilisateur_pseudo = '${req.params.userPseudo}';`;
+  const sql = "SELECT utilisateur_pseudo FROM utilisateur WHERE utilisateur_pseudo = '"+req.params.userPseudo+"';";
   basedonnee.getQuery(sql)
   .then(response => {
     res.status(200).send(response);
@@ -29,7 +61,7 @@ app.get('/searchUser/:userPseudo', (req, res) => {
 
 app.get('/parametersUser/:userPseudo', (req, res) => {
   console.log(req.params);
-  const sql = `SELECT * FROM utilisateur WHERE utilisateur_pseudo = '${req.params.userPseudo}';`;
+  const sql = "SELECT * FROM utilisateur WHERE utilisateur_pseudo = '"+req.params.userPseudo+"';";
   basedonnee.getQuery(sql)
   .then(response => {
     res.status(200).send(response);
@@ -42,13 +74,13 @@ app.get('/parametersUser/:userPseudo', (req, res) => {
 //get les listes de themes ou de palettes de l'utilisateur
 app.get('/list/:userPseudo-:type', (req, res) => {
   console.log(req.params);
-  sql = `SELECT * FROM `;
+  sql = "SELECT * FROM ";
   if(req.params.type === "theme"){
-      sql += `theme_list WHERE tl_utilisateurpseudo =`;
+      sql += "theme_list WHERE tl_utilisateurpseudo =";
   }else{
-      sql += `palette_list WHERE pl_utilisateurpseudo =`;
+      sql += "palette_list WHERE pl_utilisateurpseudo =";
   }
-  sql +=  ` '${req.params.userPseudo}';`;
+  sql +=  " '"+req.params.userPseudo+"';";
   basedonnee.getQuery(sql)
   .then(response => {
     res.status(200).send(response);
@@ -61,7 +93,7 @@ app.get('/list/:userPseudo-:type', (req, res) => {
 //get tous les thèmes
 app.get('/themeslist', (req, res) => {
   console.log(req.params);
-  const sql = `SELECT theme_nom FROM theme;`;
+  const sql = "SELECT theme_nom FROM theme;";
   basedonnee.getQuery(sql)
   .then(response => {
     res.status(200).send(response);
@@ -128,7 +160,9 @@ app.get('/listpalettesinfo/:idList', (req, res) => {
 //delete une liste de themes depuis la page de la liste
 app.use('/listthemes/delete/:idList', (req, res) => {
   console.log(req.params);
-  const sql = `DELETE FROM theme_list WHERE tl_id = ${req.params.idList};`;
+  sql = "SELECT * FROM palette_list";
+  sql +="WHERE pl_utilisateurpseudo = '"+req.params.userPseudo+"';";
+  sql +="AND pl_nom = '"+req.params.nomListPalette+"';";
   basedonnee.getQuery(sql)
   .then(response => {
     res.status(200).send(response);
@@ -141,7 +175,9 @@ app.use('/listthemes/delete/:idList', (req, res) => {
 //delete une liste de palettes depuis la page de la liste
 app.use('/listpalettes/delete/:idList', (req, res) => {
   console.log(req.params);
-  const sql = `DELETE FROM palette_list WHERE pl_id = ${req.params.idList};`;
+  sql = "SELECT * FROM theme_list";
+  sql +="WHERE tl_utilisateurpseudo = '"+req.params.userPseudo+"';";
+  sql +="AND tl_nom = '"+req.params.nomListTheme+"';";
   basedonnee.getQuery(sql)
   .then(response => {
     res.status(200).send(response);
@@ -254,4 +290,12 @@ modifier liste : fait
 sql en dur
 INSERT INTO theme_list (tl_utilisateurpseudo, tl_nom) VALUES ( 'user1', 'dessin');
 INSERT INTO lien_list_theme (l_theme_id, l_theme_list_id) VALUES ( 1, 1);
-*/
+
+});*/
+
+if (process.env.NODE_ENV === 'production') {
+  const path = require('path');
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve('/app/client/build/index.html'))
+  });
+}

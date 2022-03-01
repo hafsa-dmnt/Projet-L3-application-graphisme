@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from "react";
 import { Icon } from '@iconify/react';
 //import logo from './logo.svg'; //remplacer par notre logo
 import './App.css';
@@ -19,16 +19,19 @@ import CreerPublication from './routes/creerPublication.js'
 import ModifierListePalettes from './routes/modifierlistepalettes.js'
 import ModifierListeThemes from './routes/modifierlistethemes.js'
 
+import Connexion from './routes/connexion.js'
+import useToken from './classes/useToken';
 
 
 import {
   BrowserRouter as Router,
-  Routes,
   Route,
-  Link
+  Switch,
+  Routes,
+  Link,
 } from "react-router-dom";
 
-class  App extends React.Component{
+class AppComponent extends React.Component{
   constructor(props) {
     super(props);
 
@@ -37,8 +40,13 @@ class  App extends React.Component{
     this.state = {
       user: pseudo
     };
+
+
   }
+
+
   render(){
+
     return (
       <Router>
         <div>
@@ -60,6 +68,7 @@ class  App extends React.Component{
             <Route exact path="/profil/listepalettes/creer" element={<CreerListePalettes/>}/>
             <Route exact path="/profil/listethemes/modifier" element={<ModifierListeThemes/>}/>
             <Route exact path="/profil/listepalettes/modifier" element={<ModifierListePalettes/>}/>
+            <Route exact path="/connexion" element={<Connexion  setToken={this.props.setToken}/>}/>
           </Routes>
 
           <nav className="menu_principal">
@@ -88,4 +97,19 @@ class  App extends React.Component{
 }
 
 
-export default App;
+
+export default function App() {
+
+
+  const { token, setToken} = useToken();
+
+  if(!token){
+    return(
+      <Connexion setToken={setToken} />
+    );
+  }
+  return(
+    <AppComponent setToken={setToken}/>
+  );
+
+}

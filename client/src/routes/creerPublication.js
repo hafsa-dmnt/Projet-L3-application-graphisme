@@ -11,7 +11,6 @@ import {Cloudinary} from "@cloudinary/url-gen";
 
 registerLocale('fr', fr)
 
-
 function CreateForm(props){
     const [dateDefi, setDateDefi] = useState(new Date());
     const [defi, setDefi] = useState(false);
@@ -26,13 +25,26 @@ function CreateForm(props){
         alert('Pas d\'image.');
         return;
       }
-      // envoyer a la bd tout le bordel
-      // chemin de l'image + si c un defi + date du defi + date dans today
+
+
+//////// TODO :
+
+      // BD : get id utilisateur + nombre de publication
+
+      // var id = nomUti + (nbPubli+1)
+
+      // envoie a la bd de
+        // si c un defi = {defi}
+        // date du jour = {today}
+        // date du defi si besoin = {dateDefi}
+        // id de l'image = id
+
+      var id = "test";
 
       const formData = new FormData();
 
       formData.append("file", image)
-      formData.append("public_id", "test1")
+      formData.append("public_id", id)
       formData.append("upload_preset", "hhd3mufr")
       formData.append("cloud_name","hzcpqfz4w")
 
@@ -125,7 +137,7 @@ function CreerPublication() {
 
   const myImage = cld.image('test');
 
-//<AdvancedImage cldImg={myImage} />
+  //<AdvancedImage cldImg={myImage} />
 
   return (
       <section className="page page_creerPubli">

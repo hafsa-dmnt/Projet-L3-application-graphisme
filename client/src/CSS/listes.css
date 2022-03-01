@@ -1,13 +1,11 @@
-.page_listes{
+.page .page_listes{
     background-color: var(--backgroundcolor);
     text-align: center;
     padding: 10px;
-    /*120 : taille du menu de nav lol*/
     padding-bottom: 120px;
     box-sizing: border-box;
     height: 100vh;
 }
-
 
 .page_listes .section label{
     display: inline-block;
@@ -20,7 +18,6 @@
 }
 
 .page_listes svg{
-    color : #dda919;
     height: 70px;
     width: 70px;
     margin: 5px;
@@ -33,15 +30,88 @@
 }
 
 .page_listes .iconlist{
-    display: inline-block;
-    width: 20vW;
-    height: 20vW;
-    /*todo colour en fonction de la palette*/
-    border-radius: 10px;
-    margin: 2vh;
-  }
+  display: inline-block;
+  width: 20vW;
+  height: 20vW;
+  border-radius: 10px;
+  margin: 2vh;
+}
 
 .page_listes .liste_paletteTheme {
+  margin: auto;
+  text-align: center;
+}
+
+
+.page_listes{
+  background-color: var(--backgroundcolor);
+  text-align: center;
+  padding: 10px;
+  /*120 : taille du menu de nav*/
+  padding-bottom: 120px;
+  box-sizing: border-box;
+}
+  
+  .themeList, .paletteList{
+    height: auto;
+    min-height: 30px;
+    width: 90%;
+    background-color: var(--sectioncolor);
+    border-radius: 10px;
+    margin: 20px auto;
+    padding: 10px;
+    display: block;
+    position: relative;
+    text-align: left;
+  }
+  
+  .themeList h3, .paletteList h3{
+    display: inline-block;
+    font-weight: bold;
+    margin: 10px;
+  }
+  
+  .themeList p{
+    display: block;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 10px 20px;
+  }
+  
+  .miniPalette {
     margin: auto;
     text-align: center;
-}
+  }
+  
+  .minicolorPalette{
+    display: inline-block;
+    width:10vW;
+    height: 40vW;
+    /*todo colour en fonction de la palette*/
+    border-radius: 10px;
+    border: 1px solid;
+  }
+  
+  .minicolorPalette p{
+    padding-top: 42vW;
+    display: inline-block;
+    font-size: 11px;
+  }
+  
+  .btnRetour{
+    display: inline-block;
+    left: 3%;
+    position: absolute;
+    background-color: inherit;
+    border: none;
+    height: 40px;
+    width: 40px;
+  }
+  
+  .btnRetour svg{
+    height: 100%;
+    width: 100%;
+    color : var(--accentcolor);
+    border:none;
+  }
+  

@@ -44,7 +44,8 @@ class PaletteHome extends React.Component{
 class Palette extends React.Component{
   render(){
     //for avec les bonnes couleurs 
-    const tabPalette = this.props.content;
+    const stringtabpalette = this.props.content;
+    const tabPalette = stringtabpalette.split(',');
     const divPalette = tabPalette.map((elt) =>    <div className="colorPalette" style={{background:elt}}></div>  );
     return(
       <section className="palette">
@@ -54,15 +55,48 @@ class Palette extends React.Component{
   }
 }
 
-function Defijour() {
+class Defijour extends React.Component {
+  constructor(props){
+    super(props);
+    const queryParams = new URLSearchParams(window.location.search);
+    const date = queryParams.get('date');
+    this.state = {
+      palette: "",
+      theme:"",
+      day:date
+    }
+  }
+
+  componentDidMount(){
+    this.callBackendAPI()
+      .then(res => this.setState({palette: res[0].palette_nom, theme: res[0].theme_nom, day: this.state.day}))
+      .catch(err => console.log(err));
+  }
+
+  callBackendAPI = async () => {
+    const lien="/defiatdate/"+this.state.day;
+    const response = await fetch(lien);
+    const body = await response.json();
+    if (response.status !== 200) {
+      throw Error(body.message) 
+    }
+    console.log("res", body);
+    return body;
+  };
+
+  render(){
+    const monthTab = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
+    var dateAffichee = this.state.day.split('-');
+    dateAffichee = Number(dateAffichee[2]) + " " + monthTab[Number(dateAffichee[1])-1] + " " + dateAffichee[0];
     return (
       <section className="page home">
-        <h2>18 novembre</h2>
-        <ThemeHome theme="La mer"/>
-        <PaletteHome palette = {["blue", "yellow", "orange"]}/>
-        <p><Link to="/compte/publication">Dessin d'un autre compte</Link></p>
+        <h2>{dateAffichee}</h2>
+        <ThemeHome theme={this.state.theme}/>
+        <PaletteHome palette = {this.state.palette}/>
+        <p><Link to="/compte/publication">Publications réalisées ce jour là</Link></p>
       </section>
     );
+  }
 }
 
 export default Defijour;
