@@ -10,6 +10,7 @@ import Defijour from './routes/defijour.js'
 import Home from './routes/home.js'
 import ListePalettes from './routes/listepalettes.js'
 import ListeThemes from './routes/listethemes.js'
+import CreerListeThemes from './routes/creerlistethemes.js'
 import Parametres from './routes/parametres.js'
 import Inscription from './routes/inscription.js'
 import Listes from './routes/listes.js'
@@ -52,6 +53,7 @@ class  App extends React.Component{
             <Route exact path="/parametres" element={<Parametres/>}/>
             <Route exact path="/inscription" element={<Inscription/>}/>
             <Route exact path="/creerPublication" element={<CreerPublication/>}/>
+            <Route exact path="/profil/listethemes/creer" element={<CreerListeThemes/>}/>
           </Routes>
 
           <nav className="menu_principal">
