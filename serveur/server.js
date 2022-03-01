@@ -145,8 +145,8 @@ app.use('/listpalettes/element/delete/:idList-:idPalette', (req, res) => {
 
 app.use('/listthemes/creer/userpseudo=:userpseudo&nom=:nom&icon=:icon', (req, res) => {
   console.log(req.params);
-  const sql = `INSERT INTO theme_list (tl_utilisateurpseudo, tl_nom, tl_icon) VALUES ( 'user1', 'dessin3', '');`;
-  basedonnee.query(sql)
+  const sql = `INSERT INTO theme_list (tl_utilisateurpseudo, tl_nom, tl_icon) VALUES ( 'user1', 'dessin4', '');`;
+  basedonnee.getQuery(sql)
   .then(response => {
     res.status(200).send(response);
   })
