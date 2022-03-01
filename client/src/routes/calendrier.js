@@ -14,9 +14,7 @@ function Calendrier() {
     const handleChange = dateSelected => {
         //const defiDay = {day: value[0], month: value[0].getMonth(), year: value[0].getFullYear()}
         //navigate to right date : get date, with year and month, to send a query in defijour route
-        if(dateSelected > today){
-            console.log("non bro");
-        }
+
         // yyyy-mm-dd
         var month = Number(dateSelected.getMonth())+1;
         if(month < 10){
