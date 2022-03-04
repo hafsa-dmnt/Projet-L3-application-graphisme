@@ -140,6 +140,17 @@ app.get('/defiatdate/:dateselected', (req, res) => {
   })
 });
 
+app.get('/publicationsatdate/:dateselected', (req, res) => {
+  var sql = `SELECT * FROM publication WHERE publication_datedefi=${req.params.dateselected};`;
+  basedonnee.getQuery(sql)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })  
+});
+
 /*
 delete une liste depuis la page de la liste
 "DELETE from theme_list WHERE tl_id = "+req.params.idList+";"
