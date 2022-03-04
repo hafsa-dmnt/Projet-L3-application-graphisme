@@ -1,8 +1,6 @@
 /*PROFIL*/
 
-/*TODO :  mettre .page comme dans les autres*/
-
-#btnFollow{
+#btnFollow, #btnParameters, #btnAddPublication{
     display: inline-block;
     right: 3%;
     position: absolute;
@@ -12,13 +10,13 @@
     width: 40px;
 }
 
-#btnFollow svg{
+#btnFollow svg, #btnParameters svg, #btnAddPublication svg{
     height: 100%;
     width: 100%;
     color : var(--accentcolor);
 }
 
-.profilContent{
+.page.profilcontent, .galerie{
     height: auto;
     min-height: 30px;
     width: 90%;
@@ -27,6 +25,20 @@
     margin: 20px auto;
     padding: 10px;
     display: block;
+    position: relative;
+    text-align: center;
+}
+
+.maGalerie {
+    height: auto;
+    min-height: 10px;
+    width: 50%;
+    background-color: #a487c9;
+    border-radius: 10px;
+    margin: 10px auto;
+    margin-right: 50px;
+    padding: 5px;
+    display: inline-block;
     position: relative;
     text-align: left;
 }
@@ -50,7 +62,7 @@
 
 .galerie{
     display: inline-block;
-    text-align: center;
+    text-align: left;
 }
 
 .page_profil{

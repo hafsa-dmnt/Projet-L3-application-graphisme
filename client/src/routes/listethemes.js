@@ -2,7 +2,6 @@ import React from 'react';
 import '../CSS/listes.css';
 import {Link} from "react-router-dom";
 import { Icon } from '@iconify/react';
-import {Link} from "react-router-dom";
 
 class Liste extends React.Component{
 

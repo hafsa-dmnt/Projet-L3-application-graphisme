@@ -71,6 +71,28 @@ app.get('/parametersUser/:userPseudo', (req, res) => {
   })
 });
 
+app.get('/pseudouser/:token', (req, res) => {
+  var sql = `SELECT utilisateur_pseudo FROM utilisateur WHERE utilisateur_token='${req.params.token}';`;
+  basedonnee.getQuery(sql)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })  
+});
+
+app.get('/publicationsofuser/:token', (req, res) => {
+  var sql = `SELECT publication_id, publication_image FROM utilisateur, publication WHERE utilisateur_token='${req.params.token}' AND utilisateur_pseudo=publication_utilisateurpseudo;`;
+  basedonnee.getQuery(sql)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })  
+});
+
 //get les listes de themes ou de palettes de l'utilisateur
 app.get('/list/:userPseudo-:type', (req, res) => {
   console.log(req.params);
@@ -134,6 +156,17 @@ app.get('/listpalettes/:idList', (req, res) => {
 
 app.get('/defiatdate/:dateselected', (req, res) => {
   var sql = "SELECT theme.theme_nom, palette.palette_nom FROM theme, palette, defi WHERE defi_date = '"+req.params.dateselected+"' AND defi_themeid = theme_id AND defi_paletteid = palette_id;";
+  basedonnee.getQuery(sql)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});
+
+app.get('/publicationsatdate/:dateselected', (req, res) => {
+  var sql = "SELECT publication_id, publication_image FROM publication WHERE publication_datedefi = '"+req.params.dateselected+"';";
   basedonnee.getQuery(sql)
   .then(response => {
     res.status(200).send(response);

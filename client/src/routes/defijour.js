@@ -2,6 +2,8 @@ import React from 'react';
 import '../App.css';
 import '../CSS/defijour.css';
 import { Icon } from '@iconify/react';
+import {AdvancedImage} from '@cloudinary/react';
+import {Cloudinary} from "@cloudinary/url-gen";
 
 import {
   Link
@@ -55,6 +57,27 @@ class Palette extends React.Component{
   }
 }
 
+class Publication extends React.Component {
+  constructor(props){
+    super(props);
+  }
+
+  render(){
+    const cld = new Cloudinary({
+      cloud: {
+        cloudName: 'hzcpqfz4w'
+      }
+    });
+  
+    const myImage = cld.image('testpdp');
+    return(
+      <div key={this.props.idx} className="defijour publication">
+        <AdvancedImage cldImg={myImage} />
+      </div>
+    );
+  }
+}
+
 class Defijour extends React.Component {
   constructor(props){
     super(props);
@@ -63,38 +86,68 @@ class Defijour extends React.Component {
     this.state = {
       palette: "",
       theme:"",
-      day:date
+      day:date,
+      publications:[]
     }
   }
 
   componentDidMount(){
-    this.callBackendAPI()
-      .then(res => this.setState({palette: res[0].palette_nom, theme: res[0].theme_nom, day: this.state.day}))
-      .catch(err => console.log(err));
-  }
+    const chemin = [
+      "/defiatdate/"+this.state.day,
+      "/publicationsatdate/"+this.state.day
+    ];
 
-  callBackendAPI = async () => {
-    const lien="/defiatdate/"+this.state.day;
-    const response = await fetch(lien);
-    const body = await response.json();
-    if (response.status !== 200) {
-      throw Error(body.message) 
+    Promise.all(chemin.map(url =>
+      fetch(url)
+      .then(checkStatus)  // check the response of our APIs
+      .then(parseJSON)    // parse it to Json
+      .catch(error => console.log('There was a problem!', error))
+    ))
+    .then(data => {
+      // assign to requested URL as define in array with array index.
+      console.log(data[0], data[1]);
+      var tabNoms = Object.values(data[0]);
+      var arrayPublications = [];
+      if(data[1] != undefined){
+        arrayPublications = data[1].map( Object.values );
+      }
+      this.setState({
+        day: this.state.day,
+        theme: tabNoms[0].theme_nom,
+        palette: tabNoms[0].palette_nom,
+        publications: arrayPublications
+      })
+    })
+
+    function checkStatus(response) {
+      if (response.ok) {
+        return Promise.resolve(response);
+      } else {
+        return Promise.reject(new Error(response.statusText));
+      }
     }
-    console.log("res", body);
-    return body;
-  };
+
+    function parseJSON(response) {
+      return response.json();
+    }
+  }
 
   render(){
     const monthTab = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
     var dateAffichee = this.state.day.split('-');
     dateAffichee = Number(dateAffichee[2]) + " " + monthTab[Number(dateAffichee[1])-1] + " " + dateAffichee[0];
+
+    const divPubli = this.state.publications.map((elt, idx) =>
+    <Publication pseudo = {elt[3]} photo={elt[5]} idx = {idx}/>  );
+    
     return (
-      <section className="page home">
-        <h2>{dateAffichee}</h2>
+      <section className="page defijour">
+        <h3>{dateAffichee}</h3>
         <ThemeHome theme={this.state.theme}/>
         <PaletteHome palette = {this.state.palette}/>
+        <h3>{"Publications"}</h3>
         <section className='divPublis'>
-          <h3>{"Publications".toUpperCase()}</h3>
+          {divPubli}
         </section>
       </section>
     );
