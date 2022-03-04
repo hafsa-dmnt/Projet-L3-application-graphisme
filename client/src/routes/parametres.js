@@ -5,8 +5,12 @@ import {Link} from "react-router-dom";
 import { Navigate } from "react-router-dom";
 import useToken from '../classes/useToken';
 
-
-
+import {validateEmail,
+        passwordConfirmation,
+        isCompleted,
+        isMailAlreadyUsed,
+        isPseudoAlreadyUsed
+        } from '../classes/formValidation.js';
 
 
 class SimpleForm extends React.Component {
@@ -25,21 +29,46 @@ class SimpleForm extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
+
+    const value = event.target.value;
+
     // this.props.type = le truc qu'on envoie
-    // pseudo mail ou bio
-    alert('Le nom a été soumis : ' + this.state.value);
+      // pseudo mail ou bio
+    // value = la valeur de ce truc
+
 
 /////// TODO
 
-    // verif mail pas meme que Ancien (en fonction de this.props.type)
+    // verif mail pas meme que Ancien
     // verif pseudo pas meme que ancien
-    // verif mail pas deja dans bd
-    // verif pseudo pas deja dans bd
     // verif pas de script etc
 
     // update bd
 
+    switch (this.props.type) {
+      case 'pseudo':
+        if(!isCompleted('pseudo',value)){
+          return;
+        }
+        if(isPseudoAlreadyUsed(value)){
+          return;
+        }
+      break;
+      case 'mail':
+        if(!isCompleted('email',value)){
+          return;
+        }
+        if(isMailAlreadyUsed(value)){
+          return;
+        }
+      break;
+      case 'bio':
+        if(!isCompleted('biographie',value)){
+          return;
+        }
 
+      break;
+    }
 
 
   }
@@ -185,7 +214,7 @@ class ImageForm extends React.Component{
     formData.append("upload_preset", "hhd3mufr");
     formData.append("cloud_name","hzcpqfz4w");
 
-    // TODO  : verifier si on envoie nouvo truc avec meme id ca ecrit par dessus ou pas 
+    // TODO  : verifier si on envoie nouvo truc avec meme id ca ecrit par dessus ou pas
     fetch(" https://api.cloudinary.com/v1_1/hzcpqfz4w/image/upload",{
       method:"post",
       body: formData

@@ -4,7 +4,11 @@ import { Icon } from '@iconify/react';
 //import {Link} from "react-router-dom";
 import PropTypes from 'prop-types';
 
+import {isCompleted
+        } from '../classes/formValidation.js';
 
+
+// TODO faire en sorte qye on puisse pas aller dessus si on est coo
 
 async function loginUser(credentials) {
   //TODO chemin en bien
@@ -41,12 +45,20 @@ export default function Connexion({setToken}) {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    // verif bd
+
+    if(!(isCompleted('pseudo',pseudo)&isCompleted("mot de passe",mdp))){
+      return;
+    }
+
+    // TODO verifier que mdp et pseudo corepondent bd
+    // + l'envoyer vers le composant app jsp comment
+
     const token = await loginUser({
       pseudo,
       mdp
     });
     setToken(token);
+    setPseudo(pseudo);
   }
 
   return(

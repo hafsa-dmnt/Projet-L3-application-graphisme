@@ -15,7 +15,7 @@ import Inscription from './routes/inscription.js'
 import Listes from './routes/listes.js'
 import CreerPublication from './routes/creerPublication.js'
 import Connexion from './routes/connexion.js'
-import useToken from './classes/useToken';
+import {useToken,usePseudo} from './classes/useToken';
 
 
 import {
@@ -29,13 +29,6 @@ import {
 class AppComponent extends React.Component{
   constructor(props) {
     super(props);
-
-    let { pseudo } = "user1";//route pour savoir si on est authentifié ou pas Auth.getCurrentUser() || {};
-
-    this.state = {
-      user: pseudo
-    };
-
 
   }
 
@@ -61,6 +54,8 @@ class AppComponent extends React.Component{
             <Route exact path="/creerPublication" element={<CreerPublication/>}/>
             <Route exact path="/connexion" element={<Connexion  setToken={this.props.setToken}/>}/>
           </Routes>
+
+
 
           <nav className="menu_principal">
             <ul>
