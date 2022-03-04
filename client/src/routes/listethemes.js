@@ -1,9 +1,18 @@
 import React from 'react';
 import '../CSS/listes.css';
+import {Link} from "react-router-dom";
 import { Icon } from '@iconify/react';
 import {Link} from "react-router-dom";
 
 class Liste extends React.Component{
+
+  delete(idTheme){
+    const queryParams = new URLSearchParams(window.location.search);
+    const id = queryParams.get('idlist');
+    const lien="/listthemes/element/delete/"+id+"-"+idTheme;
+    const response = fetch(lien);
+  }
+
   render(){
     const tabListeTheme = this.props.listeThemes;
     let divListe = "";
@@ -11,6 +20,7 @@ class Liste extends React.Component{
       divListe = Object.keys(tabListeTheme).map((keyName, i)  => (
         <div key= {i} className="iconlist">
           {tabListeTheme[keyName].theme_nom}
+          <button onClick={() => this.delete(tabListeTheme[keyName].theme_id)}>x</button>
         </div>
     ))
     }else{
@@ -37,7 +47,7 @@ class ListeThemes extends React.Component {
 
   delete(){
     const queryParams = new URLSearchParams(window.location.search);
-    const id = queryParams.get('idlist')
+    const id = queryParams.get('idlist');
     const lien="/listthemes/delete/"+id;
     const response = fetch(lien);
   }
@@ -63,10 +73,13 @@ class ListeThemes extends React.Component {
 
   render(){
     return (
+      
       <section className="page page_listes">
         <Link to={"/profil/listes"} className="btnRetour">
           <Icon icon="akar-icons:arrow-back" />
         </Link>
+        <button onClick={this.delete}>Supprimer la liste</button>
+        <Link to={"/profil/listethemes/modifier"}>modifier</Link>
         <Liste listeThemes={this.state.listeThemes}></Liste>
       </section>
     );
