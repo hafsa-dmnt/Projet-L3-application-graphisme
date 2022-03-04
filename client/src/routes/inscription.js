@@ -5,6 +5,14 @@ import { Icon } from '@iconify/react';
 import {AdvancedImage} from '@cloudinary/react';
 import {Cloudinary} from "@cloudinary/url-gen";
 
+import {validateEmail,
+        passwordConfirmation,
+        isCompleted,
+        isMailAlreadyUsed,
+        isPseudoAlreadyUsed
+        } from '../classes/formValidation.js';
+
+
 class InscriptionForm extends React.Component {
   constructor(props) {
     super(props);
@@ -22,34 +30,49 @@ class InscriptionForm extends React.Component {
       ...this.state,
       [event.target.name]: value
     });
-
   }
 
   handleChangeImage(event) {
-
     const value = URL.createObjectURL(event.target.files[0]);
     this.setState({
       ...this.state,
       pdp: event.target.files[0],
       pdp_url:value
     });
-
   }
 
   handleSubmit(event) {
     event.preventDefault();
 
-////// TODO
-    // verifier si pas de truc pas bo comme des scripts
-    // verifier que peseudo et mail renseignés et si mail a une bonne tete
-
-
-    if(this.state.mdp != this.state.confirm){
-      alert('Les mots de passes ne correspondent pas.');
+    if(!(isCompleted('pseudo',this.state.pseudo)&isCompleted('mail',this.state.mail))){
       return;
     }
 
-    if(this.state.pdp_url === '""'){
+    if(!(isCompleted('mail',this.state.mail)&isCompleted('bio',this.state.bio))){
+      return;
+    }
+
+    if(!(isCompleted('mot de passe',this.state.mdp)&isCompleted('confirmation de mot de passe',this.state.confirm))){
+      return;
+    }
+
+    if(!passwordConfirmation(this.state.mdp,this.state.confirm)){
+      return;
+    }
+
+    if(!validateEmail(this.state.mail)){
+      return;
+    }
+
+    if(isMailAlreadyUsed(this.state.mail)){
+      return;
+    }
+
+    if(isPseudoAlreadyUsed(this.state.pseudo)){
+      return;
+    }
+
+    if(this.state.pdp_url === ''){
       alert('Pas d\'image de profil.');
       return;
     }
@@ -59,8 +82,6 @@ class InscriptionForm extends React.Component {
 //////// TODO
     // BD : get id utilisateur
     // var id = nomUti + "pdp"
-    // bd verifier mail pas deja la
-    // bd verifier pseudo pas deja pris 
 
     // envoie a la bd
       // id photo = id
