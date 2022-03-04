@@ -4,18 +4,28 @@ import '../CSS/defijour.css';
 import { Icon } from '@iconify/react';
 import {AdvancedImage} from '@cloudinary/react';
 import {Cloudinary} from "@cloudinary/url-gen";
+import { Navigate } from "react-router-dom";
 
 import {
   Link
 } from "react-router-dom";
 
 class AddToFav extends React.Component{
-  render(){
-    return(
-        <button className="btnAddToFav">
-          <Icon icon="ant-design:star-filled"/>
-        </button>
-    );
+  state = { redirect: null };
+  handleClick() {
+      let redirect = this.state.redirect;
+      redirect = `/addToList?type=${this.props.type}`; //add the content to the url 
+      this.setState({redirect: redirect});
+  }
+  render() {
+      if (this.state.redirect) {
+        return <Navigate to={this.state.redirect} />
+      }
+      return(
+      <button className="btnAddToFav" onClick={() => this.handleClick()}>
+        <Icon icon="ant-design:star-filled"/>
+      </button>
+      );
   }
 }
 
@@ -24,7 +34,7 @@ class ThemeHome extends React.Component{
     return(
       <div className="themeHome">
         <h3>Thème</h3>
-        <AddToFav/>
+        <AddToFav type="theme" content={this.props.theme}/>
         <p>{this.props.theme}</p>
       </div>
     );
@@ -36,7 +46,7 @@ class PaletteHome extends React.Component{
     return(
       <div className="paletteHome">
         <h3>Palette</h3>
-        <AddToFav/>
+        <AddToFav type="palette" content={this.props.palette}/>
         <Palette content={this.props.palette}/>
       </div>
     );

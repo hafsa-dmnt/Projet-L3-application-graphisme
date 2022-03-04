@@ -2,6 +2,8 @@ import React from 'react';
 import '../App.css';
 import '../CSS/home.css';
 import { Icon } from '@iconify/react';
+import { Navigate } from "react-router-dom";
+
 
 const randomPalette = require('./getRandPalette');
 
@@ -17,12 +19,21 @@ const randomPalette = require('./getRandPalette');
  }
 
 class AddToFav extends React.Component{
-  render(){
-    return(
-        <button className="btnAddToFav">
-          <Icon icon="ant-design:star-filled"/>
-        </button>
-    );
+  state = { redirect: null };
+  handleClick() {
+      let redirect = this.state.redirect;
+      redirect = `/addToList?type=${this.props.type}`; //add the content to the url 
+      this.setState({redirect: redirect});
+  }
+  render() {
+      if (this.state.redirect) {
+        return <Navigate to={this.state.redirect} />
+      }
+      return(
+      <button className="btnAddToFav" onClick={() => this.handleClick()}>
+        <Icon icon="ant-design:star-filled"/>
+      </button>
+      );
   }
 }
 
@@ -31,7 +42,7 @@ class ThemeHome extends React.Component{
     return(
       <div className="themeHome">
         <h3>Thème</h3>
-        <AddToFav/>
+        <AddToFav content={this.props.theme} type="theme"/>
         <p>{this.props.theme}</p>
       </div>
     );
@@ -43,25 +54,12 @@ class PaletteHome extends React.Component{
     return(
       <div className="paletteHome">
         <h3>Palette</h3>
-        <AddToFav/>
+        <AddToFav content={this.props.palette} type="palette"/>
         <Palette content={this.props.palette}/>
       </div>
     );
   }
 }
-
-/*
-class BoutonGetRandomArt extends React.Component{
-  handleClick() {
-    super.handleClick();
-  }
-  render(){
-    return(
-      <button className="btnGetRandomArt" onClick={() => this.handleClick()}>GetRandomArt()</button>
-    );
-  }
-}
-*/
 
 /*
 TODO : adapter l'affichage des palettes

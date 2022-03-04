@@ -176,6 +176,28 @@ app.get('/publicationsatdate/:dateselected', (req, res) => {
   })
 });
 
+app.get('/mailExists/:mail', (req, res) => {
+  var sql = "SELECT * FROM utilisateur WHERE utilisateur_email = '"+req.params.mail+"';";
+  basedonnee.getQuery(sql)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});
+
+app.get('/userPseudoExists/:pseudo', (req, res) => {
+  var sql = "SELECT * FROM utilisateur WHERE utilisateur_pseudo = '"+req.params.pseudo+"';";
+  basedonnee.getQuery(sql)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});
+
 //get les informations d'une liste de thème
 app.get('/listthemesinfo/:idList', (req, res) => {
   console.log(req.params);
