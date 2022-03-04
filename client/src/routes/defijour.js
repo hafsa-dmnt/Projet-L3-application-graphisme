@@ -147,8 +147,11 @@ class Defijour extends React.Component {
     var dateAffichee = this.state.day.split('-');
     dateAffichee = Number(dateAffichee[2]) + " " + monthTab[Number(dateAffichee[1])-1] + " " + dateAffichee[0];
 
-    const divPubli = this.state.publications.map((elt, idx) =>
-    <Publication pseudo = {elt[3]} photo={elt[5]} idx = {idx}/>  );
+    let divPubli = "Pas de publication réalisée ce jour là.";
+    if(this.state.publications.length > 0){
+      divPubli = this.state.publications.map((elt, idx) =>
+                <Publication pseudo = {elt[3]} photo={elt[5]} idx = {idx}/>  );
+    }
     
     return (
       <section className="page defijour">
