@@ -3,7 +3,7 @@
   text-align: center;
 }
 
-.themeHome, .paletteHome{
+.themeHome, .paletteHome, .divPublis{
   height: auto;
   min-height: 30px;
   width: 90%;
@@ -16,7 +16,7 @@
   text-align: left;
 }
 
-.themeHome h3, .paletteHome h3{
+.themeHome h3, .paletteHome h3, .divPublis h3{
   display: inline-block;
   font-weight: bold;
   margin: 10px;

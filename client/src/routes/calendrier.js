@@ -1,15 +1,14 @@
 //import React, { useState } from 'react';
 import '../CSS/calendrier.css';
 import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
 import { useNavigate } from "react-router-dom";
 
 function Calendrier() {
     const today = new Date();
     const navigate = useNavigate();
     const minimumDate = new Date(2022,1,1);
-    const monthTab = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
-    let month = monthTab[today.getMonth()];
+    //récupération des publications à la date donnée 
+    const publicationsAtDate = "";
 
     const handleChange = dateSelected => {
         //const defiDay = {day: value[0], month: value[0].getMonth(), year: value[0].getFullYear()}
@@ -28,12 +27,15 @@ function Calendrier() {
         var dateDefi = year +"-"+month+"-"+day;
         console.log(dateDefi);
         navigate("/calendrier/defijour?date="+dateDefi);
-      };
+    };
     
     return (
         <section className="page page_calendrier">
-            <h2>{month}</h2>
+            <div className='dateCalendrier'>
+                <h3>{"défis".toUpperCase()}</h3>
+            </div>
             <Calendar value={today} onChange={handleChange} maxDate={today} minDate={minimumDate}/>
+            
         </section>
     );
 }

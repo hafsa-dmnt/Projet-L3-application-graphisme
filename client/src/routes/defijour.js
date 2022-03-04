@@ -93,7 +93,9 @@ class Defijour extends React.Component {
         <h2>{dateAffichee}</h2>
         <ThemeHome theme={this.state.theme}/>
         <PaletteHome palette = {this.state.palette}/>
-        <p><Link to="/compte/publication">Publications réalisées ce jour là</Link></p>
+        <section className='divPublis'>
+          <h3>{"Publications".toUpperCase()}</h3>
+        </section>
       </section>
     );
   }
