@@ -40,19 +40,6 @@ export const isMailAlreadyUsed = (mail) => {
   ];
 
   let isUsed = false;
-
-  Promise.all(chemin.map(url =>
-    fetch(url)
-    .then(checkStatus)  // check the response of our APIs
-    .then(parseJSON)    // parse it to Json
-    .catch(error => console.log('There was a problem!', error))
-  ))
-  .then(data => {
-    if(data.length > 0){
-      alert('Ce mail est déjà utilisé.');
-      isUsed = true;
-    }
-  })
   
   return isUsed;
 }
@@ -63,19 +50,6 @@ export const isPseudoAlreadyUsed = (pseudo) => {
   ];
 
   let isUsed = false;
-
-  Promise.all(chemin.map(url =>
-    fetch(url)
-    .then(checkStatus)  // check the response of our APIs
-    .then(parseJSON)    // parse it to Json
-    .catch(error => console.log('There was a problem!', error))
-  ))
-  .then(data => {
-    if(data.length > 0){
-      alert('Ce pseudo est déjà utilisé.');
-      isUsed = true;
-    }
-  })
   
   return isUsed;
 }
