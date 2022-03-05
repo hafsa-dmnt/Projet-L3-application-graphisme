@@ -92,13 +92,40 @@ class AppComponent extends React.Component{
 }
 
 
-
 export default function App() {
+
+  async function validateToken(token) {
+
+    return fetch('http://localhost:3001/validateToken/'+token, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then(data => data.json())
+
+  }
+
+  async function validateToken2(token) {
+
+    const valid = await validateToken(token);
+    return valid;
+
+  }
+
 
 
   const { token, setToken} = useToken();
 
-  if(!token){
+  // va savoir pourquoi il faut deux fonctions mais ca marche pas avec une seule
+
+  var valid = false;
+
+  if(token){
+    valid = validateToken2(token);
+  }
+
+
+  if(!token || !valid){
     return(
       <Connexion setToken={setToken} />
     );

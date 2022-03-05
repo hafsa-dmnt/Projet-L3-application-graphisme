@@ -11,31 +11,46 @@ console.log("port :", port);
 
 const basedonnee = require('./bd/basedonnee.js');
 
-
-function generateToken(n) {
-  var chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-  var token = '';
-  for(var i = 0; i < n; i++) {
-      token += chars[Math.floor(Math.random() * chars.length)];
-  }
-  return token;
-}
-
-
-app.use(cors());
-
-app.use('/connexion', (req, res) => {
-  res.send({
-    token: generateToken(15)
-  });
-});
-
+const jwt = require('jsonwebtoken');
 
 if (process.env.NODE_ENV === 'production') {
   // Exprees will serve up production assets
   app.use(express.static('client/build'));
 
 }
+
+// access config var
+process.env.TOKEN_SECRET;
+
+function generateAccessToken(username) {
+  return jwt.sign(username, process.env.TOKEN_SECRET, {});
+  // le token expire tout les 30 j (donc reconnexion tout les mois)
+}
+
+
+function validate(token) {
+  if (token) {
+    var deco = jwt.verify(token, process.env.TOKEN_SECRET);
+    return true;
+  }
+
+  return false;
+ }
+
+app.use(cors());
+
+app.use('/Connexion/:pseudo', (req, res) => {
+  res.send({
+    token: generateAccessToken(req.params.pseudo)
+  });
+});
+
+app.get('/validateToken/:token', (req, res) => {
+  res.send(validate(req.params.token));
+});
+
+
+
 
 
 
@@ -79,7 +94,7 @@ app.get('/pseudouser/:token', (req, res) => {
   })
   .catch(error => {
     res.status(500).send(error);
-  })  
+  })
 });
 
 app.get('/publicationsofuser/:token', (req, res) => {
@@ -90,7 +105,7 @@ app.get('/publicationsofuser/:token', (req, res) => {
   })
   .catch(error => {
     res.status(500).send(error);
-  })  
+  })
 });
 
 //get les listes de themes ou de palettes de l'utilisateur

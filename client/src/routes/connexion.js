@@ -12,7 +12,7 @@ import {isCompleted} from '../classes/formValidation.js';
 async function loginUser(credentials) {
   //TODO chemin en bien
   //
-  return fetch('http://localhost:3001/Connexion', {
+  return fetch('http://localhost:3001/Connexion/'+credentials.pseudo, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -48,7 +48,7 @@ export default function Connexion({setToken}) {
     if(!(isCompleted('pseudo',pseudo)&isCompleted("mot de passe",mdp))){
       return;
     }
-    
+
     // TODO verifier que mdp et pseudo corepondent bd
     // + l'envoyer vers le composant app jsp comment
 
