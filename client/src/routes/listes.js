@@ -49,9 +49,14 @@ class Liste extends React.Component{
 class ThemesAndPalettes extends React.Component{
   constructor(props) {
     super(props);
-    //ici on récupère à l'aide d'une requête toutes les listes de thèmes existantes (on peut ajouter un bouton supprimer liste)
+    const queryParams = new URLSearchParams(window.location.search);
+    const type = queryParams.get('type');
+    var isTheme = true;
+    if(type != "themes"){
+      isTheme = false;
+    }
     this.state = {
-      displayThemes: true,
+      displayThemes: isTheme,
       listeTheme:  [],
       listePalette:  []
     }

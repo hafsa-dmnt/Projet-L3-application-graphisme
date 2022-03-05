@@ -2,6 +2,26 @@ import React from 'react';
 import '../CSS/listes.css';
 import {Link} from "react-router-dom";
 import { Icon } from '@iconify/react';
+import { Navigate } from "react-router-dom";
+
+class BoutonRetour extends React.Component{
+  state = { redirect: null };
+  handleClick() {
+      let redirect = this.state.redirect;
+      redirect = '/profil/listes?type=themes';
+      this.setState({redirect: redirect});
+  }
+  render() {
+      if (this.state.redirect) {
+      return <Navigate to={this.state.redirect} />
+      }
+      return(
+      <button className='btnRetour' onClick={() => this.handleClick()}>
+          <Icon  icon="ant-design:left-circle-outlined" />
+      </button>
+      );
+  }
+}
 
 class Liste extends React.Component{
 
@@ -72,11 +92,8 @@ class ListeThemes extends React.Component {
 
   render(){
     return (
-      
       <section className="page page_listes">
-        <Link to={"/profil/listes"} className="btnRetour">
-          <Icon icon="akar-icons:arrow-back" />
-        </Link>
+        <BoutonRetour/>
         <button onClick={this.delete}>Supprimer la liste</button>
         <Link to={"/profil/listethemes/modifier"}>modifier</Link>
         <Liste listeThemes={this.state.listeThemes}></Liste>

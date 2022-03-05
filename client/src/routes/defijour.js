@@ -10,6 +10,26 @@ import {
   Link
 } from "react-router-dom";
 
+
+class BoutonRetour extends React.Component{
+  state = { redirect: null };
+  handleClick() {
+      let redirect = this.state.redirect;
+      redirect = '/calendrier';
+      this.setState({redirect: redirect});
+  }
+  render() {
+      if (this.state.redirect) {
+      return <Navigate to={this.state.redirect} />
+      }
+      return(
+      <button className='btnRetour' onClick={() => this.handleClick()}>
+          <Icon  icon="ant-design:left-circle-outlined" />
+      </button>
+      );
+  }
+}
+
 class AddToFav extends React.Component{
   state = { redirect: null };
   handleClick() {
@@ -155,6 +175,7 @@ class Defijour extends React.Component {
     
     return (
       <section className="page defijour">
+        <BoutonRetour/>
         <h3>{dateAffichee}</h3>
         <ThemeHome theme={this.state.theme}/>
         <PaletteHome palette = {this.state.palette}/>

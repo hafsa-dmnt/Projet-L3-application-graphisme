@@ -12,6 +12,24 @@ import {validateEmail,
         isPseudoAlreadyUsed
         } from '../classes/formValidation.js';
 
+class BoutonRetour extends React.Component{
+  state = { redirect: null };
+  handleClick() {
+      let redirect = this.state.redirect;
+      redirect = '/profil/listes';
+      this.setState({redirect: redirect});
+  }
+  render() {
+      if (this.state.redirect) {
+      return <Navigate to={this.state.redirect} />
+      }
+      return(
+      <button className='btnRetour' onClick={() => this.handleClick()}>
+          <Icon  icon="ant-design:left-circle-outlined" />
+      </button>
+      );
+  }
+}
 
 class SimpleForm extends React.Component {
   constructor(props) {
@@ -304,7 +322,6 @@ class Parametres extends React.Component{
 
       return (
         <div className="page page_parametre">
-
           <div className="section pdp">
             <ImageForm/>
           </div>

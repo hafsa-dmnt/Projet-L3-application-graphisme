@@ -2,6 +2,26 @@ import React from 'react';
 import '../CSS/listes.css';
 import { Icon } from '@iconify/react';
 import {Link} from "react-router-dom";
+import { Navigate } from "react-router-dom";
+
+class BoutonRetour extends React.Component{
+  state = { redirect: null };
+  handleClick() {
+      let redirect = this.state.redirect;
+      redirect = '/profil/listes?type=palettes';
+      this.setState({redirect: redirect});
+  }
+  render() {
+      if (this.state.redirect) {
+      return <Navigate to={this.state.redirect} />
+      }
+      return(
+      <button className='btnRetour' onClick={() => this.handleClick()}>
+          <Icon  icon="ant-design:left-circle-outlined" />
+      </button>
+      );
+  }
+}
 
 class Liste extends React.Component{
   delete(idPalette){
@@ -71,9 +91,7 @@ class ListePalettes extends React.Component {
   render(){
     return (
       <section className="page page_listes">
-        <Link to={"/profil/listes"} className="btnRetour">
-          <Icon icon="akar-icons:arrow-back" />
-        </Link>
+        <BoutonRetour/>
         <Liste listePalettes={this.state.listePalettes}></Liste>
       </section>
     );

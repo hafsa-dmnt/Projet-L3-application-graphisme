@@ -8,9 +8,17 @@ import {Cloudinary} from "@cloudinary/url-gen";
 
 
 class Follow extends React.Component{
+  constructor(props){
+    super(props);
+  }
+
+  followSomeone(){
+    alert("todo : follow someone");
+  }
+
   render(){
     return(
-        <button id="btnFollow">
+        <button id="btnFollow" onClick={() => this.followSomeone()}>
           <Icon icon="heroicons-solid:user-add"/>
         </button>
     );
@@ -37,20 +45,25 @@ class ButtonClick extends React.Component{
 }
 
 class ProfilHead extends React.Component{
+  constructor(props){
+    super(props);
+  }
   render(){
     let btnAfficher = <Follow/>;
-    var isSameProfil = true;
+    let lienListes = <p></p>
+    var isSameProfil = this.props.isSameProfil;
     if(isSameProfil){
-      btnAfficher = <ButtonClick/>;
+      btnAfficher = <ButtonClick chemin='/parametres' iconbtn="ant-design:setting-twotone" idbtn="btnParameters"/>
+      lienListes= <div>
+                    <Link to="/profil/listes?type=themes">Mes thèmes et palettes</Link>
+                  </div>;
     }
     return(
       <header className="profilHead section">
         <img src={'defaultpicture.jpg'} className= "profilePic" alt="profil"></img>
         <h3>{this.props.pseudo}</h3>
-        <ButtonClick chemin='/parametres' iconbtn="ant-design:setting-twotone" idbtn="btnParameters"/>
-        <div>
-          <Link to="/profil/listes">Mes thèmes et palettes</Link>
-        </div>
+        {btnAfficher}
+        {lienListes}
       </header>
     );
   }
@@ -75,30 +88,61 @@ class Publication extends React.Component {
 }
 
 class ProfilContent extends React.Component{
+  constructor(props){
+    super(props);
+  }
   render(){
     //requête pour aller chercher les publications d'une personne
     const tabPublication = ['/defaultpublic.jpg', '/defaultpublic.jpg', '/defaultpublic.jpg', '/defaultpublic.jpg'];
     const divPubli = tabPublication.map((elt, idx) =>
       <Publication photo = {elt} idx = {idx}/>  );
+    if(this.props.isSameProfil){
+      return(
+        <section className="profilContent">
+          <section className="galerie">
+            <div className='maGalerie'>
+              <h3>Galerie</h3>
+              <ButtonClick chemin='/creerPublication' iconbtn="fluent:add-12-filled" idbtn="btnAddPublication"/>
+            </div>
+            {divPubli}
+          </section>
+        </section>
+      );
+    }
     return(
       <section className="profilContent">
-        <section className="galerie">
-          <div className='maGalerie'>
-            <h3>Galerie</h3>
-            <ButtonClick chemin='/creerPublication' iconbtn="fluent:add-12-filled" idbtn="btnAddPublication"/>
-          </div>
-          {divPubli}
+          <section className="galerie">
+            <div className='maGalerie'>
+              <h3>Galerie</h3>
+            </div>
+            {divPubli}
+          </section>
         </section>
-      </section>
     );
   }
 }
 
 class Profil extends React.Component{
-  state = {
-    pseudo: "exemple",
-    data: null
-  };
+  constructor(props){
+    super(props);
+    var isSameProfil = true;
+    var pseudo = "example";
+    const queryParams = new URLSearchParams(window.location.search);
+    console.log(queryParams);
+    if(queryParams.get('type') !== null){
+      const profilType = queryParams.get('type');
+      if(profilType === "visit"){
+        isSameProfil = false;
+        pseudo = queryParams.get('pseudo');
+      }
+    }
+    
+    this.state = {
+      pseudo: pseudo,
+      isSameProfil: isSameProfil,
+      data: null
+    };
+  }
 
   /*
   componentDidMount(){
@@ -120,7 +164,8 @@ class Profil extends React.Component{
       var arrayPublications = data[1].map( Object.values );
       this.setState({
         pseudo: data[0],
-        data: data[1]
+        data: data[1],
+        isSameProfil: this.state.isSameProfil
       })
     })
 
@@ -142,8 +187,8 @@ class Profil extends React.Component{
   render(){
     return (
       <div className="profil page">
-        <ProfilHead pseudo = {this.state.pseudo}/>
-        <ProfilContent content = {this.state.data}/>
+        <ProfilHead pseudo = {this.state.pseudo} isSameProfil={this.state.isSameProfil}/>
+        <ProfilContent content = {this.state.data} isSameProfil={this.state.isSameProfil}/>
       </div>
     );
   }
