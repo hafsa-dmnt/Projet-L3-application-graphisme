@@ -29,12 +29,15 @@ function generateAccessToken(username) {
 
 
 function validate(token) {
-  if (token) {
+
+
+  try {
     var deco = jwt.verify(token, process.env.TOKEN_SECRET);
-    return true;
+  } catch(err) {
+    return false;
   }
 
-  return false;
+  return true;
  }
 
 app.use(cors());
@@ -45,7 +48,7 @@ app.use('/Connexion/:pseudo', (req, res) => {
   });
 });
 
-app.get('/validateToken/:token', (req, res) => {
+app.use('/validateToken/:token', (req, res) => {
   res.send(validate(req.params.token));
 });
 

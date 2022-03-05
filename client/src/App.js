@@ -94,36 +94,26 @@ class AppComponent extends React.Component{
 
 export default function App() {
 
+  const [valid, setValidate] = useState(false);
+
+
   async function validateToken(token) {
 
     return fetch('http://localhost:3001/validateToken/'+token, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      }
+      method: 'POST'
     }).then(data => data.json())
 
   }
-
-  async function validateToken2(token) {
-
-    const valid = await validateToken(token);
-    return valid;
-
-  }
-
-
 
   const { token, setToken} = useToken();
 
   // va savoir pourquoi il faut deux fonctions mais ca marche pas avec une seule
 
-  var valid = false;
-
   if(token){
-    valid = validateToken2(token);
+    Promise.resolve(validateToken(token)).then(function(value) {
+      setValidate(value);
+    });
   }
-
 
   if(!token || !valid){
     return(
