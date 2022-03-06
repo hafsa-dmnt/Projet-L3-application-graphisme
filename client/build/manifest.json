@@ -1,6 +1,6 @@
 {
   "short_name": "GetRandomArt",
-  "name": "Create React App Sample",
+  "name": "GetRandomArt",
   "icons": [
     {
       "src": "favicon.ico",
@@ -20,6 +20,6 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "transparent"
+  "theme_color": "#b49fdb",
+  "description": "L'appli pour artistes en manque d'inspi !"
 }

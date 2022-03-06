@@ -167,7 +167,10 @@ class Defijour extends React.Component {
     var dateAffichee = this.state.day.split('-');
     dateAffichee = Number(dateAffichee[2]) + " " + monthTab[Number(dateAffichee[1])-1] + " " + dateAffichee[0];
 
-    let divPubli = "Pas de publication réalisée ce jour là.";
+    let divPubli = <section className='aucunePubli'>
+                      <div className='iconPasDePubli'><Icon icon="ep:picture-rounded"/></div>
+                      <h3>Aucune publication</h3>
+                    </section>
     if(this.state.publications.length > 0){
       divPubli = this.state.publications.map((elt, idx) =>
                 <Publication pseudo = {elt[3]} photo={elt[5]} idx = {idx}/>  );
@@ -179,7 +182,6 @@ class Defijour extends React.Component {
         <h3>{dateAffichee}</h3>
         <ThemeHome theme={this.state.theme}/>
         <PaletteHome palette = {this.state.palette}/>
-        <h3>{"Publications"}</h3>
         <section className='divPublis'>
           {divPubli}
         </section>

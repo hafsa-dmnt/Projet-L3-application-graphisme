@@ -3,7 +3,7 @@
   text-align: center;
 }
 
-.themeHome, .paletteHome, .divPublis{
+.themeHome, .paletteHome, .divPublis, .aucunePubli{
   height: auto;
   min-height: 30px;
   width: 90%;
@@ -14,6 +14,10 @@
   display: block;
   position: relative;
   text-align: left;
+}
+
+.aucunePubli{
+  text-align: center;
 }
 
 .defijour h3{
@@ -52,7 +56,16 @@
   width: 40px;
 }
 
-.btnAddToFav svg{
+.iconPasDePubli{
+  position: relative;
+  background-color: inherit;
+  border: none;
+  height: 40px;
+  width: 40px;
+  margin: auto;
+}
+
+.btnAddToFav svg, .iconPasDePubli svg{
   height: 100%;
   width: 100%;
   color : var(--accentcolor);
@@ -62,7 +75,6 @@
   display: inline-block;
   width: 22vW;
   height: 22vW;
-  /*todo colour en fonction de la palette*/
   margin: 1% 3%;
   border-radius: 10px;
   position: relative;
@@ -74,3 +86,4 @@
   height: 22vW;
   display: inline-block;
 }
+

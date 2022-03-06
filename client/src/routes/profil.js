@@ -93,9 +93,16 @@ class ProfilContent extends React.Component{
   }
   render(){
     //requête pour aller chercher les publications d'une personne
-    const tabPublication = ['/defaultpublic.jpg', '/defaultpublic.jpg', '/defaultpublic.jpg', '/defaultpublic.jpg'];
-    const divPubli = tabPublication.map((elt, idx) =>
+    const tabPublication = [];
+    let divPubli = <section className='aucunePubli'>
+                      <div className='iconPasDePubli'><Icon icon="ep:picture-rounded"/></div>
+                      <h3>Aucune publication</h3>
+                    </section>;
+    if(tabPublication.length > 0){
+      divPubli = tabPublication.map((elt, idx) =>
       <Publication photo = {elt} idx = {idx}/>  );
+    }
+    
     if(this.props.isSameProfil){
       return(
         <section className="profilContent">

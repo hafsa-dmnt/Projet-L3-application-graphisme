@@ -1,6 +1,6 @@
 /*PROFIL*/
 
-#btnFollow, #btnParameters, #btnAddPublication{
+#btnFollow, #btnParameters{
     display: inline-block;
     right: 3%;
     position: absolute;
@@ -8,6 +8,17 @@
     border: none;
     height: 40px;
     width: 40px;
+    margin:auto;
+}
+
+#btnAddPublication {
+    position: relative;
+    background-color: inherit;
+    border: none;
+    height: 40px;
+    width: 40px;
+    margin: auto;
+    margin-left: 15px;
 }
 
 #btnFollow svg, #btnParameters svg, #btnAddPublication svg{
@@ -29,16 +40,20 @@
     text-align: center;
 }
 
+.page.profil {
+    text-align: center;
+}
+
 .maGalerie {
     height: auto;
     min-height: 10px;
-    width: 50%;
+    width: auto;
     background-color: #a487c9;
     border-radius: 10px;
     margin: 10px auto;
-    margin-right: 50px;
+    margin-right: 100%;
     padding: 5px;
-    display: inline-block;
+    display: inline-flex;
     position: relative;
     text-align: left;
 }
