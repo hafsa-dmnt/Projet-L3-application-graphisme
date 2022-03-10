@@ -42,27 +42,20 @@ function validate(token) {
 
 app.use(cors());
 
-app.use('/Connexion/:pseudo', (req, res) => {
-  res.send({
-    token: generateAccessToken(req.params.pseudo)
-  });
-});
-
-app.use('/validateToken/:token', (req, res) => {
-  res.send(validate(req.params.token));
-});
-
-
-
-
-
-
 
 // console.log that your server is up and running
 app.listen(port, '0.0.0.0', () => console.log(`Listening on port ${port}`));
 
 
+app.get('/Connexion/:pseudo', (req, res) => {
+  res.send({
+    token: generateAccessToken(req.params.pseudo)
+  });
+});
 
+app.get('/validateToken/:token', (req, res) => {
+  res.send(validate(req.params.token));
+});
 
 // create a GET route
 app.get('/searchUser/:userPseudo', (req, res) => {
