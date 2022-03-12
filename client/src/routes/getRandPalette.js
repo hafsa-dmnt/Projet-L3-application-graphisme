@@ -171,7 +171,7 @@ function getRandomPalette(){
   //on génère aléatoirement une palette composée de minPalette couleurs à maxPalette couleurs
   let nbColors = Math.floor(Math.random()*(maxPalette-minPalette+1))+minPalette;
   //on génère aléatoirement un nombre pour savoir quelle méthode utiliser dans la palette 
-  let tabMethode = 4;//Math.floor(Math.random()*(5));
+  let tabMethode = Math.floor(Math.random()*(5));
   console.log("methode numero ", tabMethode);
   //la palette à renvoyer à la fin
   let palette = [];
@@ -222,7 +222,6 @@ function getRandomPalette(){
       palette=analogue(maxbit,minbit,nbColors,couleurAChanger,firstColor);
     break;
     case 3: //triangle
-      console.log(RGBToHSL(firstColor.r,firstColor.g,firstColor.b));
       var HSL=RGBToHSL(firstColor.r,firstColor.g,firstColor.b);
       var newH2= HSL[0]+120<360 ? HSL[0]+120 : HSL[0]+120 -360 ;
       var HSL2=[newH2,HSL[1],HSL[2]];
