@@ -21,22 +21,93 @@ function convertRgbInHex(tab){
   return chaineHexa.toUpperCase();
 }
 
-/**
- * Fonction permettant de convertir une couleur sous forme h, s, l en rgb 
- * (fonction de https://stackoverflow.com/questions/36721830/convert-hsl-to-rgb-and-hex/54014428#54014428)
- * @param {*} h 
- * @param {*} s 
- * @param {*} l 
- * @returns 
- */
-/*
-function hsl2rgb(h,s,l) 
-{
-  let a= s*Math.min(l,1-l);
-  let f= (n,k=(n+h/30)%12) => l - a*Math.max(Math.min(k-3,9-k,1),-1);
-  return [f(0),f(8),f(4)];
-}  
-*/
+function RGBToHSL(r,g,b) {
+  // Make r, g, and b fractions of 1
+  r /= 255;
+  g /= 255;
+  b /= 255;
+
+  // Find greatest and smallest channel values
+  let cmin = Math.min(r,g,b);
+  let cmax = Math.max(r,g,b);
+  let delta = cmax - cmin;
+  let h = 0;
+  let s = 0;
+  let l = 0;
+
+  // Calculate hue
+  // No difference
+  if (delta == 0){
+    h = 0;
+  }
+  // Red is max
+  else{
+    if (cmax == r){
+      h = ((g - b) / delta) % 6;
+    }
+  // Green is max
+    else{
+      if (cmax == g){
+        h = (b - r) / delta + 2;
+      }
+    // Blue is max
+      else{
+        h = (r - g) / delta + 4;
+      }
+    }
+  }
+
+  h = Math.round(h * 60);
+    
+  // Make negative hues positive behind 360°
+  if (h < 0){
+      h += 360;
+  }
+
+  // Calculate lightness
+  l = (cmax + cmin) / 2;
+
+  // Calculate saturation
+  s = delta == 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
+    
+  // Multiply l and s by 100
+  s = Math.floor(+(s * 100));
+  l = Math.floor(+(l * 100));
+
+  return [h,s,l];
+}
+
+function HSLToRGB(h,s,l) {
+  // Must be fractions of 1
+  s /= 100;
+  l /= 100;
+
+  let c = (1 - Math.abs(2 * l - 1)) * s;
+  let x = c * (1 - Math.abs((h / 60) % 2 - 1));
+  let m = l - c/2;
+  let r = 0;
+  let g = 0;
+  let b = 0;
+
+      if (0 <= h && h < 60) {
+        r = c; g = x; b = 0;  
+      } else if (60 <= h && h < 120) {
+        r = x; g = c; b = 0;
+      } else if (120 <= h && h < 180) {
+        r = 0; g = c; b = x;
+      } else if (180 <= h && h < 240) {
+        r = 0; g = x; b = c;
+      } else if (240 <= h && h < 300) {
+        r = x; g = 0; b = c;
+      } else if (300 <= h && h < 360) {
+        r = c; g = 0; b = x;
+      }
+      r = Math.round((r + m) * 255);
+      g = Math.round((g + m) * 255);
+      b = Math.round((b + m) * 255);
+    
+      return [r, g,b];
+}
 
 function complementaire(firstColor){
   var palette=[];
@@ -100,7 +171,7 @@ function getRandomPalette(){
   //on génère aléatoirement une palette composée de minPalette couleurs à maxPalette couleurs
   let nbColors = Math.floor(Math.random()*(maxPalette-minPalette+1))+minPalette;
   //on génère aléatoirement un nombre pour savoir quelle méthode utiliser dans la palette 
-  let tabMethode = 0;//Math.floor(Math.random()*(5));
+  let tabMethode = 4;//Math.floor(Math.random()*(5));
   console.log("methode numero ", tabMethode);
   //la palette à renvoyer à la fin
   let palette = [];
@@ -113,6 +184,23 @@ function getRandomPalette(){
       palette=complementaire(firstColor);
     break;
     case 1: //carré
+      var HSL=RGBToHSL(firstColor.r,firstColor.g,firstColor.b);
+      var newH2= HSL[0]+90<360 ? HSL[0]+90 : HSL[0]+90 -360 ;
+      var HSL2=[newH2,HSL[1],HSL[2]];
+      var newH3= HSL[0]-90>=0 ? HSL[0]-90 : 360 + (HSL[0]+90) ;
+      var HSL3=[newH3,HSL[1],HSL[2]];
+      var newH4= HSL[0]+180<360 ? HSL[0]+180 : HSL[0]+180 -360 ;
+      var HSL4=[newH4,HSL[1],HSL[2]];
+      if(HSL[2]>=50){
+        var secondHSL1=[HSL[0],HSL[1],HSL[2]-20];
+      }else{
+        var secondHSL1=[HSL[0],HSL[1],HSL[2]+20];
+      }
+      palette.push(convertRgbInHex(HSLToRGB(secondHSL1[0],secondHSL1[1],secondHSL1[2])));
+      palette.push(convertRgbInHex([firstColor.r,firstColor.g,firstColor.b]));
+      palette.push(convertRgbInHex(HSLToRGB(HSL3[0],HSL3[1],HSL3[2])));
+      palette.push(convertRgbInHex(HSLToRGB(HSL2[0],HSL2[1],HSL2[2])));
+      palette.push(convertRgbInHex(HSLToRGB(HSL4[0],HSL4[1],HSL4[2])));
     break;
     case 2: //analogue
       var j = 1;
@@ -134,10 +222,43 @@ function getRandomPalette(){
       palette=analogue(maxbit,minbit,nbColors,couleurAChanger,firstColor);
     break;
     case 3: //triangle
-
+      console.log(RGBToHSL(firstColor.r,firstColor.g,firstColor.b));
+      var HSL=RGBToHSL(firstColor.r,firstColor.g,firstColor.b);
+      var newH2= HSL[0]+120<360 ? HSL[0]+120 : HSL[0]+120 -360 ;
+      var HSL2=[newH2,HSL[1],HSL[2]];
+      var newH3= HSL[0]-120>=0 ? HSL[0]-120 : 360 + (HSL[0]+120) ;
+      var HSL3=[newH3,HSL[1],HSL[2]];
+      if(HSL[2]>=50){
+        var secondHSL1=[HSL[0],HSL[1],HSL[2]-20];
+        var secondHSL2=[HSL2[0],HSL2[1],HSL2[2]-20];
+      }else{
+        var secondHSL1=[HSL[0],HSL[1],HSL[2]+20];
+        var secondHSL2=[HSL2[0],HSL2[1],HSL2[2]+20];
+      }
+      palette.push(convertRgbInHex(HSLToRGB(secondHSL1[0],secondHSL1[1],secondHSL1[2])));
+      palette.push(convertRgbInHex([firstColor.r,firstColor.g,firstColor.b]));
+      palette.push(convertRgbInHex(HSLToRGB(HSL3[0],HSL3[1],HSL3[2])));
+      palette.push(convertRgbInHex(HSLToRGB(HSL2[0],HSL2[1],HSL2[2])));
+      palette.push(convertRgbInHex(HSLToRGB(secondHSL2[0],secondHSL2[1],secondHSL2[2])));
     break;
     case 4: //rectangle
-
+      var HSL=RGBToHSL(firstColor.r,firstColor.g,firstColor.b);
+      var newH2= HSL[0]+45<360 ? HSL[0]+45 : HSL[0]+45 -360 ;
+      var HSL2=[newH2,HSL[1],HSL[2]];
+      var newH3= HSL[0]+180<360 ? HSL[0]+180 : HSL[0]+180 -360 ;
+      var HSL3=[newH3,HSL[1],HSL[2]];
+      var newH4= HSL[0]+225<360 ? HSL[0]+225 : HSL[0]+225 -360 ;
+      var HSL4=[newH4,HSL[1],HSL[2]];
+      if(HSL[2]>=50){
+        var secondHSL1=[HSL[0],HSL[1],HSL[2]-20];
+      }else{
+        var secondHSL1=[HSL[0],HSL[1],HSL[2]+20];
+      }
+      palette.push(convertRgbInHex(HSLToRGB(secondHSL1[0],secondHSL1[1],secondHSL1[2])));
+      palette.push(convertRgbInHex([firstColor.r,firstColor.g,firstColor.b]));
+      palette.push(convertRgbInHex(HSLToRGB(HSL2[0],HSL2[1],HSL2[2])));
+      palette.push(convertRgbInHex(HSLToRGB(HSL3[0],HSL3[1],HSL3[2])));
+      palette.push(convertRgbInHex(HSLToRGB(HSL4[0],HSL4[1],HSL4[2])));
     break;
     default : 
     break;
