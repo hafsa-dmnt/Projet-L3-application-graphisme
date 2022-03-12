@@ -60,6 +60,7 @@
       "last 1 safari version"
     ]
   },
+  "proxy": "http://localhost:3001/",
   "description": "Projet de 3e année de licence informatique avec @marie-almina et @Eleaaa.",
   "main": "index.js",
   "author": "",
