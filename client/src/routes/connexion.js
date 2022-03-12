@@ -12,7 +12,7 @@ import {isCompleted} from '../classes/formValidation.js';
 async function loginUser(credentials) {
   //TODO chemin en bien
   //
-  return fetch('http://localhost:3001/Connexion/'+credentials.pseudo, {
+  return fetch('Connexion/'+credentials.pseudo, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
