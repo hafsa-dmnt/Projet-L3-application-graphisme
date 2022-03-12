@@ -99,7 +99,7 @@ export default function App() {
 
   async function validateToken(token) {
 
-    return fetch('/validateToken/'+token, {
+    return fetch('validateToken/'+token, {
       method: 'POST'
     }).then(data => data.json())
 

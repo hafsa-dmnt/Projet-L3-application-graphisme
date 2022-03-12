@@ -10,7 +10,9 @@ import {isCompleted} from '../classes/formValidation.js';
 // TODO faire en sorte qye on puisse pas aller dessus si on est coo
 
 async function loginUser(credentials) {
-  return fetch('/Connexion/'+credentials.pseudo, {
+  //TODO chemin en bien
+  //
+  return fetch('Connexion/'+credentials.pseudo, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
