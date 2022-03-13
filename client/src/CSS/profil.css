@@ -27,9 +27,6 @@
     color : var(--accentcolor);
 }
 
-.profil .profilContent, .galerie{
-    text-align: center;
-}
 
 .profil {
     text-align: center;
@@ -42,7 +39,6 @@
     background-color: #a487c9;
     border-radius: 10px;
     margin: 10px auto;
-    margin-right: 100%;
     padding: 5px;
     display: inline-flex;
     position: relative;
@@ -69,6 +65,7 @@
 .galerie{
     display: inline-block;
     text-align: left;
+    width: 90%;
 }
 
 .page_profil{
