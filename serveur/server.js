@@ -11,14 +11,8 @@ const basedonnee = require('./bd/basedonnee.js');
 
 const jwt = require('jsonwebtoken');
 
-if (process.env.NODE_ENV === 'production') {
-  // Exprees will serve up production assets
-  app.use(express.static('client/build'));
-
-}
-
 // access config var
-var rrrr = process.env.TOKEN_SECRET;
+var tokenenv = process.env.TOKEN_SECRET;
 
 // console.log that your server is up and running
 app.listen(port, '0.0.0.0', () => console.log(`Listening on port ${port}`));
@@ -231,6 +225,7 @@ app.get('/listpalettesinfo/:idList', (req, res) => {
   })
 });
 
+/*
 //delete une liste de themes depuis la page de la liste
 app.use('/listthemes/delete/:idList', (req, res) => {
   console.log(req.params);
@@ -369,7 +364,7 @@ INSERT INTO lien_list_theme (l_theme_id, l_theme_list_id) VALUES ( 1, 1);
 
 if (process.env.NODE_ENV === 'production') {
   const path = require('path');
-  app.get('*', (req, res) => {
-    res.sendFile(path.resolve('/app/client/build/index.html'))
-  });
+  app.all('*', function (req, res) {
+    res.sendFile(path.resolve('/app/client/build/index.html')) /* <= Where my ng-view is located */
+  })
 }
