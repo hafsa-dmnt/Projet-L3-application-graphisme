@@ -1,12 +1,10 @@
+const express = require('express');
+const app = express();
 const dotenv = require('dotenv');
 dotenv.config();
 
-
-const createDefi = require("./cron-scripts/cron-tasks");
-const express = require('express');
-const app = express();
 const port = process.env.PORT || 3001;
-const cors = require('cors');
+
 console.log("port :", port);
 
 const basedonnee = require('./bd/basedonnee.js');
@@ -20,7 +18,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // access config var
-process.env.TOKEN_SECRET;
+var rrrr = process.env.TOKEN_SECRET;
 
 function generateAccessToken(username) {
   return jwt.sign(username, process.env.TOKEN_SECRET, {});
@@ -39,8 +37,6 @@ function validate(token) {
 
   return true;
  }
-
-app.use(cors());
 
 app.use('/Connexion/:pseudo', (req, res) => {
   res.send({
