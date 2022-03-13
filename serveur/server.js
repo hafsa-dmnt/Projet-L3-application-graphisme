@@ -6,7 +6,6 @@ const createDefi = require("./cron-scripts/cron-tasks");
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 3001;
-const cors = require('cors');
 console.log("port :", port);
 
 const basedonnee = require('./bd/basedonnee.js');
@@ -39,8 +38,6 @@ function validate(token) {
 
   return true;
  }
-
-app.use(cors());
 
 
 // console.log that your server is up and running
