@@ -76,7 +76,7 @@ class Publication extends React.Component {
         cloudName: 'hzcpqfz4w'
       }
     });
-    
+
     //todo : change with name of the image from db
     const myImage = cld.image('testpdp');
     return(
@@ -102,10 +102,10 @@ class ProfilContent extends React.Component{
       divPubli = tabPublication.map((elt, idx) =>
       <Publication photo = {elt} idx = {idx}/>  );
     }
-    
+
     if(this.props.isSameProfil){
       return(
-        <section className="profilContent">
+        <section className="section profilContent">
           <section className="galerie">
             <div className='maGalerie'>
               <h3>Galerie</h3>
@@ -117,7 +117,7 @@ class ProfilContent extends React.Component{
       );
     }
     return(
-      <section className="profilContent">
+      <section className="section profilContent">
           <section className="galerie">
             <div className='maGalerie'>
               <h3>Galerie</h3>
@@ -143,7 +143,7 @@ class Profil extends React.Component{
         pseudo = queryParams.get('pseudo');
       }
     }
-    
+
     this.state = {
       pseudo: pseudo,
       isSameProfil: isSameProfil,

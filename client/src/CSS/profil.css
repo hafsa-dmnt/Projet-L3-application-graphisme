@@ -27,20 +27,11 @@
     color : var(--accentcolor);
 }
 
-.page.profilcontent, .galerie{
-    height: auto;
-    min-height: 30px;
-    width: 90%;
-    background-color: var(--sectioncolor);
-    border-radius: 10px;
-    margin: 20px auto;
-    padding: 10px;
-    display: block;
-    position: relative;
+.profil .profilContent, .galerie{
     text-align: center;
 }
 
-.page.profil {
+.profil {
     text-align: center;
 }
 
