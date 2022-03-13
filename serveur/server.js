@@ -20,6 +20,10 @@ if (process.env.NODE_ENV === 'production') {
 // access config var
 var rrrr = process.env.TOKEN_SECRET;
 
+// console.log that your server is up and running
+app.listen(port, '0.0.0.0', () => console.log(`Listening on port ${port}`));
+
+
 function generateAccessToken(username) {
   return jwt.sign(username, process.env.TOKEN_SECRET, {});
   // le token expire tout les 30 j (donc reconnexion tout les mois)
@@ -47,10 +51,6 @@ app.use('/Connexion/:pseudo', (req, res) => {
 app.use('/validateToken/:token', (req, res) => {
   res.send(validate(req.params.token));
 });
-
-
-// console.log that your server is up and running
-app.listen(port, '0.0.0.0', () => console.log(`Listening on port ${port}`));
 
 
 // create a GET route
