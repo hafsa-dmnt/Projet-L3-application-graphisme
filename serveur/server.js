@@ -1,8 +1,6 @@
 const dotenv = require('dotenv');
 dotenv.config();
 
-
-const createDefi = require("./cron-scripts/cron-tasks");
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 3001;
@@ -48,6 +46,7 @@ app.use('/validateToken/:token', (req, res) => {
 });
 
 
+/*
 // create a GET route
 app.get('/searchUser/:userPseudo', (req, res) => {
   console.log(req.params);
