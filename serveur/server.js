@@ -34,7 +34,7 @@ function validate(token) {
 
 // console.log that your server is up and running
 app.listen(port, '0.0.0.0', () => console.log(`Listening on port ${port}`));
-/*
+
 
 app.use('/Connexion/:pseudo', (req, res) => {
   res.send({
@@ -365,7 +365,7 @@ INSERT INTO lien_list_theme (l_theme_id, l_theme_list_id) VALUES ( 1, 1);
 
 if (process.env.NODE_ENV === 'production') {
   const path = require('path');
-  app.get('*', (req, res) => {
-    res.sendFile(path.resolve('/app/client/build/index.html'))
-  });
+  app.all('*', function (req, res) {
+    res.sendFile(path.resolve('/app/client/build/index.html')) /* <= Where my ng-view is located */
+  })
 }
