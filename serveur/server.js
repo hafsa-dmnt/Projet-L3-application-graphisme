@@ -46,7 +46,7 @@ app.use('/validateToken/:token', (req, res) => {
 });
 
 
-/*
+
 // create a GET route
 app.get('/searchUser/:userPseudo', (req, res) => {
   console.log(req.params);
@@ -225,6 +225,7 @@ app.get('/listpalettesinfo/:idList', (req, res) => {
   })
 });
 
+/*
 //delete une liste de themes depuis la page de la liste
 app.use('/listthemes/delete/:idList', (req, res) => {
   console.log(req.params);
