@@ -12,12 +12,6 @@ const basedonnee = require('./bd/basedonnee.js');
 
 const jwt = require('jsonwebtoken');
 
-if (process.env.NODE_ENV === 'production') {
-  // Exprees will serve up production assets
-  app.use(express.static('client/build'));
-
-}
-
 // access config var
 process.env.TOKEN_SECRET;
 
