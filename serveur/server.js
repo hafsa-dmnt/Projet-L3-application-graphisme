@@ -11,7 +11,7 @@ const basedonnee = require('./bd/basedonnee.js');
 const jwt = require('jsonwebtoken');
 
 // access config var
-process.env.TOKEN_SECRET;
+//process.env.TOKEN_SECRET;
 
 function generateAccessToken(username) {
   return jwt.sign(username, process.env.TOKEN_SECRET, {});
