@@ -86,4 +86,4 @@ function getRandomPalette(){
   return palette;
 }
 
-module.exports =  { getRandomPalette }
+export default getRandomPalette;
