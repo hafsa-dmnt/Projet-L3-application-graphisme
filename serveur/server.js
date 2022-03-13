@@ -34,6 +34,7 @@ function validate(token) {
 
 // console.log that your server is up and running
 app.listen(port, '0.0.0.0', () => console.log(`Listening on port ${port}`));
+/*
 
 app.use('/Connexion/:pseudo', (req, res) => {
   res.send({
