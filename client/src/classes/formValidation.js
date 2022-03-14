@@ -48,7 +48,8 @@ export const isMailAlreadyUsed = (mail) => {
     .catch(error => console.log('There was a problem!', error))
   ))
   .then(data => {
-    if(data.length > 0){
+    console.log("data : ",data[0]);
+    if(data[0].length > 0){
       alert('Ce mail est déjà utilisé.');
       isUsed = true;
     }
@@ -71,7 +72,7 @@ export const isPseudoAlreadyUsed = (pseudo) => {
     .catch(error => console.log('There was a problem!', error))
   ))
   .then(data => {
-    if(data.length > 0){
+    if(data[0].length > 0){
       alert('Ce pseudo est déjà utilisé.');
       isUsed = true;
     }

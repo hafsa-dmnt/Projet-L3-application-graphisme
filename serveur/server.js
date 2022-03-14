@@ -187,6 +187,18 @@ app.get('/mailExists/:mail', (req, res) => {
   })
 });
 
+//get le mot de passe d'un utilisateur
+app.get('/pseudomdp/:pseudo', (req, res) => {
+  var sql = "SELECT * FROM utilisateur WHERE utilisateur_pseudo = '"+req.params.pseudo+"';";
+  basedonnee.getQuery(sql)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});
+
 app.get('/userPseudoExists/:pseudo', (req, res) => {
   var sql = "SELECT * FROM utilisateur WHERE utilisateur_pseudo = '"+req.params.pseudo+"';";
   basedonnee.getQuery(sql)
@@ -332,6 +344,22 @@ app.use('/listpalettes/modifier/:idlist-:nom-:icon', (req, res) => {
     res.status(500).send(error);
   })
 });
+
+//ajouter nouvelle liste de palettes
+app.use('/inscription/creer/:pdp-:pseudo-:mail-:bio-:mdp', (req, res) => {
+  console.log(req.params);
+  const sql = `INSERT INTO utilisateur (utilisateur_pdp, utilisateur_pseudo, utilisateur_email, utilisateur_bio,utilisateur_mdp, utilisateur_admin) VALUES ( '${req.params.pdp}','${req.params.pseudo}', '${req.params.mail}', '${req.params.bio}', '${req.params.mdp}',false);`;
+  basedonnee.getQuery(sql)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});
+
+
+
 
 /*
 delete une liste depuis la page de la liste : fait

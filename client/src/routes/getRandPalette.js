@@ -37,17 +37,17 @@ function RGBToHSL(r,g,b) {
 
   // Calculate hue
   // No difference
-  if (delta == 0){
+  if (delta === 0){
     h = 0;
   }
   // Red is max
   else{
-    if (cmax == r){
+    if (cmax === r){
       h = ((g - b) / delta) % 6;
     }
   // Green is max
     else{
-      if (cmax == g){
+      if (cmax === g){
         h = (b - r) / delta + 2;
       }
     // Blue is max
@@ -68,7 +68,7 @@ function RGBToHSL(r,g,b) {
   l = (cmax + cmin) / 2;
 
   // Calculate saturation
-  s = delta == 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
+  s = delta === 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
     
   // Multiply l and s by 100
   s = Math.floor(+(s * 100));
@@ -111,18 +111,21 @@ function HSLToRGB(h,s,l) {
 
 function complementaire(firstColor){
   var palette=[];
+  var secondColor;
+  var thirdColor
   if(Math.max(firstColor.r, firstColor.g, firstColor.b)>=100){
-    var secondColor={r:Math.abs(firstColor.r-30),g:Math.abs(firstColor.g-30),b:Math.abs(firstColor.b-30)};
-    var thirdColor={r:Math.abs(firstColor.r-60),g:Math.abs(firstColor.g-60),b:Math.abs(firstColor.b-60)};
+    secondColor={r:Math.abs(firstColor.r-30),g:Math.abs(firstColor.g-30),b:Math.abs(firstColor.b-30)};
+    thirdColor={r:Math.abs(firstColor.r-60),g:Math.abs(firstColor.g-60),b:Math.abs(firstColor.b-60)};
   }else{
-    var secondColor={r:Math.abs(firstColor.r+30),g:Math.abs(firstColor.g+30),b:Math.abs(firstColor.b+30)};
-    var thirdColor={r:Math.abs(firstColor.r+60),g:Math.abs(firstColor.g+60),b:Math.abs(firstColor.b+60)};
+    secondColor={r:Math.abs(firstColor.r+30),g:Math.abs(firstColor.g+30),b:Math.abs(firstColor.b+30)};
+    thirdColor={r:Math.abs(firstColor.r+60),g:Math.abs(firstColor.g+60),b:Math.abs(firstColor.b+60)};
   }
   var complementaryColor={r:255-firstColor.r,g:255-firstColor.g,b:255-firstColor.b};
+  var secondCColor;
   if(Math.max(complementaryColor.r, complementaryColor.g, complementaryColor.b)>=100){
-    var secondCColor={r:Math.abs(complementaryColor.r-30),g:Math.abs(complementaryColor.g-30),b:Math.abs(complementaryColor.b-30)};
+    secondCColor={r:Math.abs(complementaryColor.r-30),g:Math.abs(complementaryColor.g-30),b:Math.abs(complementaryColor.b-30)};
   }else{
-    var secondCColor={r:Math.abs(complementaryColor.r+30),g:Math.abs(complementaryColor.g+30),b:Math.abs(complementaryColor.b+30)};
+    secondCColor={r:Math.abs(complementaryColor.r+30),g:Math.abs(complementaryColor.g+30),b:Math.abs(complementaryColor.b+30)};
   }
   palette.push(convertRgbInHex([thirdColor.r, thirdColor.g, thirdColor.b]));
   palette.push(convertRgbInHex([secondColor.r, secondColor.g, secondColor.b]));
@@ -147,10 +150,10 @@ function analogue(maxbit,minbit,nbColors,couleurAChanger,firstColor){
   }
   var j=1;
   while(j<nbColors){
-    if(couleurAChanger=="r"){
+    if(couleurAChanger==="r"){
       firstColor.r = Math.floor(minbit+(ajout*(j*interval)));
     }else{
-      if(couleurAChanger=="g"){
+      if(couleurAChanger==="g"){
         firstColor.g = Math.floor(minbit+(ajout*(j*interval)));
       }else{
         firstColor.b = Math.floor(minbit+(ajout*(j*interval)));
@@ -191,10 +194,11 @@ function getRandomPalette(){
       var HSL3=[newH3,HSL[1],HSL[2]];
       var newH4= HSL[0]+180<360 ? HSL[0]+180 : HSL[0]+180 -360 ;
       var HSL4=[newH4,HSL[1],HSL[2]];
+      var secondHSL1;
       if(HSL[2]>=50){
-        var secondHSL1=[HSL[0],HSL[1],HSL[2]-20];
+        secondHSL1=[HSL[0],HSL[1],HSL[2]-20];
       }else{
-        var secondHSL1=[HSL[0],HSL[1],HSL[2]+20];
+        secondHSL1=[HSL[0],HSL[1],HSL[2]+20];
       }
       palette.push(convertRgbInHex(HSLToRGB(secondHSL1[0],secondHSL1[1],secondHSL1[2])));
       palette.push(convertRgbInHex([firstColor.r,firstColor.g,firstColor.b]));
@@ -203,36 +207,38 @@ function getRandomPalette(){
       palette.push(convertRgbInHex(HSLToRGB(HSL4[0],HSL4[1],HSL4[2])));
     break;
     case 2: //analogue
-      var j = 1;
+    var maxbit;
+    var couleurAChanger;
+    var minbit;
       if(firstColor.r>=firstColor.g && firstColor.r>=firstColor.b){
-        var maxbit = firstColor.r;
-        var couleurAChanger=firstColor.g>=firstColor.b ? "g" : "b";
-        var minbit=firstColor.g>=firstColor.b ? firstColor.g : firstColor.b;
+        maxbit = firstColor.r;
+        couleurAChanger=firstColor.g>=firstColor.b ? "g" : "b";
+        minbit=firstColor.g>=firstColor.b ? firstColor.g : firstColor.b;
       }else{
         if(firstColor.g>=firstColor.r && firstColor.g>=firstColor.b){
-          var maxbit = firstColor.g;
-          var couleurAChanger=firstColor.b>=firstColor.r ? "b" : "r";
-          var minbit=firstColor.b>=firstColor.r ? firstColor.b : firstColor.r;
+          maxbit = firstColor.g;
+          couleurAChanger=firstColor.b>=firstColor.r ? "b" : "r";
+          minbit=firstColor.b>=firstColor.r ? firstColor.b : firstColor.r;
         }else{
-          var maxbit = firstColor.b;
-          var couleurAChanger=firstColor.r>=firstColor.g ? "r" : "g";
-          var minbit=firstColor.r>=firstColor.g ? firstColor.r : firstColor.g;
+          maxbit = firstColor.b;
+          couleurAChanger=firstColor.r>=firstColor.g ? "r" : "g";
+          minbit=firstColor.r>=firstColor.g ? firstColor.r : firstColor.g;
         }
       }
       palette=analogue(maxbit,minbit,nbColors,couleurAChanger,firstColor);
     break;
     case 3: //triangle
-      var HSL=RGBToHSL(firstColor.r,firstColor.g,firstColor.b);
-      var newH2= HSL[0]+120<360 ? HSL[0]+120 : HSL[0]+120 -360 ;
-      var HSL2=[newH2,HSL[1],HSL[2]];
-      var newH3= HSL[0]-120>=0 ? HSL[0]-120 : 360 + (HSL[0]+120) ;
-      var HSL3=[newH3,HSL[1],HSL[2]];
+      HSL=RGBToHSL(firstColor.r,firstColor.g,firstColor.b);
+      newH2= HSL[0]+120<360 ? HSL[0]+120 : HSL[0]+120 -360 ;
+      HSL2=[newH2,HSL[1],HSL[2]];
+      newH3= HSL[0]-120>=0 ? HSL[0]-120 : 360 + (HSL[0]+120) ;
+      HSL3=[newH3,HSL[1],HSL[2]];
       if(HSL[2]>=50){
-        var secondHSL1=[HSL[0],HSL[1],HSL[2]-20];
+        secondHSL1=[HSL[0],HSL[1],HSL[2]-20];
         var secondHSL2=[HSL2[0],HSL2[1],HSL2[2]-20];
       }else{
-        var secondHSL1=[HSL[0],HSL[1],HSL[2]+20];
-        var secondHSL2=[HSL2[0],HSL2[1],HSL2[2]+20];
+        secondHSL1=[HSL[0],HSL[1],HSL[2]+20];
+        secondHSL2=[HSL2[0],HSL2[1],HSL2[2]+20];
       }
       palette.push(convertRgbInHex(HSLToRGB(secondHSL1[0],secondHSL1[1],secondHSL1[2])));
       palette.push(convertRgbInHex([firstColor.r,firstColor.g,firstColor.b]));
@@ -241,17 +247,17 @@ function getRandomPalette(){
       palette.push(convertRgbInHex(HSLToRGB(secondHSL2[0],secondHSL2[1],secondHSL2[2])));
     break;
     case 4: //rectangle
-      var HSL=RGBToHSL(firstColor.r,firstColor.g,firstColor.b);
-      var newH2= HSL[0]+45<360 ? HSL[0]+45 : HSL[0]+45 -360 ;
-      var HSL2=[newH2,HSL[1],HSL[2]];
-      var newH3= HSL[0]+180<360 ? HSL[0]+180 : HSL[0]+180 -360 ;
-      var HSL3=[newH3,HSL[1],HSL[2]];
-      var newH4= HSL[0]+225<360 ? HSL[0]+225 : HSL[0]+225 -360 ;
-      var HSL4=[newH4,HSL[1],HSL[2]];
+      HSL=RGBToHSL(firstColor.r,firstColor.g,firstColor.b);
+      newH2= HSL[0]+45<360 ? HSL[0]+45 : HSL[0]+45 -360 ;
+      HSL2=[newH2,HSL[1],HSL[2]];
+      newH3= HSL[0]+180<360 ? HSL[0]+180 : HSL[0]+180 -360 ;
+      HSL3=[newH3,HSL[1],HSL[2]];
+      newH4= HSL[0]+225<360 ? HSL[0]+225 : HSL[0]+225 -360 ;
+      HSL4=[newH4,HSL[1],HSL[2]];
       if(HSL[2]>=50){
-        var secondHSL1=[HSL[0],HSL[1],HSL[2]-20];
+        secondHSL1=[HSL[0],HSL[1],HSL[2]-20];
       }else{
-        var secondHSL1=[HSL[0],HSL[1],HSL[2]+20];
+        secondHSL1=[HSL[0],HSL[1],HSL[2]+20];
       }
       palette.push(convertRgbInHex(HSLToRGB(secondHSL1[0],secondHSL1[1],secondHSL1[2])));
       palette.push(convertRgbInHex([firstColor.r,firstColor.g,firstColor.b]));

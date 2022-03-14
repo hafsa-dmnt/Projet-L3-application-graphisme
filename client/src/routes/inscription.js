@@ -43,6 +43,9 @@ class InscriptionForm extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    var passwordHash = require('password-hash');
+    
+    //console.log("mdp : ",sha1$b4c885be$1$dc05169eaacbe5f8bda25ace50c7fd14715e2d30
 
     if(!(isCompleted('pseudo',this.state.pseudo)&isCompleted('mail',this.state.mail))){
       return;
@@ -81,7 +84,7 @@ class InscriptionForm extends React.Component {
 
 //////// TODO
     // BD : get id utilisateur
-    // var id = nomUti + "pdp"
+     var id = this.state.pseudo + "_pdp"
 
     // envoie a la bd
       // id photo = id
@@ -89,8 +92,14 @@ class InscriptionForm extends React.Component {
       // mail = this.state.mail
       // bio = this.state.bio
       // mdp = this.state.mdp
+    var passwordHash = require('password-hash');
+    var mdpchiffre = passwordHash.generate(this.state.mdp);
+    //var mdpchiffre=bcrypt.hashSync(this.state.mdp, bcrypt.genSaltSync());
 
-    var id = 'testpdp';
+    const lien="/inscription/creer/"+id+"-"+this.state.pseudo+"-"+this.state.mail+"-"+this.state.bio+"-"+mdpchiffre;
+    const response = fetch(lien);
+
+    //var id = 'testpdp';
 
 
     formData.append("file", this.state.pdp);
