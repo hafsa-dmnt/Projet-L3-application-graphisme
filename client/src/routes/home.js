@@ -4,15 +4,15 @@ import '../CSS/home.css';
 import { Icon } from '@iconify/react';
 import { Navigate } from "react-router-dom";
 
+import {getRandomPalette} from "./getRandPalette.js";
 
-const randomPalette = require('./getRandPalette');
 
 
 /**
  * Fonction permettant de générer aléatoirement une palette, qui a une taille potentiellement différente à chaque fois et qui est
- * réalisée à partir de méthodes différentes pour diversifier. 
- * @returns une palette de couleurs générée aléatoirement 
- */ 
+ * réalisée à partir de méthodes différentes pour diversifier.
+ * @returns une palette de couleurs générée aléatoirement
+ */
  function getRandomTheme(list){
    let nbRandom =  Math.floor(Math.random()*(list.length));
    return list[nbRandom].theme_nom;
@@ -22,7 +22,7 @@ class AddToFav extends React.Component{
   state = { redirect: null };
   handleClick() {
       let redirect = this.state.redirect;
-      redirect = `/addToList?type=${this.props.type}`; //add the content to the url 
+      redirect = `/addToList?type=${this.props.type}`; //add the content to the url
       this.setState({redirect: redirect});
   }
   render() {
@@ -66,13 +66,13 @@ TODO : adapter l'affichage des palettes
   - un cercle avec un demi cercle par couleur pour complémentaires
   - des rectangles collés pour analogues
   - un carré pour carré mdr
-  - un triangle pour triangle .... 
-  - comme carré pour rectangle 
+  - un triangle pour triangle ....
+  - comme carré pour rectangle
 */
 class Palette extends React.Component{
   render(){
     const tabPalette = this.props.content;
-    const divPalette = tabPalette.map((elt) => 
+    const divPalette = tabPalette.map((elt) =>
       <div key={elt} className="colorPalette" style={{background:elt}}>
         <p>{elt}</p>
       </div>  );
@@ -94,7 +94,7 @@ class Home extends React.Component{
   }
   handleClick() {
     let tabPal = this.state.palette;
-    tabPal = randomPalette.getRandomPalette();
+    tabPal = getRandomPalette();
     let newTheme = "";
     do {
       newTheme = getRandomTheme(this.state.liste);
@@ -115,14 +115,14 @@ class Home extends React.Component{
     const body = await response.json();
 
     if (response.status !== 200) {
-      throw Error(body.message) 
+      throw Error(body.message)
     }
     console.log("requete", body);
     return body;
   };
 
   render(){
-    //choix du thème aléatoire au début 
+    //choix du thème aléatoire au début
     return(
       <div className="page home">
         <ThemeHome theme={this.state.theme}/>

@@ -13,7 +13,7 @@ class Liste extends React.Component{
         divListe = Object.keys(tabListeTheme).map((keyName, i)  => (
           <Link to={"/profil/listethemes?idlist="+tabListeTheme[keyName].tl_id} key= {i} onClick={this.props.changeTab} className="iconlist">
             <Icon icon="emojione-monotone:sparkles" />
-            {tabListeTheme[keyName].tl_nom}
+            <p>{tabListeTheme[keyName].tl_nom}</p>
           </Link>
       ))
       }else{
@@ -24,24 +24,24 @@ class Liste extends React.Component{
         divListe = Object.keys(tabListePalette).map((keyName, i)  => (
           <Link to={"/profil/listepalettes?idlist="+tabListePalette[keyName].pl_id} key= {i} onClick={this.props.changeTab} className="iconlist">
             <Icon icon="emojione-monotone:sparkles" />
-            {tabListePalette[keyName].pl_nom}
+            <p>{tabListePalette[keyName].pl_nom}</p>
           </Link>
       ))
       }else{
-        divListe = <p>Il n'y a rien :( crée ta première liste palette!</p>
+        divListe = <p className="empty">Il n'y a rien :( crée ta première liste palette!</p>
       }
     }
     let titre = <h3>Mes thèmes</h3>;
     if(!this.props.istheme){
       titre = <h3>Mes palettes</h3>;
     }
-    
+
     return (
       <div className="liste_paletteTheme">
         {titre}
         {divListe}
       </div>
-     
+
     );
   }
 }
@@ -60,7 +60,7 @@ class ThemesAndPalettes extends React.Component{
       listeTheme:  [],
       listePalette:  []
     }
-  } 
+  }
 
   componentDidMount(){
       const chemin = [
@@ -100,7 +100,7 @@ class ThemesAndPalettes extends React.Component{
   handleClick = () => {
     var newCategory = !this.state.displayThemes;
     this.setState({displayThemes: newCategory});
-    
+
   }
 
   render(){
