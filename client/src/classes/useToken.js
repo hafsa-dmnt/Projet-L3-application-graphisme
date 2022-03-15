@@ -15,6 +15,7 @@ export function useToken(){
   };
 
   const [token, setToken] = useState(getToken());
+  const [pseudo, setPseudo] = useState("");
 
   const saveToken = userToken => {
     localStorage.setItem('token', JSON.stringify(userToken));
@@ -24,9 +25,14 @@ export function useToken(){
     setToken(userToken.token);
   };
 
+  const savePseudo = userPseudo => {
+    setPseudo(userPseudo);
+  };
+
   return {
-    token,
+    token : token,
     setToken: saveToken,
+    setPseudoFromToken : savePseudo
   }
 
 }

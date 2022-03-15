@@ -35,7 +35,8 @@ async function verifyMdp(pseudo) {
 
 
 Connexion.propTypes = {
-  setToken: PropTypes.func.isRequired
+  setToken: PropTypes.func.isRequired,
+  setPseudoFromToken: PropTypes.func.isRequired
 }
 
 function checkStatus(response) {
@@ -50,7 +51,7 @@ function parseJSON(response) {
   return response.json();
 }
 
-export default function Connexion({setToken}) {
+export default function Connexion(prop) {
 
   const [pseudo, setPseudo] = useState('');
   const [mdp, setMdp] = useState('');
@@ -71,7 +72,7 @@ export default function Connexion({setToken}) {
     if(!(isCompleted('pseudo',pseudo)&isCompleted("mot de passe",mdp))){
       return;
     }
-    
+
     // verifier que mdp et pseudo corepondent bd
     // + l'envoyer vers le composant app jsp comment
     console.log(pseudo);
@@ -99,8 +100,9 @@ export default function Connexion({setToken}) {
       pseudo,
       mdp
     });
-    setToken(token);
+    props.setToken(token);
     setPseudo(pseudo);
+    props.setPseudoFromToken(pseudo);
   }
 
   return(
