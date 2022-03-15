@@ -21,6 +21,18 @@ async function loginUser(credentials) {
     }).then(data => data.json())
 }
 
+async function verifyMdp(pseudo) {
+  const chemin = [
+    "/pseudoMdp/"+pseudo
+  ];
+  return Promise.all(chemin.map(url =>
+    fetch(url)
+    .then(checkStatus)  // check the response of our APIs
+    .then(parseJSON)    // parse it to Json
+    .catch(error => console.log('There was a problem!', error))
+  ))
+}
+
 
 Connexion.propTypes = {
   setToken: PropTypes.func.isRequired
@@ -32,6 +44,10 @@ function checkStatus(response) {
   } else {
     return Promise.reject(new Error(response.statusText));
   }
+}
+
+function parseJSON(response) {
+  return response.json();
 }
 
 export default function Connexion({setToken}) {
@@ -59,15 +75,17 @@ export default function Connexion({setToken}) {
     // verifier que mdp et pseudo corepondent bd
     // + l'envoyer vers le composant app jsp comment
     console.log(pseudo);
+
+    var body=await verifyMdp(pseudo);
     
-    const lien="/pseudoMdp/"+pseudo;
-    const response = await fetch(lien);
-    const body = await response.json();
-    if (response.status !== 200) {
-      throw Error(body.message) 
+    if(body[0].length==0){
+      alert("Le pseudo n'existe pas.")
+      return;
     }
-  
-    var mdpbd=body[0].utilisateur_mdp;
+
+    console.log("ici :",body);
+    var mdpbd=body[0][0].utilisateur_mdp;
+    console.log("ici :",mdpbd);
     
     var passwordHash = require('password-hash');
     var mdpEstBon=passwordHash.verify(mdp, mdpbd.trim());
