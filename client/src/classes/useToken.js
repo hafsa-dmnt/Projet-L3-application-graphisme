@@ -54,7 +54,8 @@ export function useToken(){
       return;
     }else{
 
-      modifierToken(pseudo, userToken.token);
+      var temp = userToken.token;
+      modifierToken(pseudo,temp);
 
       localStorage.setItem('token', JSON.stringify(userToken));
 
