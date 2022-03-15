@@ -66,23 +66,28 @@ export default function Connexion({setToken}) {
     if (response.status !== 200) {
       throw Error(body.message) 
     }
-  
-    var mdpbd=body[0].utilisateur_mdp;
-    
-    var passwordHash = require('password-hash');
-    var mdpEstBon=passwordHash.verify(mdp, mdpbd.trim());
 
-    if(!mdpEstBon){
-      alert('Le mot de passe est incorrect');
+    if(body.length > 0){
+      var mdpbd=body[0].utilisateur_mdp;
+    
+      var passwordHash = require('password-hash');
+      var mdpEstBon=passwordHash.verify(mdp, mdpbd.trim());
+
+      if(!mdpEstBon){
+        alert('Le mot de passe est incorrect');
+        return;
+      }
+
+      const token = await loginUser({
+        pseudo,
+        mdp
+      });
+      setToken(token);
+      setPseudo(pseudo);
+    }else{
+      alert('Le pseudo saisi est incorrect');
       return;
     }
-
-    const token = await loginUser({
-      pseudo,
-      mdp
-    });
-    setToken(token);
-    setPseudo(pseudo);
   }
 
   return(
