@@ -365,6 +365,31 @@ app.use('/inscription/creer/:pdp-:pseudo-:mail-:bio-:mdp', (req, res) => {
   })
 });
 
+//get pour vérifier que le token n'est pas déjà présent
+app.use('/getVerifToken/:token', (req, res) => {
+  console.log(req.params);
+  const sql = `SELECT * FROM utilisateur WHERE utilisateur_token = '${req.params.token}';`;
+  basedonnee.getQuery(sql)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});
+
+//modifier le token d'une personne
+app.use('/modifierToken/:pseudo-:token', (req, res) => {
+  console.log(req.params);
+  const sql = `UPDATE utilisateur SET utilisateur_token = '${req.params.token}' WHERE utilisateur_pseudo = '${req.params.pseudo}';`;
+  basedonnee.getQuery(sql)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});
 
 
 
