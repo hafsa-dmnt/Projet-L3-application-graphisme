@@ -69,8 +69,9 @@ export default function Connexion({setToken}) {
 
     if(body.length > 0){
       var mdpbd=body[0].utilisateur_mdp;
-    
+      
       var passwordHash = require('password-hash');
+      console.log(passwordHash.generate(mdp));
       var mdpEstBon=passwordHash.verify(mdp, mdpbd.trim());
 
       if(!mdpEstBon){
