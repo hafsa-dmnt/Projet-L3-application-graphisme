@@ -26,6 +26,13 @@ Connexion.propTypes = {
   setToken: PropTypes.func.isRequired
 }
 
+function checkStatus(response) {
+  if (response.ok) {
+    return Promise.resolve(response);
+  } else {
+    return Promise.reject(new Error(response.statusText));
+  }
+}
 
 export default function Connexion({setToken}) {
 
@@ -48,9 +55,27 @@ export default function Connexion({setToken}) {
     if(!(isCompleted('pseudo',pseudo)&isCompleted("mot de passe",mdp))){
       return;
     }
-
-    // TODO verifier que mdp et pseudo corepondent bd
+    
+    // verifier que mdp et pseudo corepondent bd
     // + l'envoyer vers le composant app jsp comment
+    console.log(pseudo);
+    
+    const lien="/pseudoMdp/"+pseudo;
+    const response = await fetch(lien);
+    const body = await response.json();
+    if (response.status !== 200) {
+      throw Error(body.message) 
+    }
+  
+    var mdpbd=body[0].utilisateur_mdp;
+    
+    var passwordHash = require('password-hash');
+    var mdpEstBon=passwordHash.verify(mdp, mdpbd.trim());
+
+    if(!mdpEstBon){
+      alert('Le mot de passe est incorrect');
+      return;
+    }
 
     const token = await loginUser({
       pseudo,

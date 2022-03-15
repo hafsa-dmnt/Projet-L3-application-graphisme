@@ -14,11 +14,13 @@
   "dependencies": {
     "@cloudinary/react": "^1.1.0",
     "@cloudinary/url-gen": "^1.6.0",
+    "bcrypt": "^5.0.1",
     "cloudinary-react": "^1.7.1",
     "concurrently": "^7.0.0",
     "dotenv": "^16.0.0",
     "jsonwebtoken": "^8.5.1",
     "node-cron": "^3.0.0",
+    "password-hash": "^1.2.2",
     "pg": "^8.7.1",
     "react": "^17.0.2",
     "react-calendar": "^3.6.0",
