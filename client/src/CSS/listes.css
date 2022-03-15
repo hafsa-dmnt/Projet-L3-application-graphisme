@@ -43,6 +43,20 @@
   text-align: center;
 }
 
+.page_listes .addBtn{
+  display: block;
+  background-color: var(--sectioncolor);
+  border: 3px solid #7d4193;
+  border-radius: 10px;
+  font-size: large;
+  font-weight: bold;
+  margin: 20px auto;
+  padding: 20px;
+  width : 50%;
+  text-decoration: none;
+  color : black;
+}
+
 .page_listes .iconlist p{
   margin: 0;
   height: 40px;

@@ -40,9 +40,30 @@ class CreerListePalettes extends React.Component{
                 </div>
                 <div className="subSection">
                 <label>
-                    <h3>Icon :</h3>
+                    <h3>Icone :</h3>
                 </label>
                 <input type="text" name="icon" value={this.state.icon} onChange={this.handleChange} />
+                <select name="icon" id="inconList">
+                  <option value='bi:tree-fill'>Abeille</option>
+                  <option value="ph:flower-fill">Fleur</option>
+                  <option value="bx:bxs-city">Ville</option>
+                  <option value="emojione-monotone:sparkles">Sparkles</option>
+                  <option value="bx:bxs-cat">Chat</option>
+                  <option value="bi:pencil">Crayon</option>
+                  <option value="pepicons:paint-pallet">Palette</option>
+                  <option value="ant-design:camera-filled">Photo</option>
+                  <option value="eva:people-fill">Personne</option>
+                  <option value="line-md:computer">Ordinateur</option>
+                  <option value="line-md:computer">Ordinateur</option>
+                  <option value="line-md:computer">Ordinateur</option>
+                  <option value="line-md:computer">Ordinateur</option>
+                  <option value="line-md:computer">Ordinateur</option>
+                  <option value="line-md:computer">Ordinateur</option>
+                  <option value="line-md:computer">Ordinateur</option>
+                  <option value="line-md:computer">Ordinateur</option>
+                  <option value="line-md:computer">Ordinateur</option>
+                  <option value="line-md:computer">Ordinateur</option>
+                  </select>
                 </div>
                 <div className="subSection">
                     <button onClick={this.handleSubmit}>

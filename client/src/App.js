@@ -20,7 +20,7 @@ import ModifierListePalettes from './routes/modifierlistepalettes.js'
 import ModifierListeThemes from './routes/modifierlistethemes.js'
 
 import Connexion from './routes/connexion.js'
-import {useToken,usePseudo} from './classes/useToken';
+import {useToken} from './classes/useToken';
 
 
 import {
@@ -61,7 +61,10 @@ class AppComponent extends React.Component{
             <Route exact path="/profil/listepalettes/creer" element={<CreerListePalettes/>}/>
             <Route exact path="/profil/listethemes/modifier" element={<ModifierListeThemes/>}/>
             <Route exact path="/profil/listepalettes/modifier" element={<ModifierListePalettes/>}/>
-            <Route exact path="/connexion" element={<Connexion  setToken={this.props.setToken}/>}/>
+            <Route exact path="/connexion" element={
+              <Connexion  setToken={this.props.setToken} setPseudoFromToken={this.props.setPseudoFromToken}/>}
+
+            />
           </Routes>
 
 
@@ -105,7 +108,7 @@ export default function App() {
 
   }
 
-  const { token, setToken} = useToken();
+  const {token, setToken,setPseudoFromToken} = useToken();
 
   // va savoir pourquoi il faut deux fonctions mais ca marche pas avec une seule
 
@@ -117,11 +120,11 @@ export default function App() {
 
   if(!token || !valid){
     return(
-      <Connexion setToken={setToken} />
+      <Connexion setToken={setToken} setPseudoFromToken={setPseudoFromToken} />
     );
   }
   return(
-    <AppComponent setToken={setToken}/>
+    <AppComponent setToken={setToken} setPseudoFromToken={setPseudoFromToken}/>
   );
 
 }
