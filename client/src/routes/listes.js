@@ -108,8 +108,8 @@ class ThemesAndPalettes extends React.Component{
     return (
       <section className="page page_listes">
         <Liste listeTheme={this.state.listeTheme} listePalette={this.state.listePalette} istheme={this.state.displayThemes}/>
-        <Link to={lien}>ajouter liste</Link><br></br>
-        <button className="btnGetRandomArt" onClick={() => this.handleClick()}>Changer de catégorie</button>
+        <Link className="addBtn"to={lien}>Ajouter liste</Link>
+        <button className="btnGetRandomArt btnCategorie" onClick={() => this.handleClick()}>Changer de catégorie</button>
       </section>
     );
   }
