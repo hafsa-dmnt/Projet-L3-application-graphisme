@@ -79,7 +79,7 @@ app.get('/parametersUser/:userPseudo', (req, res) => {
 });
 
 app.get('/pseudouser/:token', (req, res) => {
-  var sql = `SELECT utilisateur_pseudo FROM utilisateur WHERE utilisateur_token='${req.params.token}';`;
+  var sql = `SELECT utilisateur_pseudo, utilisateur_pdp FROM utilisateur WHERE utilisateur_token='${req.params.token}';`;
   basedonnee.getQuery(sql)
   .then(response => {
     res.status(200).send(response);
@@ -110,6 +110,18 @@ app.get('/publicationsofuserpseudo/:pseudo', (req, res) => {
     res.status(500).send(error);
   })
 });
+
+app.get('/pdpuser/:pseudo', (req, res) => {
+  var sql = `SELECT utilisateur_pdp FROM utilisateur WHERE utilisateur_pseudo='${req.params.pseudo}';`;
+  basedonnee.getQuery(sql)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});
+
 
 //get les listes de themes ou de palettes de l'utilisateur
 app.get('/list/:userPseudo-:type', (req, res) => {
@@ -392,7 +404,7 @@ app.use('/getVerifToken/:token', (req, res) => {
 //modifier le token d'une personne
 app.use('/modifierToken/:pseudo-:token', (req, res) => {
   console.log("je modifie le token", req.params.pseudo);
-  const sql = `UPDATE utilisateur SET utilisateur_token = 'hello' WHERE utilisateur_pseudo = '${req.params.pseudo}';`;
+  const sql = `UPDATE utilisateur SET utilisateur_token = '${req.params.token}' WHERE utilisateur_pseudo = '${req.params.pseudo}';`;
   basedonnee.getQuery(sql)
   .then(response => {
     res.status(200).send(response);

@@ -82,8 +82,8 @@ class ProfilContent extends React.Component{
                     </section>;
     if(tabPublication.length > 0){
       divPubli = tabPublication.map((elt, idx) =>
-      <Publication photo = {elt} idx = {idx}/>  );
-    }
+        <Publication photo = {elt} idx = {idx}/>  );
+      }
 
     return(
       <section className="section profilContent">
@@ -112,7 +112,8 @@ class Profil extends React.Component{
   
   componentDidMount(){
     const chemin = [
-      "/publicationsofuserpseudo/"+this.state.pseudo
+      "/publicationsofuserpseudo/"+this.state.pseudo, 
+      "/pdpuser/"+this.state.pseudo
     ];
 
     Promise.all(chemin.map(url =>
@@ -123,10 +124,10 @@ class Profil extends React.Component{
     ))
     .then(data => {
       // assign to requested URL as define in array with array index.
-      console.log("là : ",  Object.values(data[0][0]));
       var pseudoActuel = this.state.pseudo;
       this.setState({
         pseudo: pseudoActuel,
+        pdp : ""+data[1][0].utilisateur_pdp,
         data: Object.values(data[0][0])
       })
     })
@@ -147,7 +148,7 @@ class Profil extends React.Component{
   render(){
     return (
       <div className="profil page">
-        <ProfilHead pseudo = {this.state.pseudo}/>
+        <ProfilHead photo = {this.state.pdp} pseudo = {this.state.pseudo}/>
         <ProfilContent content = {this.state.data}/>
       </div>
     );

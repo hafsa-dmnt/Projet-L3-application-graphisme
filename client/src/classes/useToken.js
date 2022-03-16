@@ -44,9 +44,11 @@ export function useToken(){
   };
 
   const [token, setToken] = useState(getToken());
-  const [pseudo, setPseudo] = useState("");
+  const [pseudo2, setPseudo] = useState("");
+  var pseudo = "";
 
   const saveToken = async (userToken) => {
+    console.log("savetoken" , pseudo);
     var body=await verifyTokenNotAlreadyPresent(userToken.token);
 
     if(body[0].length!=0){
@@ -65,6 +67,7 @@ export function useToken(){
 
   const savePseudo = userPseudo => {
     setPseudo(userPseudo);
+    pseudo = userPseudo;
   };
 
   return {
