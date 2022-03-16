@@ -49,7 +49,7 @@ export function useToken(){
   const saveToken = async (userToken) => {
     var body=await verifyTokenNotAlreadyPresent(userToken.token);
     console.log("body :",body);
-    if(body[0].length==0){
+    if(body[0].length!=0){
       alert("Problème de connexion, veuillez réessayer.");
       return;
     }else{
