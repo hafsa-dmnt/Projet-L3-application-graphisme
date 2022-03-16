@@ -23,9 +23,18 @@ var rrrr = process.env.TOKEN_SECRET;
 // console.log that your server is up and running
 app.listen(port, '0.0.0.0', () => console.log(`Listening on port ${port}`));
 
+function generateRandString(n) {
+  var chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  var token = '';
+  for(var i = 0; i < n; i++) {
+      token += chars[Math.floor(Math.random() * chars.length)];
+  }
+  return token;
+}
 
-function generateAccessToken(username) {
-  return jwt.sign(username+"ofijf", process.env.TOKEN_SECRET, {});
+
+function generateAccessToken(username) {  
+  return jwt.sign(username+generateRandString(32), process.env.TOKEN_SECRET, {});
   // le token expire tout les 30 j (donc reconnexion tout les mois)
 }
 
@@ -376,9 +385,9 @@ app.use('/listpalettes/modifier/:idlist-:nom-:icon', (req, res) => {
 });
 
 //ajouter nouvelle liste de palettes
-app.use('/inscription/creer/:pdp-:pseudo-:mail-:bio-:mdp', (req, res) => {
+app.use('/inscription/creer/:pseudo-:mail-:bio-:mdp', (req, res) => {
   console.log(req.params);
-  const sql = `INSERT INTO utilisateur (utilisateur_pdp, utilisateur_pseudo, utilisateur_email, utilisateur_bio,utilisateur_mdp, utilisateur_admin) VALUES ( '${req.params.pdp}','${req.params.pseudo}', '${req.params.mail}', '${req.params.bio}', '${req.params.mdp}',false);`;
+  const sql = `INSERT INTO utilisateur (utilisateur_pdp, utilisateur_pseudo, utilisateur_email, utilisateur_bio,utilisateur_mdp, utilisateur_admin) VALUES ( 'pdp_${req.params.pseudo}','${req.params.pseudo}', '${req.params.mail}', '${req.params.bio}', '${req.params.mdp}',false);`;
   basedonnee.getQuery(sql)
   .then(response => {
     res.status(200).send(response);
