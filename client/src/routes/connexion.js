@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import '../CSS/connexion.css';
 import { Icon } from '@iconify/react';
-//import {Link} from "react-router-dom";
+import {Link} from "react-router-dom";
 import PropTypes from 'prop-types';
 
 import {isCompleted} from '../classes/formValidation.js';
@@ -107,6 +107,7 @@ export default function Connexion(prop) {
   }
 
   return(
+
     <div className="page page_connexion">
       <div className="section title">
         <h2>Connexion</h2>
@@ -136,7 +137,7 @@ export default function Connexion(prop) {
           </div>
 
           <div className="subSection">
-              <p>Pas encore de compte ? Vous pouvez en créer un .</p>
+              <p>Pas encore de compte ? <Link to={"/inscription"}>Vous pouvez en créer un !</Link></p>
           </div>
 
         </form>
