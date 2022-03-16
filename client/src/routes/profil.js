@@ -6,7 +6,6 @@ import { Navigate } from "react-router-dom";
 import {AdvancedImage} from '@cloudinary/react';
 import {Cloudinary} from "@cloudinary/url-gen";
 
-
 class Follow extends React.Component{
   constructor(props){
     super(props);
@@ -49,15 +48,11 @@ class ProfilHead extends React.Component{
     super(props);
   }
   render(){
-    let btnAfficher = <Follow/>;
-    let lienListes = <p></p>
-    var isSameProfil = this.props.isSameProfil;
-    if(isSameProfil){
-      btnAfficher = <ButtonClick chemin='/parametres' iconbtn="ant-design:setting-twotone" idbtn="btnParameters"/>
-      lienListes= <div>
-                    <Link to="/profil/listes?type=themes">Mes thèmes et palettes</Link>
-                  </div>;
-    }
+    let btnAfficher = <ButtonClick chemin='/parametres' iconbtn="ant-design:setting-twotone" idbtn="btnParameters"/>
+    let lienListes= <div>
+                  <Link to="/profil/listes?type=themes">Mes thèmes et palettes</Link>
+                </div>;
+    
     return(
       <header className="profilHead section">
         <img src={'defaultpicture.jpg'} className= "profilePic" alt="profil"></img>
@@ -129,33 +124,26 @@ class ProfilContent extends React.Component{
   }
 }
 
+
 class Profil extends React.Component{
   constructor(props){
     super(props);
-    var isSameProfil = true;
-    var pseudo = "example";
-    const queryParams = new URLSearchParams(window.location.search);
-    console.log(queryParams);
-    if(queryParams.get('type') !== null){
-      const profilType = queryParams.get('type');
-      if(profilType === "visit"){
-        isSameProfil = false;
-        pseudo = queryParams.get('pseudo');
-      }
-    }
-
+    var pseudo = "";
+    
     this.state = {
       pseudo: pseudo,
-      isSameProfil: isSameProfil,
-      data: null
+      data: []
     };
   }
 
-  /*
   componentDidMount(){
+    const tokenString = localStorage.getItem('token');
+    var temp = JSON.parse(tokenString);
+    temp = temp.token;
+    console.log("token :", temp);
     const chemin = [
-      "/pseudoUser/"+token,
-      "/publicationsofuser/"+token
+      "/publicationsofuser/"+temp, 
+      '/pseudouser/'+temp
     ];
 
     Promise.all(chemin.map(url =>
@@ -166,13 +154,11 @@ class Profil extends React.Component{
     ))
     .then(data => {
       // assign to requested URL as define in array with array index.
-      console.log(data[0], data[1]);
-      var tabNoms = Object.values(data[0]);
-      var arrayPublications = data[1].map( Object.values );
+      console.log(data);
+      var pseudoActuel = this.state.pseudo;
       this.setState({
-        pseudo: data[0],
-        data: data[1],
-        isSameProfil: this.state.isSameProfil
+        pseudo: "",
+        data: []
       })
     })
 
@@ -188,7 +174,6 @@ class Profil extends React.Component{
       return response.json();
     }
   }
-  */
 
 
   render(){

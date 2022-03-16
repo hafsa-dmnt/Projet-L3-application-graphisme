@@ -25,7 +25,7 @@ app.listen(port, '0.0.0.0', () => console.log(`Listening on port ${port}`));
 
 
 function generateAccessToken(username) {
-  return jwt.sign(username, process.env.TOKEN_SECRET, {});
+  return jwt.sign(username+"ofijf", process.env.TOKEN_SECRET, {});
   // le token expire tout les 30 j (donc reconnexion tout les mois)
 }
 
@@ -91,6 +91,17 @@ app.get('/pseudouser/:token', (req, res) => {
 
 app.get('/publicationsofuser/:token', (req, res) => {
   var sql = `SELECT publication_id, publication_image FROM utilisateur, publication WHERE utilisateur_token='${req.params.token}' AND utilisateur_pseudo=publication_utilisateurpseudo;`;
+  basedonnee.getQuery(sql)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});
+
+app.get('/publicationsofuserpseudo/:pseudo', (req, res) => {
+  var sql = `SELECT publication_id, publication_image FROM utilisateur, publication WHERE utilisateur_pseudo='${req.params.pseudo}';`;
   basedonnee.getQuery(sql)
   .then(response => {
     res.status(200).send(response);
@@ -380,8 +391,8 @@ app.use('/getVerifToken/:token', (req, res) => {
 
 //modifier le token d'une personne
 app.use('/modifierToken/:pseudo-:token', (req, res) => {
-  console.log(req.params);
-  const sql = `UPDATE utilisateur SET utilisateur_token = '${req.params.token}' WHERE utilisateur_pseudo = '${req.params.pseudo}';`;
+  console.log("je modifie le token", req.params.pseudo);
+  const sql = `UPDATE utilisateur SET utilisateur_token = 'hello' WHERE utilisateur_pseudo = '${req.params.pseudo}';`;
   basedonnee.getQuery(sql)
   .then(response => {
     res.status(200).send(response);

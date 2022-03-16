@@ -48,21 +48,19 @@ export function useToken(){
 
   const saveToken = async (userToken) => {
     var body=await verifyTokenNotAlreadyPresent(userToken.token);
-    console.log("body :",body);
-    if(body[0].length==0){
+
+    if(body[0].length!=0){
       alert("Problème de connexion, veuillez réessayer.");
       return;
-    }else{
-
-      var temp = userToken.token;
-      modifierToken(pseudo,temp);
-
-      localStorage.setItem('token', JSON.stringify(userToken));
-
-    // todo set it to the database (verifier pas deja dedans btw)
-
-      setToken(userToken.token);
     }
+
+    var temp = userToken.token;
+    modifierToken(pseudo,temp);
+
+    localStorage.setItem('token', JSON.stringify(userToken));
+
+    setToken(userToken.token);
+    
   };
 
   const savePseudo = userPseudo => {
