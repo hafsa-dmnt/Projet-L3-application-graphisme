@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import '../CSS/connexion.css';
 import { Icon } from '@iconify/react';
-//import {Link} from "react-router-dom";
+import {Link} from "react-router-dom";
 import PropTypes from 'prop-types';
 
 import {isCompleted} from '../classes/formValidation.js';
@@ -21,6 +21,18 @@ async function loginUser(credentials) {
     }).then(data => data.json())
 }
 
+async function verifyMdp(pseudo) {
+  const chemin = [
+    "/pseudoMdp/"+pseudo
+  ];
+  return Promise.all(chemin.map(url =>
+    fetch(url)
+    .then(checkStatus)  // check the response of our APIs
+    .then(parseJSON)    // parse it to Json
+    .catch(error => console.log('There was a problem!', error))
+  ))
+}
+
 
 Connexion.propTypes = {
   setToken: PropTypes.func.isRequired,
@@ -35,7 +47,11 @@ function checkStatus(response) {
   }
 }
 
-export default function Connexion(props) {
+function parseJSON(response) {
+  return response.json();
+}
+
+export default function Connexion(prop) {
 
   const [pseudo, setPseudo] = useState('');
   const [mdp, setMdp] = useState('');
@@ -59,15 +75,18 @@ export default function Connexion(props) {
 
     // verifier que mdp et pseudo corepondent bd
     // + l'envoyer vers le composant app jsp comment
-    
-    const lien="/pseudoMdp/"+pseudo;
-    const response = await fetch(lien);
-    const body = await response.json();
-    if (response.status !== 200) {
-      throw Error(body.message)
+    console.log(pseudo);
+
+    var body=await verifyMdp(pseudo);
+
+    if(body[0].length==0){
+      alert("Le pseudo n'existe pas.")
+      return;
     }
 
-    var mdpbd=body[0].utilisateur_mdp;
+    console.log("ici :",body);
+    var mdpbd=body[0][0].utilisateur_mdp;
+    console.log("ici :",mdpbd);
 
     var passwordHash = require('password-hash');
     var mdpEstBon=passwordHash.verify(mdp, mdpbd.trim());
@@ -81,12 +100,14 @@ export default function Connexion(props) {
       pseudo,
       mdp
     });
-    props.setToken(token);
+    prop.setPseudoFromToken(pseudo);
+    prop.setToken(token);
     setPseudo(pseudo);
-    props.setPseudoFromToken(pseudo);
+
   }
 
   return(
+
     <div className="page page_connexion">
       <div className="section title">
         <h2>Connexion</h2>
@@ -116,7 +137,7 @@ export default function Connexion(props) {
           </div>
 
           <div className="subSection">
-              <p>Pas encore de compte ? Vous pouvez en créer un .</p>
+              <p>Pas encore de compte ? <Link to={"/inscription"}>Vous pouvez en créer un !</Link></p>
           </div>
 
         </form>
