@@ -78,7 +78,7 @@ export default function Connexion(prop) {
     console.log(pseudo);
 
     var body=await verifyMdp(pseudo);
-    
+
     if(body[0].length==0){
       alert("Le pseudo n'existe pas.")
       return;
@@ -87,7 +87,7 @@ export default function Connexion(prop) {
     console.log("ici :",body);
     var mdpbd=body[0][0].utilisateur_mdp;
     console.log("ici :",mdpbd);
-    
+
     var passwordHash = require('password-hash');
     var mdpEstBon=passwordHash.verify(mdp, mdpbd.trim());
 
@@ -118,9 +118,10 @@ export default function Connexion(prop) {
       pseudo,
       mdp
     });
+    prop.setPseudoFromToken(pseudo);
     prop.setToken(token);
     setPseudo(pseudo);
-    prop.setPseudoFromToken(pseudo);
+
   }
 
   return(

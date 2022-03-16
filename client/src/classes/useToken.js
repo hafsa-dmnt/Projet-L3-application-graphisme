@@ -47,13 +47,15 @@ export function useToken(){
   const [pseudo, setPseudo] = useState("");
 
   const saveToken = async (userToken) => {
-    var body=await verifyTokenNotAlreadyPresent(userToken);
-    
-    if(body[0].length==0){
+    var body=await verifyTokenNotAlreadyPresent(userToken.token);
+
+    if(body[0].length!=0){
       alert("Problème de connexion, veuillez réessayer.");
       return;
     }else{
-      modifierToken(pseudo, token);
+
+      var temp = userToken.token;
+      modifierToken(pseudo,temp);
 
       localStorage.setItem('token', JSON.stringify(userToken));
 
