@@ -44,29 +44,30 @@ export function useToken(){
   };
 
   const [token, setToken] = useState(getToken());
-  const [pseudo, setPseudo] = useState("");
+  const [pseudo2, setPseudo] = useState("");
+  var pseudo = "";
 
   const saveToken = async (userToken) => {
+    console.log("savetoken" , pseudo);
     var body=await verifyTokenNotAlreadyPresent(userToken.token);
     console.log("body :",body);
     if(body[0].length!=0){
       alert("Problème de connexion, veuillez réessayer.");
       return;
-    }else{
-
-      var temp = userToken.token;
-      modifierToken(pseudo,temp);
-
-      localStorage.setItem('token', JSON.stringify(userToken));
-
-    // todo set it to the database (verifier pas deja dedans btw)
-
-      setToken(userToken.token);
     }
+
+    var temp = userToken.token;
+    modifierToken(pseudo,temp);
+
+    localStorage.setItem('token', JSON.stringify(userToken));
+
+    setToken(userToken.token);
+    
   };
 
   const savePseudo = userPseudo => {
     setPseudo(userPseudo);
+    pseudo = userPseudo;
   };
 
   return {

@@ -23,9 +23,18 @@ var rrrr = process.env.TOKEN_SECRET;
 // console.log that your server is up and running
 app.listen(port, '0.0.0.0', () => console.log(`Listening on port ${port}`));
 
+function generateRandString(n) {
+  var chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  var token = '';
+  for(var i = 0; i < n; i++) {
+      token += chars[Math.floor(Math.random() * chars.length)];
+  }
+  return token;
+}
 
-function generateAccessToken(username) {
-  return jwt.sign(username, process.env.TOKEN_SECRET, {});
+
+function generateAccessToken(username) {  
+  return jwt.sign(username+generateRandString(32), process.env.TOKEN_SECRET, {});
   // le token expire tout les 30 j (donc reconnexion tout les mois)
 }
 
@@ -79,7 +88,7 @@ app.get('/parametersUser/:userPseudo', (req, res) => {
 });
 
 app.get('/pseudouser/:token', (req, res) => {
-  var sql = `SELECT utilisateur_pseudo FROM utilisateur WHERE utilisateur_token='${req.params.token}';`;
+  var sql = `SELECT utilisateur_pseudo, utilisateur_pdp FROM utilisateur WHERE utilisateur_token='${req.params.token}';`;
   basedonnee.getQuery(sql)
   .then(response => {
     res.status(200).send(response);
@@ -99,6 +108,29 @@ app.get('/publicationsofuser/:token', (req, res) => {
     res.status(500).send(error);
   })
 });
+
+app.get('/publicationsofuserpseudo/:pseudo', (req, res) => {
+  var sql = `SELECT publication_id, publication_image FROM utilisateur, publication WHERE utilisateur_pseudo='${req.params.pseudo}';`;
+  basedonnee.getQuery(sql)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});
+
+app.get('/pdpuser/:pseudo', (req, res) => {
+  var sql = `SELECT utilisateur_pdp FROM utilisateur WHERE utilisateur_pseudo='${req.params.pseudo}';`;
+  basedonnee.getQuery(sql)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});
+
 
 //get les listes de themes ou de palettes de l'utilisateur
 app.get('/list/:userPseudo-:type', (req, res) => {
@@ -353,9 +385,9 @@ app.use('/listpalettes/modifier/:idlist-:nom-:icon', (req, res) => {
 });
 
 //ajouter nouvelle liste de palettes
-app.use('/inscription/creer/:pdp-:pseudo-:mail-:bio-:mdp', (req, res) => {
+app.use('/inscription/creer/:pseudo-:mail-:bio-:mdp', (req, res) => {
   console.log(req.params);
-  const sql = `INSERT INTO utilisateur (utilisateur_pdp, utilisateur_pseudo, utilisateur_email, utilisateur_bio,utilisateur_mdp, utilisateur_admin) VALUES ( '${req.params.pdp}','${req.params.pseudo}', '${req.params.mail}', '${req.params.bio}', '${req.params.mdp}',false);`;
+  const sql = `INSERT INTO utilisateur (utilisateur_pdp, utilisateur_pseudo, utilisateur_email, utilisateur_bio,utilisateur_mdp, utilisateur_admin) VALUES ( 'pdp_${req.params.pseudo}','${req.params.pseudo}', '${req.params.mail}', '${req.params.bio}', '${req.params.mdp}',false);`;
   basedonnee.getQuery(sql)
   .then(response => {
     res.status(200).send(response);
@@ -380,7 +412,7 @@ app.use('/getVerifToken/:token', (req, res) => {
 
 //modifier le token d'une personne
 app.use('/modifierToken/:pseudo-:token', (req, res) => {
-  console.log(req.params);
+  console.log("je modifie le token", req.params.pseudo);
   const sql = `UPDATE utilisateur SET utilisateur_token = '${req.params.token}' WHERE utilisateur_pseudo = '${req.params.pseudo}';`;
   basedonnee.getQuery(sql)
   .then(response => {

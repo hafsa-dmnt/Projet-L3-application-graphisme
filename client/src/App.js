@@ -5,6 +5,7 @@ import './App.css';
 import Compte from './routes/compte.js'
 import Publication from './routes/publication.js'
 import Profil from './routes/profil.js'
+import Visit from './routes/visit.js'
 import Calendrier from './routes/calendrier.js'
 import Defijour from './routes/defijour.js'
 import Home from './routes/home.js'
@@ -47,6 +48,7 @@ class AppComponent extends React.Component{
             <Route exact path="/" element={<Home/>}/>
             <Route exact path="/home" element={<Home/>}/>
             <Route exact path="/profil" element={<Profil/>}/>
+            <Route exact path="/visit" element = {<Visit/>}/>
             <Route exact path="/profil/listes" element={<Listes/>}/>
             <Route exact path="/profil/listethemes" element={<ListeThemes/>}/>
             <Route exact path="/profil/listepalettes" element={<ListePalettes/>}/>

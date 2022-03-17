@@ -42,7 +42,32 @@ class CreerListeThemes extends React.Component{
                 <label>
                     <h3>Icon :</h3>
                 </label>
-                <input type="text" name="icon" value={this.state.icon} onChange={this.handleChange} />
+                <select name="icon" id="inconList"onChange={this.handleChange} value={this.state.icon}>
+                  <option value=''>Vide</option>
+                  <option value='bi:tree-fill' >Abeille</option>
+                  <option value="ph:flower-fill">Fleur</option>
+                  <option value="bx:bxs-city">Ville</option>
+                  <option value="emojione-monotone:sparkles">Sparkles</option>
+                  <option value="bx:bxs-cat">Chat</option>
+                  <option value="bi:pencil">Crayon</option>
+                  <option value="pepicons:paint-pallet">Palette</option>
+                  <option value="ant-design:camera-filled">Photo</option>
+                  <option value="eva:people-fill">Personne</option>
+                  <option value="ant-design:home-filled">Maison</option>
+                  <option value="fluent:food-apple-20-filled">Pomme</option>
+                  <option value="fluent:food-pizza-20-filled">Pizza</option>
+                  <option value="akar-icons:face-happy">Sourir</option>
+                  <option value="fluent:animal-turtle-24-regular">Tortue</option>
+                  <option value="charm:heart">Coeur</option>
+                  <option value="whh:flowerpot">Fleur en pot</option>
+                  <option value="fa-solid:paint-brush">Pinceau</option>
+                  <option value="bi:star-fill">Étoile</option>
+                  <option value="fa-solid:skull">Crâne</option>
+                  <option value="mdi:bee-flower">Fleur-Abeille</option>
+                  <option value="fa-solid:frog">Grenouille</option>
+                  <option value="ic:round-format-paint">Peinture</option>
+                  <option value="carbon:spray-paint">Peinture en spray</option>
+                  </select>
                 </div>
                 <div className="subSection">
                     <button onClick={this.handleSubmit}>
