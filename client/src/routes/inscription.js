@@ -5,6 +5,8 @@ import { Icon } from '@iconify/react';
 import {AdvancedImage} from '@cloudinary/react';
 import {Cloudinary} from "@cloudinary/url-gen";
 
+import { Navigate } from "react-router-dom";
+
 import {validateEmail,
         passwordConfirmation,
         isCompleted,
@@ -14,6 +16,9 @@ import {validateEmail,
 
 
 class InscriptionForm extends React.Component {
+
+  state = { redirect: null };
+
   constructor(props) {
     super(props);
     this.state = {pseudo:'',mail:'',bio:'', mdp: '',confirm:'',pdp:'',url:'',pdp_url:''};
@@ -44,7 +49,7 @@ class InscriptionForm extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     var passwordHash = require('password-hash');
-    
+
     //console.log("mdp : ",sha1$b4c885be$1$dc05169eaacbe5f8bda25ace50c7fd14715e2d30
 
     if(!(isCompleted('pseudo',this.state.pseudo)&isCompleted('mail',this.state.mail))){
@@ -119,10 +124,17 @@ class InscriptionForm extends React.Component {
                                       })
                                           }).catch(err => console.log(err));
 
+
+      this.setState({ redirect: "/Connexion" });
+
     }
 
 
+
   render() {
+    if (this.state.redirect) {
+      return <Navigate to={this.state.redirect} />
+    }
     return (
 
       <form onSubmit={this.handleSubmit} className = "inscriptionForm">
