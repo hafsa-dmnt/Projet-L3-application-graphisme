@@ -21,7 +21,10 @@ class CreerListeThemes extends React.Component{
     }
 
     handleSubmit= async () => {
-        const lien="/listthemes/creer/user1-"+this.state.nom+"-"+this.state.icon;
+        const tokenString = localStorage.getItem('token');
+        var temp = JSON.parse(tokenString);
+        temp = temp.token;
+        const lien="/listthemes/creer/"+temp+"-"+this.state.nom+"---"+this.state.icon;
         const response = await fetch(lien);
     }
 

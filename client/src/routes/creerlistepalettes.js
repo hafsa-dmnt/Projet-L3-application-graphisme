@@ -21,7 +21,10 @@ class CreerListePalettes extends React.Component{
     }
 
     handleSubmit= async () => {
-        const lien="/listpalettes/creer/user1-"+this.state.nom+"-"+this.state.icon;
+        const tokenString = localStorage.getItem('token');
+        var temp = JSON.parse(tokenString);
+        temp = temp.token;
+        const lien="/listpalettes/creer/"+temp+"-"+this.state.nom+"---"+this.state.icon;
         const response = await fetch(lien);
     }
 

@@ -57,10 +57,13 @@ class Liste extends React.Component{
 
 class ListeThemes extends React.Component {
   constructor(props) {
+    const queryParams = new URLSearchParams(window.location.search);
+    const id = queryParams.get('idlist');
     super(props);
     //ici on récupère à l'aide d'une requête toutes les listes de thèmes existantes (on peut ajouter un bouton supprimer liste)
     this.state = {
-      listeThemes:  ""
+      listeThemes:  "",
+      idliste: id
     }
   } 
 
@@ -95,7 +98,7 @@ class ListeThemes extends React.Component {
       <section className="page page_listes">
         <BoutonRetour/>
         <button onClick={this.delete}>Supprimer la liste</button>
-        <Link to={"/profil/listethemes/modifier"}>modifier</Link>
+        <Link to={"/profil/listethemes/modifier?idlist="+this.state.idliste}>modifier</Link>
         <Liste listeThemes={this.state.listeThemes}></Liste>
       </section>
     );
