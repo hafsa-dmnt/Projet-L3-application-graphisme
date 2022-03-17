@@ -100,6 +100,7 @@ export default function Connexion(prop) {
       pseudo,
       mdp
     });
+    
     prop.setPseudoFromToken(pseudo);
     prop.setToken(token);
     setPseudo(pseudo);

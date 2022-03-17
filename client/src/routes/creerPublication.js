@@ -18,6 +18,8 @@ function CreateForm(props){
     const [imageUrl, setImageUrl] = useState();
     const [image, setImage ] = useState("");
     const [ url, setUrl ] = useState("");
+    const queryParams = new URLSearchParams(window.location.search);
+    const pseudo = queryParams.get('pseudo');  
 
     const handleSubmit = (event) => {
       event.preventDefault();
@@ -26,6 +28,34 @@ function CreateForm(props){
         return;
       }
 
+
+      const chemin = [
+        "/publicationsofuser/"+pseudo 
+      ];
+  
+      Promise.all(chemin.map(url =>
+        fetch(url)
+        .then(checkStatus)  // check the response of our APIs
+        .then(parseJSON)    // parse it to Json
+        .catch(error => console.log('There was a problem!', error))
+      ))
+      .then(data => {
+        // assign to requested URL as define in array with array index.
+
+        //get number of publications to set the image's url correctly 
+      })
+  
+      function checkStatus(response) {
+        if (response.ok) {
+          return Promise.resolve(response);
+        } else {
+          return Promise.reject(new Error(response.statusText));
+        }
+      }
+  
+      function parseJSON(response) {
+        return response.json();
+      }
 
 //////// TODO :
 
@@ -39,7 +69,7 @@ function CreateForm(props){
         // date du defi si besoin = {dateDefi}
         // id de l'image = id
 
-      var id = "test";
+      var id = "pdp_bloomlater";
 
       const formData = new FormData();
 
