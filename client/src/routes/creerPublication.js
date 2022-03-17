@@ -13,7 +13,7 @@ registerLocale('fr', fr)
 
 function CreateForm(props){
     const [dateDefi, setDateDefi] = useState(new Date());
-    const [defi, setDefi] = useState(false);
+    const [defi, setDefi] = useState(null);
     const today = new Date();
     const [imageUrl, setImageUrl] = useState();
     const [image, setImage ] = useState("");
@@ -30,8 +30,8 @@ function CreateForm(props){
 
       var url = "publication_"+pseudo;
 
-      const chemin = [
-        "/publicationsofuser/"+pseudo 
+      let chemin = [
+        "/publicationsofuserpseudo/"+pseudo 
       ];
   
       Promise.all(chemin.map(url =>
@@ -42,8 +42,7 @@ function CreateForm(props){
       ))
       .then(data => {
         // assign to requested URL as define in array with array index.
-
-        //get number of publications to set the image's url correctly 
+        url += data[0].length+1;
       })
   
       function checkStatus(response) {
@@ -61,19 +60,17 @@ function CreateForm(props){
 //////// TODO :
 
       // BD : get id utilisateur + nombre de publication
-
+      //'/nouvellepublication/:date-:pseudo-:datedefi-:imageurl'
       // envoie a la bd de
         // si c un defi = {defi}
         // date du jour = {today}
         // date du defi si besoin = {dateDefi}
         // id de l'image = id
 
-      var id = "publi_bloomlater1";
-
       const formData = new FormData();
 
       formData.append("file", image)
-      formData.append("public_id", id)
+      formData.append("public_id", url)
       formData.append("upload_preset", "hhd3mufr")
       formData.append("cloud_name","hzcpqfz4w")
 
@@ -87,10 +84,26 @@ function CreateForm(props){
                                             }).catch(err => console.log(err));
 
       //envoi à la bd 
+      var dateDefiBd = dateDefi;
+      if(defi == false){
+        dateDefiBd = null;
+      }
+      chemin = [
+        '/nouvellepublication/'+today+'-'+pseudo+'-'+dateDefi+'-'+url
+      ];
+  
+      Promise.all(chemin.map(url =>
+        fetch(url)
+        .then(checkStatus)  // check the response of our APIs
+        .then(parseJSON)    // parse it to Json
+        .catch(error => console.log('There was a problem!', error))
+      ))
+      .then(data => {
+        // assign to requested URL as define in array with array index.
+        url += data[0].length+1;
+      })
 
     }
-
-
 
 
     const handleChangeImage = (event) => {

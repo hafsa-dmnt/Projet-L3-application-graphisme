@@ -120,6 +120,7 @@ app.get('/publicationsofuserpseudo/:pseudo', (req, res) => {
   })
 });
 
+//TODO supprimer 
 app.get('/pdpuser/:pseudo', (req, res) => {
   var sql = `SELECT utilisateur_pdp FROM utilisateur WHERE utilisateur_pseudo='${req.params.pseudo}';`;
   basedonnee.getQuery(sql)
@@ -201,7 +202,6 @@ app.get('/listpalettes/:idList', (req, res) => {
     res.status(500).send(error);
   })
 });
-
 
 app.get('/defiatdate/:dateselected', (req, res) => {
   var sql = "SELECT theme.theme_nom, palette.palette_nom FROM theme, palette, defi WHERE defi_date = '"+req.params.dateselected+"' AND defi_themeid = theme_id AND defi_paletteid = palette_id;";
@@ -422,7 +422,6 @@ app.use('/getVerifToken/:token', (req, res) => {
 
 //modifier le token d'une personne
 app.use('/modifierToken/:pseudo-:token', (req, res) => {
-  console.log("je modifie le token", req.params.pseudo);
   const sql = `UPDATE utilisateur SET utilisateur_token = '${req.params.token}' WHERE utilisateur_pseudo = '${req.params.pseudo}';`;
   basedonnee.getQuery(sql)
   .then(response => {
@@ -433,7 +432,18 @@ app.use('/modifierToken/:pseudo-:token', (req, res) => {
   })
 });
 
-
+//ajouter une nouvelle publication
+app.use('/nouvellepublication/:date-:pseudo-:datedefi-:imageurl', (req, res) => {
+  const sql = `INSERT INTO publication (publication_date, publication_utilisateurpseudo, publication_datedefi, publication_image, publication_theme) 
+  VALUES (${req.param.date}, ${req.param.pseudo}, ${req.param.datedefi}, ${req.param.imageurl}, 'notheme');`;
+  basedonnee.getQuery(sql)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});
 
 /*
 delete une liste depuis la page de la liste : fait

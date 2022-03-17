@@ -116,7 +116,7 @@ class ProfilContent extends React.Component{
         <section className="galerie">
           <div className='maGalerie'>
             <h3>Galerie</h3>
-            <ButtonClick chemin='/creerPublication' iconbtn="fluent:add-12-filled" idbtn="btnAddPublication"/>
+            <ButtonClick chemin={'/creerPublication?pseudo='+this.props.pseudo} iconbtn="fluent:add-12-filled" idbtn="btnAddPublication"/>
           </div>
           {divPubli}
         </section>
@@ -186,8 +186,8 @@ class Profil extends React.Component{
   render(){
     return (
       <div className="profil page">
-        <ProfilHead photo = {this.state.pdp} pseudo = {this.state.pseudo} isSameProfil={this.state.isSameProfil}/>
-        <ProfilContent content = {this.state.data} isSameProfil={this.state.isSameProfil}/>
+        <ProfilHead photo = {this.state.pdp} pseudo = {this.state.pseudo}/>
+        <ProfilContent content = {this.state.data} pseudo = {this.state.pseudo}/>
       </div>
     );
   }

@@ -13,7 +13,8 @@ class Follow extends React.Component{
   }
 
   followSomeone(){
-    alert("todo : follow someone");
+    alert("todo : follow "+this.props.pseudo);
+    this.props.handleChange();
   }
 
   render(){
@@ -25,12 +26,45 @@ class Follow extends React.Component{
   }
 }
 
-class ProfilHead extends React.Component{
+class Unfollow extends React.Component{
   constructor(props){
     super(props);
   }
+
+  followSomeone(){
+    alert("todo : unfollow "+this.props.pseudo);
+    this.props.handleChange();
+  }
+
   render(){
-    let btnAfficher = <Follow/>;
+    return(
+        <button id="btnFollow" onClick={() => this.followSomeone()}>
+          <Icon icon="eva:person-remove-fill" />
+        </button>
+    );
+  }
+}
+
+class ProfilHead extends React.Component{
+  constructor(props){
+    super(props);
+    this.state = {
+      follow: false//see if we follow them :) 
+    }
+
+    this.handleFollow = this.handleFollow.bind(this);
+  }
+
+  handleFollow(){
+    var following = !this.state.follow;
+    this.setState({follow: following});
+  }
+
+  render(){
+    let btnAfficher = <Follow pseudo={this.props.pseudo} handleChange = {this.handleFollow}/>;
+    if(this.state.follow){
+      btnAfficher = <Unfollow pseudo={this.props.pseudo} handleChange = {this.handleFollow}/>;
+    }
     const cld = new Cloudinary({
       cloud: {
         cloudName: "hzcpqfz4w"//process.env.CLOUD_NAME

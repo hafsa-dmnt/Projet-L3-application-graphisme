@@ -47,7 +47,7 @@ class DisplayOneUser extends React.Component{
         <div key={this.props.idx} className="profilePic" alt="photo de profil">
           <AdvancedImage cldImg={myImage} />
         </div>
-        <h3>@{this.props.pseudo.trim()}</h3>
+        <h3>{this.props.pseudo.trim()}</h3>
       </header>
     );
   }
@@ -57,18 +57,18 @@ class DisplayAbos extends React.Component{
     constructor(props){
       super(props);
     }
-    
+
     render() {
       let divAbos = "";
       var tabAbo = this.props.abos;
       if(tabAbo.length == 0){
-        divAbos = <p>Aucune personne suivie.</p>
+        divAbos = <section className='aucunePubli'>
+                    <div className='iconPasDePubli'><Icon icon="clarity:heart-broken-line" /></div>
+                  <h3>Aucun abonnement</h3>
+      </section>;
       }else{
         divAbos = tabAbo.map((elt, idx) =>
         <DisplayOneUser pseudo={elt.abonner_suivi}/>  );
-        
-        //tabAbo.map((elt, idx) =>
-        //<h3>{elt}</h3>);
       }
       return(
         <section>
