@@ -435,7 +435,7 @@ app.use('/modifierToken/:pseudo-:token', (req, res) => {
 //ajouter une nouvelle publication
 app.use('/nouvellepublication/:date-:pseudo-:datedefi-:imageurl', (req, res) => {
   const sql = `INSERT INTO publication (publication_date, publication_utilisateurpseudo, publication_datedefi, publication_image, publication_theme) 
-  VALUES (${req.param.date}, ${req.param.pseudo}, ${req.param.datedefi}, ${req.param.imageurl}, 'notheme');`;
+  VALUES (${req.params.date}, ${req.params.pseudo}, ${req.params.datedefi}, ${req.params.imageurl}, 'notheme');`;
   basedonnee.getQuery(sql)
   .then(response => {
     res.status(200).send(response);

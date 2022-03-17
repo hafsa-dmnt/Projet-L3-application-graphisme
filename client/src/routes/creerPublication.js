@@ -42,6 +42,7 @@ function CreateForm(props){
       ))
       .then(data => {
         // assign to requested URL as define in array with array index.
+        console.log(data);
         url += data[0].length+1;
       })
   
@@ -98,10 +99,6 @@ function CreateForm(props){
         .then(parseJSON)    // parse it to Json
         .catch(error => console.log('There was a problem!', error))
       ))
-      .then(data => {
-        // assign to requested URL as define in array with array index.
-        url += data[0].length+1;
-      })
 
     }
 
