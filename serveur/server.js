@@ -110,7 +110,7 @@ app.get('/publicationsofuser/:token', (req, res) => {
 });
 
 app.get('/publicationsofuserpseudo/:pseudo', (req, res) => {
-  var sql = `SELECT publication_id, publication_image FROM utilisateur, publication WHERE utilisateur_pseudo='${req.params.pseudo}';`;
+  var sql = `SELECT publication_id, publication_image FROM publication WHERE publication_utilisateurpseudo='${req.params.pseudo}';`;
   basedonnee.getQuery(sql)
   .then(response => {
     res.status(200).send(response);
@@ -131,6 +131,16 @@ app.get('/pdpuser/:pseudo', (req, res) => {
   })
 });
 
+app.get('/abonnements/:pseudo', (req, res) => {
+  var sql = `SELECT abonner_suivi FROM abonner WHERE abonner_suiveur='${req.params.pseudo}';`;
+  basedonnee.getQuery(sql)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});
 
 //get les listes de themes ou de palettes de l'utilisateur
 app.get('/list/:userPseudo-:type', (req, res) => {

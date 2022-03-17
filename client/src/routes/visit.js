@@ -72,18 +72,16 @@ class ProfilContent extends React.Component{
     super(props);
   }
   render(){
-    //requête pour aller chercher les publications d'une personne
-    console.log(this.props.content);
-    let tabPublication = this.props.content;
-    console.log(tabPublication);
+    let tabPublication = this.props.content.reverse();
     let divPubli = <section className='aucunePubli'>
                       <div className='iconPasDePubli'><Icon icon="ep:picture-rounded"/></div>
                       <h3>Aucune publication</h3>
                     </section>;
     if(tabPublication.length > 0){
-      divPubli = tabPublication.map((elt, idx) =>
-        <Publication photo = {elt} idx = {idx}/>  );
-      }
+        divPubli = tabPublication.map((elt, idx) =>
+        <Publication photo = {elt.publication_image} idx = {elt.publication_id}/>  );
+    }
+      
 
     return(
       <section className="section profilContent">
@@ -125,10 +123,16 @@ class Profil extends React.Component{
     .then(data => {
       // assign to requested URL as define in array with array index.
       var pseudoActuel = this.state.pseudo;
+      var datas = [];
+
+      if(data[0].length > 0){
+        datas = data[0];
+      }
+      
       this.setState({
         pseudo: pseudoActuel,
         pdp : ""+data[1][0].utilisateur_pdp,
-        data: Object.values(data[0][0])
+        data: datas
       })
     })
 

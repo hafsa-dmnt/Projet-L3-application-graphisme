@@ -28,6 +28,7 @@ function CreateForm(props){
         return;
       }
 
+      var url = "publication_"+pseudo;
 
       const chemin = [
         "/publicationsofuser/"+pseudo 
@@ -61,15 +62,13 @@ function CreateForm(props){
 
       // BD : get id utilisateur + nombre de publication
 
-      // var id = nomUti + (nbPubli+1)
-
       // envoie a la bd de
         // si c un defi = {defi}
         // date du jour = {today}
         // date du defi si besoin = {dateDefi}
         // id de l'image = id
 
-      var id = "pdp_bloomlater";
+      var id = "publi_bloomlater1";
 
       const formData = new FormData();
 
@@ -87,7 +86,11 @@ function CreateForm(props){
                                                   setUrl(data.url)
                                             }).catch(err => console.log(err));
 
-      }
+      //envoi à la bd 
+
+    }
+
+
 
 
     const handleChangeImage = (event) => {
