@@ -17,11 +17,11 @@ import {validateEmail,
 
 class InscriptionForm extends React.Component {
 
-  state = { redirect: null };
+
 
   constructor(props) {
     super(props);
-    this.state = {pseudo:'',mail:'',bio:'', mdp: '',confirm:'',pdp:'',url:'',pdp_url:''};
+    this.state = {pseudo:'',mail:'',bio:'', mdp: '',confirm:'',pdp:'',url:'',pdp_url:'', redirect: null};
     this.handleChangeImage = this.handleChangeImage.bind(this);
     this.handleChange = this.handleChange.bind(this);
 
