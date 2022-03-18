@@ -59,7 +59,7 @@ function CreateForm(props){
         var dateDefiBonFormat = year +"-"+month+"-"+day;
 
         var dateDefiBd = dateDefiBonFormat;
-        if(defi == false){
+        if(defi == null){
           dateDefiBd = null;
         }
 
