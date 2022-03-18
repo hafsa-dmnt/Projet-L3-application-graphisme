@@ -126,13 +126,13 @@ export default function App() {
     return(<Router>
       <div>
         <Routes>
+          <Route exact path="/" element={<Connexion setToken={setToken} setPseudoFromToken={setPseudoFromToken} />}/>
           <Route exact path="/inscription" element={<Inscription/>}/>
           <Route exact path="/connexion" element={
             <Connexion setToken={setToken} setPseudoFromToken={setPseudoFromToken} />}
           />
         </Routes>
       </div>
-      <Connexion setToken={setToken} setPseudoFromToken={setPseudoFromToken} />
       </Router>
     );
   }
