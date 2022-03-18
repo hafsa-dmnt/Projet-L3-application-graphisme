@@ -59,7 +59,7 @@ function CreateForm(props){
         var dateDefiBonFormat = year +"-"+month+"-"+day;
 
         var dateDefiBd = dateDefiBonFormat;
-        if(defi == null){
+        if(defi == false){
           dateDefiBd = null;
         }
 
@@ -95,9 +95,7 @@ function CreateForm(props){
                                                     setUrl(data.url);
                                                     alert("Publication ajoutée !");
                                                     window.location.reload(false);
-                                              }).catch(err => {console.log(err); alert("Une erreur s'est produite, veuillez réessayer.");
-                                              window.location.reload(false);});
-        
+                                              }).catch(err => {console.log(err); alert("Une erreur s'est produite. Veuillez réessayer.");});
       })
   
       function checkStatus(response) {
