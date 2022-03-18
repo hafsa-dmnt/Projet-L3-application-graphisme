@@ -94,8 +94,9 @@ function CreateForm(props){
         }).then(resp => resp.json()).then(data => {
                                                     setUrl(data.url);
                                                     alert("Publication ajoutée !");
-                                                    window.location.reload(false);
-                                              }).catch(err => console.log(err));
+                                                   
+                                              }).catch(err => {console.log(err); alert("Une erreur s'est produite, veuillez réessayer.");});
+        window.location.reload(false);
       })
   
       function checkStatus(response) {
