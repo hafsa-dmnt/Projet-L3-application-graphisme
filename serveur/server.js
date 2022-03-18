@@ -514,9 +514,10 @@ app.use('/modifierToken/:pseudo-:token', (req, res) => {
 });
 
 //ajouter une nouvelle publication
-app.use('/nouvellepublication/:date-:pseudo-:datedefi-:imageurl', (req, res) => {
-  const sql = `INSERT INTO publication (publication_date, publication_utilisateurpseudo, publication_datedefi, publication_image, publication_theme) 
-  VALUES (${req.params.date}, ${req.params.pseudo}, ${req.params.datedefi}, ${req.params.imageurl}, 'notheme');`;
+app.use('/nouvellepublication/:date.:pseudo.:datedefi.:imageurl', (req, res) => {
+  const sql = `INSERT INTO publication (publication_date, publication_heure, publication_utilisateurpseudo, publication_datedefi, publication_image, publication_theme) 
+  VALUES ('${req.params.date}', '2000-03-03', '${req.params.pseudo}', '${req.params.datedefi}', '${req.params.imageurl}', 'notheme');`;
+  console.log(sql);
   basedonnee.getQuery(sql)
   .then(response => {
     res.status(200).send(response);
@@ -525,6 +526,8 @@ app.use('/nouvellepublication/:date-:pseudo-:datedefi-:imageurl', (req, res) => 
     res.status(500).send(error);
   })
 });
+
+
 
 /*
 delete une liste depuis la page de la liste : fait
