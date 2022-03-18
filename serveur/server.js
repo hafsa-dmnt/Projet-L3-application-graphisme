@@ -143,16 +143,27 @@ app.get('/abonnements/:pseudo', (req, res) => {
   })
 });
 
-//get les listes de themes ou de palettes de l'utilisateur
-app.get('/list/:userPseudo-:type', (req, res) => {
+//get les listes de themes de l'utilisateur
+app.get('/listesthemes/:token', (req, res) => {
   console.log(req.params);
-  sql = `SELECT * FROM `;
-  if(req.params.type === "theme"){
-      sql += `theme_list WHERE tl_utilisateurpseudo =`;
-  }else{
-      sql += `palette_list WHERE pl_utilisateurpseudo =`;
-  }
-  sql +=  ` '${req.params.userPseudo}';`;
+  sql = `SELECT * FROM theme_list, utilisateur`;
+  sql += ` WHERE utilisateur_token = '${req.params.token}'`;
+  sql +=  `AND utilisateur_pseudo = tl_utilisateurpseudo;`;
+  basedonnee.getQuery(sql)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});
+
+//get les listes de palettes de l'utilisateur
+app.get('/listespalettes/:token', (req, res) => {
+  console.log(req.params);
+  sql = `SELECT * FROM palette_list, utilisateur`;
+  sql += ` WHERE utilisateur_token = '${req.params.token}'`;
+  sql +=  `AND utilisateur_pseudo = pl_utilisateurpseudo;`;
   basedonnee.getQuery(sql)
   .then(response => {
     res.status(200).send(response);
@@ -166,6 +177,32 @@ app.get('/list/:userPseudo-:type', (req, res) => {
 app.get('/themeslist', (req, res) => {
   console.log(req.params);
   const sql = `SELECT theme_nom FROM theme;`;
+  basedonnee.getQuery(sql)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});
+
+//get l'id d'un theme
+app.get('/idduthemes/:nomtheme', (req, res) => {
+  console.log(req.params);
+  const sql = `SELECT theme_nom, theme_id FROM theme WHERE theme_nom='${req.params.nomtheme}';`;
+  basedonnee.getQuery(sql)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});
+
+//get l'id d'une palette
+app.get('/iddelapalettes/:nom', (req, res) => {
+  console.log(req.params);
+  const sql = `SELECT palette_nom, palette_id FROM palette WHERE palette_nom='${req.params.nom}';`;
   basedonnee.getQuery(sql)
   .then(response => {
     res.status(200).send(response);
@@ -342,10 +379,11 @@ app.use('/listpalettes/element/delete/:idList-:idPalette', (req, res) => {
 });
 
 //ajouter nouvelle liste de themes
-app.use('/listthemes/creer/:userpseudo-:nom-:icon', (req, res) => {
+app.use('/listthemes/creer/:token-:nom---:icon', (req, res) => {
   console.log(req.params);
   var icon = req.params.icon=="empty" ? "" : req.params.icon;
-  const sql = `INSERT INTO theme_list (tl_utilisateurpseudo, tl_nom, tl_icon) VALUES ( '${req.params.userpseudo}', '${req.params.nom}', '${icon}');`;
+  var sql = `INSERT INTO theme_list (tl_utilisateurpseudo, tl_nom, tl_icon) `;
+  sql+=`SELECT utilisateur.utilisateur_pseudo, '${req.params.nom}', '${icon}' FROM utilisateur WHERE utilisateur.utilisateur_token= '${req.params.token}';`;
   basedonnee.getQuery(sql)
   .then(response => {
     res.status(200).send(response);
@@ -355,10 +393,53 @@ app.use('/listthemes/creer/:userpseudo-:nom-:icon', (req, res) => {
   })
 });
 
+
 //ajouter nouvelle liste de palettes
-app.use('/listpalettes/creer/:userpseudo-:nom-:icon', (req, res) => {
+app.use('/listpalettes/creer/:token-:nom---:icon', (req, res) => {
   console.log(req.params);
-  const sql = `INSERT INTO palette_list (pl_utilisateurpseudo, pl_nom, pl_icon) VALUES ( '${req.params.userpseudo}', '${req.params.nom}', '${req.params.icon}');`;
+  var icon = req.params.icon=="empty" ? "" : req.params.icon;
+  var sql = `INSERT INTO palette_list (pl_utilisateurpseudo, pl_nom, pl_icon) `;
+  sql+=`SELECT utilisateur.utilisateur_pseudo, '${req.params.nom}', '${icon}' FROM utilisateur WHERE utilisateur.utilisateur_token= '${req.params.token}';`;
+  basedonnee.getQuery(sql)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});
+
+//ajouter un theme à une liste
+app.use('/listthemes/element/creer/:idList-:idTheme', (req, res) => {
+  console.log(req.params);
+  const sql = `INSERT INTO lien_list_theme (l_theme_id, l_theme_list_id) VALUES ( ${req.params.idTheme}, ${req.params.idList});`;
+  basedonnee.getQuery(sql)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});
+
+
+//ajouter une palette à une liste
+app.use('/listpalettes/element/creer/:idList-:idPalette', (req, res) => {
+  console.log(req.params);
+  const sql = `INSERT INTO lien_list_palette (l_palette_id, l_palette_list_id) VALUES ( ${req.params.idPalette}, ${req.params.idList});`;
+  basedonnee.getQuery(sql)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});
+
+//ajouter une palette
+app.use('/palette/creer/:nom', (req, res) => {
+  console.log(req.params);
+  const sql = `INSERT INTO palette (palette_nom) VALUES ( '${req.params.nom}');`;
   basedonnee.getQuery(sql)
   .then(response => {
     res.status(200).send(response);
@@ -394,7 +475,7 @@ app.use('/listpalettes/modifier/:idlist-:nom-:icon', (req, res) => {
   })
 });
 
-//ajouter nouvelle liste de palettes
+//ajouter nouvel utilisateur
 app.use('/inscription/creer/:pseudo-:mail-:bio-:mdp', (req, res) => {
   console.log(req.params);
   const sql = `INSERT INTO utilisateur (utilisateur_pdp, utilisateur_pseudo, utilisateur_email, utilisateur_bio,utilisateur_mdp, utilisateur_admin) VALUES ( 'pdp_${req.params.pseudo}','${req.params.pseudo}', '${req.params.mail}', '${req.params.bio}', '${req.params.mdp}',false);`;

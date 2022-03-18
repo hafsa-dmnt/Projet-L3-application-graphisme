@@ -3,7 +3,67 @@ import '../CSS/listes.css';
 import { Icon } from '@iconify/react';
 import {Link} from "react-router-dom";
 
-class Liste extends React.Component{
+class AddToList extends React.Component{
+
+  handleClick = async (i, istheme) => {
+    function checkStatus(response) {
+        if (response.ok) {
+            return Promise.resolve(response);
+        } else {
+            return Promise.reject(new Error(response.statusText));
+        }
+        }
+
+    function parseJSON(response) {
+        return response.json();
+    }
+    console.log("le content : ",this.props.content);
+    if(istheme==1){
+        const chemin = [
+            "/idduthemes/"+this.props.content
+        ];
+        var idtheme=await Promise.all(chemin.map(url =>
+            fetch(url)
+                .then(checkStatus)  // check the response of our APIs
+                .then(parseJSON)    // parse it to Json
+                .catch(error => console.log('There was a problem!', error))
+        ))
+        idtheme=idtheme[0][0];
+        idtheme=idtheme.theme_id;
+    }else{
+        var chemin = [
+            "/palette/creer/"+this.props.content
+        ];
+        await Promise.all(chemin.map(url =>
+            fetch(url)
+                .then(checkStatus)  // check the response of our APIs
+                .then(parseJSON)    // parse it to Json
+                .catch(error => console.log('There was a problem!', error))
+        ))
+        chemin = [
+            "/iddelapalette/"+this.props.content
+        ];
+        var idpalette=await Promise.all(chemin.map(url =>
+            fetch(url)
+                .then(checkStatus)  // check the response of our APIs
+                .then(parseJSON)    // parse it to Json
+                .catch(error => console.log('There was a problem!', error))
+        ))
+    }
+
+
+    const tokenString = localStorage.getItem('token');
+    var temp = JSON.parse(tokenString);
+    temp = temp.token;
+    var lien="";
+    if(istheme==1){
+        lien="/listthemes/element/creer/"+i+"-"+idtheme;
+    }else{
+        lien="/listpalettes/element/creer/"+i+"-"+idpalette;
+    }
+    const response = fetch(lien);
+  }
+
   render(){
     const tabListeTheme = this.props.listeTheme;
     const tabListePalette = this.props.listePalette;
@@ -11,30 +71,27 @@ class Liste extends React.Component{
     if(this.props.istheme){
       if(this.props.listeTheme.length > 0){
         divListe = Object.keys(tabListeTheme).map((keyName, i)  => (
-          <Link to={"/profil/listethemes?idlist="+tabListeTheme[keyName].tl_id} key= {i} onClick={this.props.changeTab} className="iconlist">
+          <button key= {i} onClick={() => (this.handleClick(tabListeTheme[keyName].tl_id,1))} className="iconlist">
             <Icon icon={tabListeTheme[keyName].tl_icon.trim() == "" ? "emojione-monotone:sparkles" : tabListeTheme[keyName].tl_icon.trim()} />
             <p>{tabListeTheme[keyName].tl_nom.trim()}</p>
-          </Link>
+          </button>
       ))
       }else{
-        divListe = <p>Il n'y a rien :( crée ta première liste theme!</p>
+        divListe = <p>Il n'y a rien :( crée une première liste de thèmes !</p>
       }
     }else{
       if(this.props.listePalette.length > 0){
         divListe = Object.keys(tabListePalette).map((keyName, i)  => (
-          <Link to={"/profil/listepalettes?idlist="+tabListePalette[keyName].pl_id} key= {i} onClick={this.props.changeTab} className="iconlist">
+          <button key= {i} onClick={() => (this.handleClick(tabListePalette[keyName].pl_id,0))} className="iconlist">
             <Icon icon={tabListePalette[keyName].pl_icon.trim() == "" ? "emojione-monotone:sparkles" : tabListePalette[keyName].pl_icon.trim()} />
             <p>{tabListePalette[keyName].pl_nom.trim()}</p>
-          </Link>
+          </button>
       ))
       }else{
-        divListe = <p className="empty">Il n'y a rien :( crée ta première liste palette!</p>
+        divListe = <p className="empty">Il n'y a rien :( crée une première liste de palettes !</p>
       }
     }
-    let titre = <h3>Mes thèmes</h3>;
-    if(!this.props.istheme){
-      titre = <h3>Mes palettes</h3>;
-    }
+    let titre = <h3>A quelle liste veux-tu l'ajouter ?</h3>;
 
     return (
       <div className="liste_paletteTheme">
@@ -51,14 +108,16 @@ class ThemesAndPalettes extends React.Component{
     super(props);
     const queryParams = new URLSearchParams(window.location.search);
     const type = queryParams.get('type');
+    const content = queryParams.get('content');
     var isTheme = true;
-    if(type != "themes"){
+    if(type != "theme"){
       isTheme = false;
     }
     this.state = {
       displayThemes: isTheme,
       listeTheme:  [],
-      listePalette:  []
+      listePalette:  [],
+      content: content
     }
   }
 
@@ -110,9 +169,7 @@ class ThemesAndPalettes extends React.Component{
     var lien = this.state.displayThemes ? "/profil/listethemes/creer" : "/profil/listepalettes/creer" ;
     return (
       <section className="page page_listes">
-        <Liste listeTheme={this.state.listeTheme} listePalette={this.state.listePalette} istheme={this.state.displayThemes}/>
-        <Link className="addBtn"to={lien}>Ajouter liste</Link>
-        <button className="btnGetRandomArt btnCategorie" onClick={() => this.handleClick()}>Changer de catégorie</button>
+        <AddToList listeTheme={this.state.listeTheme} listePalette={this.state.listePalette} istheme={this.state.displayThemes} content={this.state.content}/>
       </section>
     );
   }

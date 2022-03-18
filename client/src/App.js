@@ -16,6 +16,7 @@ import CreerListePalettes from './routes/creerlistepalettes.js'
 import Parametres from './routes/parametres.js'
 import Inscription from './routes/inscription.js'
 import Listes from './routes/listes.js'
+import AddToList from './routes/addToList.js'
 import CreerPublication from './routes/creerPublication.js'
 import ModifierListePalettes from './routes/modifierlistepalettes.js'
 import ModifierListeThemes from './routes/modifierlistethemes.js'
@@ -48,6 +49,7 @@ class AppComponent extends React.Component{
           <Routes>
             <Route exact path="/" element={<Home/>}/>
             <Route exact path="/home" element={<Home/>}/>
+            <Route exact path="/addToList" element={<AddToList/>}/>
             <Route exact path="/profil" element={<Profil/>}/>
             <Route exact path="/visit" element = {<Visit/>}/>
             <Route exact path="/profil/listes" element={<Listes/>}/>
