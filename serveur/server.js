@@ -23,9 +23,18 @@ var rrrr = process.env.TOKEN_SECRET;
 // console.log that your server is up and running
 app.listen(port, '0.0.0.0', () => console.log(`Listening on port ${port}`));
 
+function generateRandString(n) {
+  var chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  var token = '';
+  for(var i = 0; i < n; i++) {
+      token += chars[Math.floor(Math.random() * chars.length)];
+  }
+  return token;
+}
 
-function generateAccessToken(username) {
-  return jwt.sign(username, process.env.TOKEN_SECRET, {});
+
+function generateAccessToken(username) {  
+  return jwt.sign(username+generateRandString(32), process.env.TOKEN_SECRET, {});
   // le token expire tout les 30 j (donc reconnexion tout les mois)
 }
 
@@ -79,7 +88,7 @@ app.get('/parametersUser/:userPseudo', (req, res) => {
 });
 
 app.get('/pseudouser/:token', (req, res) => {
-  var sql = `SELECT utilisateur_pseudo FROM utilisateur WHERE utilisateur_token='${req.params.token}';`;
+  var sql = `SELECT utilisateur_pseudo, utilisateur_pdp FROM utilisateur WHERE utilisateur_token='${req.params.token}';`;
   basedonnee.getQuery(sql)
   .then(response => {
     res.status(200).send(response);
@@ -100,16 +109,61 @@ app.get('/publicationsofuser/:token', (req, res) => {
   })
 });
 
-//get les listes de themes ou de palettes de l'utilisateur
-app.get('/list/:userPseudo-:type', (req, res) => {
+app.get('/publicationsofuserpseudo/:pseudo', (req, res) => {
+  var sql = `SELECT publication_id, publication_image FROM publication WHERE publication_utilisateurpseudo='${req.params.pseudo}';`;
+  basedonnee.getQuery(sql)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});
+
+//TODO supprimer 
+app.get('/pdpuser/:pseudo', (req, res) => {
+  var sql = `SELECT utilisateur_pdp FROM utilisateur WHERE utilisateur_pseudo='${req.params.pseudo}';`;
+  basedonnee.getQuery(sql)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});
+
+app.get('/abonnements/:pseudo', (req, res) => {
+  var sql = `SELECT abonner_suivi FROM abonner WHERE abonner_suiveur='${req.params.pseudo}';`;
+  basedonnee.getQuery(sql)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});
+
+//get les listes de themes de l'utilisateur
+app.get('/listesthemes/:token', (req, res) => {
   console.log(req.params);
-  sql = `SELECT * FROM `;
-  if(req.params.type === "theme"){
-      sql += `theme_list WHERE tl_utilisateurpseudo =`;
-  }else{
-      sql += `palette_list WHERE pl_utilisateurpseudo =`;
-  }
-  sql +=  ` '${req.params.userPseudo}';`;
+  sql = `SELECT * FROM theme_list, utilisateur`;
+  sql += ` WHERE utilisateur_token = '${req.params.token}'`;
+  sql +=  `AND utilisateur_pseudo = tl_utilisateurpseudo;`;
+  basedonnee.getQuery(sql)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});
+
+//get les listes de palettes de l'utilisateur
+app.get('/listespalettes/:token', (req, res) => {
+  console.log(req.params);
+  sql = `SELECT * FROM palette_list, utilisateur`;
+  sql += ` WHERE utilisateur_token = '${req.params.token}'`;
+  sql +=  `AND utilisateur_pseudo = pl_utilisateurpseudo;`;
   basedonnee.getQuery(sql)
   .then(response => {
     res.status(200).send(response);
@@ -123,6 +177,32 @@ app.get('/list/:userPseudo-:type', (req, res) => {
 app.get('/themeslist', (req, res) => {
   console.log(req.params);
   const sql = `SELECT theme_nom FROM theme;`;
+  basedonnee.getQuery(sql)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});
+
+//get l'id d'un theme
+app.get('/idduthemes/:nomtheme', (req, res) => {
+  console.log(req.params);
+  const sql = `SELECT theme_nom, theme_id FROM theme WHERE theme_nom='${req.params.nomtheme}';`;
+  basedonnee.getQuery(sql)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});
+
+//get l'id d'une palette
+app.get('/iddelapalettes/:nom', (req, res) => {
+  console.log(req.params);
+  const sql = `SELECT palette_nom, palette_id FROM palette WHERE palette_nom='${req.params.nom}';`;
   basedonnee.getQuery(sql)
   .then(response => {
     res.status(200).send(response);
@@ -159,7 +239,6 @@ app.get('/listpalettes/:idList', (req, res) => {
     res.status(500).send(error);
   })
 });
-
 
 app.get('/defiatdate/:dateselected', (req, res) => {
   var sql = "SELECT theme.theme_nom, palette.palette_nom FROM theme, palette, defi WHERE defi_date = '"+req.params.dateselected+"' AND defi_themeid = theme_id AND defi_paletteid = palette_id;";
@@ -300,10 +379,11 @@ app.use('/listpalettes/element/delete/:idList-:idPalette', (req, res) => {
 });
 
 //ajouter nouvelle liste de themes
-app.use('/listthemes/creer/:userpseudo-:nom-:icon', (req, res) => {
+app.use('/listthemes/creer/:token-:nom---:icon', (req, res) => {
   console.log(req.params);
   var icon = req.params.icon=="empty" ? "" : req.params.icon;
-  const sql = `INSERT INTO theme_list (tl_utilisateurpseudo, tl_nom, tl_icon) VALUES ( '${req.params.userpseudo}', '${req.params.nom}', '${icon}');`;
+  var sql = `INSERT INTO theme_list (tl_utilisateurpseudo, tl_nom, tl_icon) `;
+  sql+=`SELECT utilisateur.utilisateur_pseudo, '${req.params.nom}', '${icon}' FROM utilisateur WHERE utilisateur.utilisateur_token= '${req.params.token}';`;
   basedonnee.getQuery(sql)
   .then(response => {
     res.status(200).send(response);
@@ -313,10 +393,53 @@ app.use('/listthemes/creer/:userpseudo-:nom-:icon', (req, res) => {
   })
 });
 
+
 //ajouter nouvelle liste de palettes
-app.use('/listpalettes/creer/:userpseudo-:nom-:icon', (req, res) => {
+app.use('/listpalettes/creer/:token-:nom---:icon', (req, res) => {
   console.log(req.params);
-  const sql = `INSERT INTO palette_list (pl_utilisateurpseudo, pl_nom, pl_icon) VALUES ( '${req.params.userpseudo}', '${req.params.nom}', '${req.params.icon}');`;
+  var icon = req.params.icon=="empty" ? "" : req.params.icon;
+  var sql = `INSERT INTO palette_list (pl_utilisateurpseudo, pl_nom, pl_icon) `;
+  sql+=`SELECT utilisateur.utilisateur_pseudo, '${req.params.nom}', '${icon}' FROM utilisateur WHERE utilisateur.utilisateur_token= '${req.params.token}';`;
+  basedonnee.getQuery(sql)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});
+
+//ajouter un theme à une liste
+app.use('/listthemes/element/creer/:idList-:idTheme', (req, res) => {
+  console.log(req.params);
+  const sql = `INSERT INTO lien_list_theme (l_theme_id, l_theme_list_id) VALUES ( ${req.params.idTheme}, ${req.params.idList});`;
+  basedonnee.getQuery(sql)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});
+
+
+//ajouter une palette à une liste
+app.use('/listpalettes/element/creer/:idList-:idPalette', (req, res) => {
+  console.log(req.params);
+  const sql = `INSERT INTO lien_list_palette (l_palette_id, l_palette_list_id) VALUES ( ${req.params.idPalette}, ${req.params.idList});`;
+  basedonnee.getQuery(sql)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});
+
+//ajouter une palette
+app.use('/palette/creer/:nom', (req, res) => {
+  console.log(req.params);
+  const sql = `INSERT INTO palette (palette_nom) VALUES ( '${req.params.nom}');`;
   basedonnee.getQuery(sql)
   .then(response => {
     res.status(200).send(response);
@@ -352,10 +475,10 @@ app.use('/listpalettes/modifier/:idlist-:nom-:icon', (req, res) => {
   })
 });
 
-//ajouter nouvelle liste de palettes
-app.use('/inscription/creer/:pdp-:pseudo-:mail-:bio-:mdp', (req, res) => {
+//ajouter nouvel utilisateur
+app.use('/inscription/creer/:pseudo-:mail-:bio-:mdp', (req, res) => {
   console.log(req.params);
-  const sql = `INSERT INTO utilisateur (utilisateur_pdp, utilisateur_pseudo, utilisateur_email, utilisateur_bio,utilisateur_mdp, utilisateur_admin) VALUES ( '${req.params.pdp}','${req.params.pseudo}', '${req.params.mail}', '${req.params.bio}', '${req.params.mdp}',false);`;
+  const sql = `INSERT INTO utilisateur (utilisateur_pdp, utilisateur_pseudo, utilisateur_email, utilisateur_bio,utilisateur_mdp, utilisateur_admin) VALUES ( 'pdp_${req.params.pseudo}','${req.params.pseudo}', '${req.params.mail}', '${req.params.bio}', '${req.params.mdp}',false);`;
   basedonnee.getQuery(sql)
   .then(response => {
     res.status(200).send(response);
@@ -365,6 +488,44 @@ app.use('/inscription/creer/:pdp-:pseudo-:mail-:bio-:mdp', (req, res) => {
   })
 });
 
+//get pour vérifier que le token n'est pas déjà présent
+app.use('/getVerifToken/:token', (req, res) => {
+  console.log(req.params);
+  const sql = `SELECT * FROM utilisateur WHERE utilisateur_token = '${req.params.token}';`;
+  basedonnee.getQuery(sql)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});
+
+//modifier le token d'une personne
+app.use('/modifierToken/:pseudo-:token', (req, res) => {
+  const sql = `UPDATE utilisateur SET utilisateur_token = '${req.params.token}' WHERE utilisateur_pseudo = '${req.params.pseudo}';`;
+  basedonnee.getQuery(sql)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});
+
+//ajouter une nouvelle publication
+app.use('/nouvellepublication/:date.:pseudo.:datedefi.:imageurl', (req, res) => {
+  const sql = `INSERT INTO publication (publication_date, publication_heure, publication_utilisateurpseudo, publication_datedefi, publication_image, publication_theme) 
+  VALUES ('${req.params.date}', '2000-03-03', '${req.params.pseudo}', '${req.params.datedefi}', '${req.params.imageurl}', 'notheme');`;
+  console.log(sql);
+  basedonnee.getQuery(sql)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});
 
 
 

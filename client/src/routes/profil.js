@@ -6,7 +6,6 @@ import { Navigate } from "react-router-dom";
 import {AdvancedImage} from '@cloudinary/react';
 import {Cloudinary} from "@cloudinary/url-gen";
 
-
 class Follow extends React.Component{
   constructor(props){
     super(props);
@@ -49,21 +48,32 @@ class ProfilHead extends React.Component{
     super(props);
   }
   render(){
-    let btnAfficher = <Follow/>;
-    let lienListes = <p></p>
-    var isSameProfil = this.props.isSameProfil;
-    if(isSameProfil){
-      btnAfficher = <ButtonClick chemin='/parametres' iconbtn="ant-design:setting-twotone" idbtn="btnParameters"/>
-      lienListes= <div>
-                    <Link to="/profil/listes?type=themes">Mes thèmes et palettes</Link>
-                  </div>;
-    }
+    let btnAfficher = <ButtonClick chemin='/parametres' iconbtn="ant-design:setting-twotone" idbtn="btnParameters"/>
+    let lienListes= <div>
+                  <Link to="/profil/listes?type=themes">Mes thèmes et palettes</Link>
+                </div>;
+    var linkabonnements = "/profil/abonnements?pseudo="+this.props.pseudo;
+    let lienAbonnes= <div>
+      <Link to={linkabonnements}>Les personnes que je suis</Link>
+    </div>;
+
+    const cld = new Cloudinary({
+      cloud: {
+        cloudName: "hzcpqfz4w"//process.env.CLOUD_NAME
+      }
+    });
+
+    const myImage = cld.image(this.props.photo);
+    
     return(
       <header className="profilHead section">
-        <img src={'defaultpicture.jpg'} className= "profilePic" alt="profil"></img>
+        <div key={this.props.idx} className="profilePic" alt="photo de profil">
+          <AdvancedImage cldImg={myImage} />
+        </div>
         <h3>{this.props.pseudo}</h3>
         {btnAfficher}
         {lienListes}
+        {lienAbonnes}
       </header>
     );
   }
@@ -77,8 +87,7 @@ class Publication extends React.Component {
       }
     });
 
-    //todo : change with name of the image from db
-    const myImage = cld.image('testpdp');
+    const myImage = cld.image(this.props.photo);
     return(
       <div key={this.props.idx} className="publication">
         <AdvancedImage cldImg={myImage} />
@@ -92,70 +101,49 @@ class ProfilContent extends React.Component{
     super(props);
   }
   render(){
-    //requête pour aller chercher les publications d'une personne
-    const tabPublication = [];
+    let tabPublication = this.props.content.reverse();
     let divPubli = <section className='aucunePubli'>
                       <div className='iconPasDePubli'><Icon icon="ep:picture-rounded"/></div>
                       <h3>Aucune publication</h3>
                     </section>;
     if(tabPublication.length > 0){
-      divPubli = tabPublication.map((elt, idx) =>
-      <Publication photo = {elt} idx = {idx}/>  );
+        divPubli = tabPublication.map((elt, idx) =>
+        <Publication photo = {elt.publication_image} idx = {elt.publication_id}/>  );
     }
 
-    if(this.props.isSameProfil){
-      return(
-        <section className="section profilContent">
-          <section className="galerie">
-            <div className='maGalerie'>
-              <h3>Galerie</h3>
-              <ButtonClick chemin='/creerPublication' iconbtn="fluent:add-12-filled" idbtn="btnAddPublication"/>
-            </div>
-            {divPubli}
-          </section>
-        </section>
-      );
-    }
     return(
       <section className="section profilContent">
-          <section className="galerie">
-            <div className='maGalerie'>
-              <h3>Galerie</h3>
-            </div>
-            {divPubli}
-          </section>
+        <section className="galerie">
+          <div className='maGalerie'>
+            <h3>Galerie</h3>
+            <ButtonClick chemin={'/creerPublication?pseudo='+this.props.pseudo} iconbtn="fluent:add-12-filled" idbtn="btnAddPublication"/>
+          </div>
+          {divPubli}
         </section>
+      </section>
     );
   }
 }
 
+
 class Profil extends React.Component{
   constructor(props){
     super(props);
-    var isSameProfil = true;
-    var pseudo = "example";
-    const queryParams = new URLSearchParams(window.location.search);
-    console.log(queryParams);
-    if(queryParams.get('type') !== null){
-      const profilType = queryParams.get('type');
-      if(profilType === "visit"){
-        isSameProfil = false;
-        pseudo = queryParams.get('pseudo');
-      }
-    }
-
+    
     this.state = {
-      pseudo: pseudo,
-      isSameProfil: isSameProfil,
-      data: null
+      pseudo: "",
+      pdp: "",
+      data: []
     };
   }
 
-  /*
   componentDidMount(){
+    const tokenString = localStorage.getItem('token');
+    var temp = JSON.parse(tokenString);
+    temp = temp.token;
     const chemin = [
-      "/pseudoUser/"+token,
-      "/publicationsofuser/"+token
+      "/publicationsofuser/"+temp, 
+      '/pseudouser/'+temp
     ];
 
     Promise.all(chemin.map(url =>
@@ -166,13 +154,18 @@ class Profil extends React.Component{
     ))
     .then(data => {
       // assign to requested URL as define in array with array index.
-      console.log(data[0], data[1]);
-      var tabNoms = Object.values(data[0]);
-      var arrayPublications = data[1].map( Object.values );
+      var pseudos = data[1][0].utilisateur_pseudo;
+      var datas = [];
+      var pdps = data[1][0].utilisateur_pdp;
+      
+      if(data[0].length > 0){
+        datas = data[0];
+      }
+      
       this.setState({
-        pseudo: data[0],
-        data: data[1],
-        isSameProfil: this.state.isSameProfil
+        pseudo: pseudos,
+        pdp : pdps,
+        data: datas
       })
     })
 
@@ -188,14 +181,13 @@ class Profil extends React.Component{
       return response.json();
     }
   }
-  */
 
 
   render(){
     return (
       <div className="profil page">
-        <ProfilHead pseudo = {this.state.pseudo} isSameProfil={this.state.isSameProfil}/>
-        <ProfilContent content = {this.state.data} isSameProfil={this.state.isSameProfil}/>
+        <ProfilHead photo = {this.state.pdp} pseudo = {this.state.pseudo}/>
+        <ProfilContent content = {this.state.data} pseudo = {this.state.pseudo}/>
       </div>
     );
   }

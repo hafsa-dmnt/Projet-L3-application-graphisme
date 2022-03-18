@@ -5,6 +5,7 @@ import './App.css';
 import Compte from './routes/compte.js'
 import Publication from './routes/publication.js'
 import Profil from './routes/profil.js'
+import Visit from './routes/visit.js'
 import Calendrier from './routes/calendrier.js'
 import Defijour from './routes/defijour.js'
 import Home from './routes/home.js'
@@ -15,12 +16,14 @@ import CreerListePalettes from './routes/creerlistepalettes.js'
 import Parametres from './routes/parametres.js'
 import Inscription from './routes/inscription.js'
 import Listes from './routes/listes.js'
+import AddToList from './routes/addToList.js'
 import CreerPublication from './routes/creerPublication.js'
 import ModifierListePalettes from './routes/modifierlistepalettes.js'
 import ModifierListeThemes from './routes/modifierlistethemes.js'
+import Abonnements from './routes/abonnements';
 
 import Connexion from './routes/connexion.js'
-import {useToken,usePseudo} from './classes/useToken';
+import {useToken} from './classes/useToken';
 
 
 import {
@@ -46,10 +49,13 @@ class AppComponent extends React.Component{
           <Routes>
             <Route exact path="/" element={<Home/>}/>
             <Route exact path="/home" element={<Home/>}/>
+            <Route exact path="/addToList" element={<AddToList/>}/>
             <Route exact path="/profil" element={<Profil/>}/>
+            <Route exact path="/visit" element = {<Visit/>}/>
             <Route exact path="/profil/listes" element={<Listes/>}/>
             <Route exact path="/profil/listethemes" element={<ListeThemes/>}/>
             <Route exact path="/profil/listepalettes" element={<ListePalettes/>}/>
+            <Route exact path="/profil/abonnements" element={<Abonnements/>}/>
             <Route exact path="/calendrier" element={<Calendrier/>}/>
             <Route exact path="/calendrier/defijour" element={<Defijour/>}/>
             <Route exact path="/compte/publication" element={<Publication/>}/>
@@ -61,7 +67,10 @@ class AppComponent extends React.Component{
             <Route exact path="/profil/listepalettes/creer" element={<CreerListePalettes/>}/>
             <Route exact path="/profil/listethemes/modifier" element={<ModifierListeThemes/>}/>
             <Route exact path="/profil/listepalettes/modifier" element={<ModifierListePalettes/>}/>
-            <Route exact path="/connexion" element={<Connexion  setToken={this.props.setToken}/>}/>
+            <Route exact path="/connexion" element={
+              <Connexion  setToken={this.props.setToken} setPseudoFromToken={this.props.setPseudoFromToken}/>}
+
+            />
           </Routes>
 
 
@@ -105,7 +114,7 @@ export default function App() {
 
   }
 
-  const { token, setToken} = useToken();
+  const {token, setToken,setPseudoFromToken} = useToken();
 
   // va savoir pourquoi il faut deux fonctions mais ca marche pas avec une seule
 
@@ -116,12 +125,21 @@ export default function App() {
   }
 
   if(!token || !valid){
-    return(
-      <Connexion setToken={setToken} />
+    return(<Router>
+      <div>
+        <Routes>
+          <Route exact path="/" element={<Connexion setToken={setToken} setPseudoFromToken={setPseudoFromToken} />}/>
+          <Route exact path="/inscription" element={<Inscription/>}/>
+          <Route exact path="/connexion" element={
+            <Connexion setToken={setToken} setPseudoFromToken={setPseudoFromToken} />}
+          />
+        </Routes>
+      </div>
+      </Router>
     );
   }
   return(
-    <AppComponent setToken={setToken}/>
+    <AppComponent setToken={setToken} setPseudoFromToken={setPseudoFromToken}/>
   );
 
 }

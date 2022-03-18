@@ -25,7 +25,6 @@ function Calendrier() {
         }
         var year = 2000 + (Number(dateSelected.getYear())-100);
         var dateDefi = year +"-"+month+"-"+day;
-        console.log(dateDefi);
         navigate("/calendrier/defijour?date="+dateDefi);
     };
     

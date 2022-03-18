@@ -1,0 +1,146 @@
+.page .page_abonnements{
+    background-color: var(--backgroundcolor);
+    text-align: center;
+    padding: 10px;
+    padding-bottom: 120px;
+    box-sizing: border-box;
+    height: 100vh;
+  }
+  
+  
+  .page_abonnements .section label{
+    display: inline-block;
+    margin-right: 10px;
+    height: 30px;
+  }
+  
+  .page_abonnements .section label h3{
+    margin : 0;
+  }
+  
+  .page_abonnements svg{
+    height: 70px;
+    width: 70px;
+    margin: 5px;
+    border: 2px solid;
+    border-radius: 10%;
+  }
+  
+  .page_abonnements .empty {
+    padding-top: 80px;
+    display: inline-block;
+  }
+  
+  .page_abonnements .iconlist{
+    vertical-align: top;
+    display: inline-block;
+    width: 20vW;
+    height: 26vW;
+    border-radius: 10px;
+    margin: 2vh;
+    text-decoration: none;
+    color: var(--accentcolor);
+    text-align: center;
+  }
+  
+  .page_abonnements .addBtn{
+    display: block;
+    background-color: var(--sectioncolor);
+    border: 3px solid #7d4193;
+    border-radius: 10px;
+    font-size: large;
+    font-weight: bold;
+    margin: 20px auto;
+    padding: 20px;
+    width : 50%;
+    text-decoration: none;
+    color : black;
+  }
+  
+  .page_abonnements .iconlist p{
+    margin: 0;
+    height: 40px;
+    width: 22vW;
+    overflow: hidden;
+    display: block;
+    align-self: center;
+  }
+  
+  .page_abonnements .liste_paletteTheme {
+    margin: auto;
+    text-align: center;
+  }
+  
+  
+  .page_abonnements{
+    background-color: var(--backgroundcolor);
+    text-align: center;
+    padding: 10px;
+    /*120 : taille du menu de nav*/
+    padding-bottom: 120px;
+    box-sizing: border-box;
+  }
+  
+  .themeList, .paletteList{
+    height: auto;
+    min-height: 30px;
+    width: 90%;
+    background-color: var(--sectioncolor);
+    border-radius: 10px;
+    margin: 20px auto;
+    padding: 10px;
+    display: block;
+    position: relative;
+    text-align: left;
+  }
+  
+  .themeList h3, .paletteList h3{
+    display: inline-block;
+    font-weight: bold;
+    margin: 10px;
+  }
+  
+  .themeList p{
+    display: block;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 10px 20px;
+  }
+  
+  .miniPalette {
+    margin: auto;
+    text-align: center;
+  }
+  
+  .minicolorPalette{
+    display: inline-block;
+    width:10vW;
+    height: 40vW;
+    /*todo colour en fonction de la palette*/
+    border-radius: 10px;
+    border: 1px solid;
+  }
+  
+  .minicolorPalette p{
+    padding-top: 42vW;
+    display: inline-block;
+    font-size: 11px;
+  }
+  
+  .btnRetour{
+    display: inline-block;
+    left: 3%;
+    position: absolute;
+    background-color: inherit;
+    border: none;
+    height: 40px;
+    width: 40px;
+  }
+  
+  .btnRetour svg{
+    height: 100%;
+    width: 100%;
+    color : var(--accentcolor);
+    border:none;
+  }
+  

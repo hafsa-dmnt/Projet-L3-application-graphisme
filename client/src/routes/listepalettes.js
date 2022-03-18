@@ -56,9 +56,12 @@ class Liste extends React.Component{
 
 class ListePalettes extends React.Component {
   constructor(props) {
+    const queryParams = new URLSearchParams(window.location.search);
+    const id = queryParams.get('idlist');
     super(props);
     this.state = {
-      listePalettes:  ""
+      listePalettes:  "",
+      idliste: id
     }
   } 
 
@@ -92,6 +95,8 @@ class ListePalettes extends React.Component {
     return (
       <section className="page page_listes">
         <BoutonRetour/>
+        <button onClick={this.delete}>Supprimer la liste</button>
+        <Link to={"/profil/listepalettes/modifier?idlist="+this.state.idliste}>modifier</Link>
         <Liste listePalettes={this.state.listePalettes}></Liste>
       </section>
     );

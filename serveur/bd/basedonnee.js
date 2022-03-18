@@ -15,14 +15,14 @@ client.connect();
 
 const getQuery = (sql) => {
     return new Promise(function(resolve, reject) {
-        //console.log("requete sql", sql);
-        client.query(sql, (error, results) => {
+      client.query(sql, (error, results) => {
         if (error) {
             reject(error)
         }
-        //console.log('results', results);
-        resolve(JSON.stringify(results.rows));
-        });
+        if(results != undefined){
+          resolve(JSON.stringify(results.rows));
+        }
+      });
     })
 }
 
