@@ -49,11 +49,13 @@
 .page_parametre .section button svg{
   height: 30px;
   width: 30px;
+  color: black;
 }
 
 .page_parametre .subSection button svg, .page_inscription .subSection button{
   height: 30px;
   width: 30px;
+  color: black;
 }
 
 .page_parametre .subSection button{
@@ -90,4 +92,20 @@
 
 .page_parametre .pdp input {
     display: none;
+}
+
+.page_parametre .section.info,.page_parametre .section.deco{
+  text-align: center;
+}
+
+.page_parametre .section.info button,.page_parametre .section.deco button {
+  background-color: var(--sectioncolor);
+  border: 3px solid #7d4193;
+  border-radius: 10px;
+  font-size: large;
+  font-weight: bold;
+  margin: 20px 0;
+  padding: 20px;
+  height: auto;
+  width: auto;
 }

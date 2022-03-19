@@ -21,6 +21,7 @@ import CreerPublication from './routes/creerPublication.js'
 import ModifierListePalettes from './routes/modifierlistepalettes.js'
 import ModifierListeThemes from './routes/modifierlistethemes.js'
 import Abonnements from './routes/abonnements';
+import Informations from './routes/informations';
 
 import Connexion from './routes/connexion.js'
 import {useToken} from './classes/useToken';
@@ -67,6 +68,7 @@ class AppComponent extends React.Component{
             <Route exact path="/profil/listepalettes/creer" element={<CreerListePalettes/>}/>
             <Route exact path="/profil/listethemes/modifier" element={<ModifierListeThemes/>}/>
             <Route exact path="/profil/listepalettes/modifier" element={<ModifierListePalettes/>}/>
+            <Route exact path="/informations" element={<Informations/>}/>
             <Route exact path="/connexion" element={
               <Connexion  setToken={this.props.setToken} setPseudoFromToken={this.props.setPseudoFromToken}/>}
 
