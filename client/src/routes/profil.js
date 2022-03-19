@@ -164,7 +164,7 @@ class Profil extends React.Component{
       
       this.setState({
         pseudo: pseudos,
-        pdp : pdps,
+        pdp : pseudos+"_pdp",
         data: datas
       })
     })
