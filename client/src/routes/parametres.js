@@ -291,6 +291,7 @@ class Parametres extends React.Component{
       redirect : null
     };
     this.handleInfo = this.handleInfo.bind(this);
+    this.deleteToken = this.deleteToken.bind(this);
 
   }
 
@@ -317,7 +318,8 @@ class Parametres extends React.Component{
 
   deleteToken(){
     localStorage.removeItem('token');
-    window.location.reload(false);
+    this.setState({ redirect: "/connexion" });
+
   }
 
   handleInfo(){
@@ -327,7 +329,7 @@ class Parametres extends React.Component{
   render(){
 
     if (this.state.redirect) {
-      return <Navigate to={this.state.redirect} />
+      return <Navigate to={this.state.redirect}/>
     }
 
     const dataLoaded = (this.state.pseudo!=null);
