@@ -81,11 +81,39 @@
   box-sizing: border-box;
 }
 
-.themeList, .paletteList{
+.list_title{
+  text-align: center;
+}
+
+.list_title h3{
+  display: inline-block;
+  font-weight: bold;
+  margin: 10px;
+}
+
+.list_title .icon{
+  text-align: right;
+  border: none;
+  position: absolute;
+  top: auto;
+  right: 10%;
+  height: 40px;
+  width: 40px;
+  color: var(--accentcolor);
+}
+
+.liste_paletteTheme .container{
+  background-color: var(--sectioncolor);
+  padding: 1px;
+  margin: 30px 0px;
+  border-radius: 10px;
+}
+
+.themeListIndividuel, .paletteListIndividuel{
   height: auto;
   min-height: 30px;
   width: 90%;
-  background-color: var(--sectioncolor);
+  background-color: var(--backgroundcolor);
   border-radius: 10px;
   margin: 20px auto;
   padding: 10px;
@@ -94,17 +122,38 @@
   text-align: left;
 }
 
-.themeList h3, .paletteList h3{
+.themeListIndividuel h3, .paletteListIndividuel h3{
   display: inline-block;
   font-weight: bold;
   margin: 10px;
 }
 
-.themeList p{
+.themeListIndividuel p{
   display: block;
   font-weight: bold;
   text-transform: uppercase;
   margin: 10px 20px;
+}
+
+.themeListIndividuel .cross, .paletteListIndividuel .cross{
+  background-color: Transparent;
+  display: inline-block;
+  right: 7%;
+  top: auto;
+  position: absolute;
+  background-color: none;
+  border: none;
+  height: 30px;
+  width: 30px;
+}
+
+.themeListIndividuel .cross .cross-icon, .paletteListIndividuel .cross .cross-icon{
+  background-color: Transparent;
+  display: inline-block;
+  background-color: none;
+  border: none;
+  height: 30px;
+  width: 30px;
 }
 
 .miniPalette {
@@ -112,17 +161,18 @@
   text-align: center;
 }
 
-.minicolorPalette{
+.small{
+  font-size: 12px;
+}
+.minicolorPaletteListe{
   display: inline-block;
-  width:10vW;
-  height: 40vW;
+  width: 14vW;
+  height: 14vW;
   /*todo colour en fonction de la palette*/
-  border-radius: 10px;
-  border: 1px solid;
 }
 
-.minicolorPalette p{
-  padding-top: 42vW;
+.minicolorPaletteListe p{
+  padding-top: 10vW;
   display: inline-block;
   font-size: 11px;
 }
@@ -137,9 +187,29 @@
   width: 40px;
 }
 
-.btnRetour svg{
+.btnRetour svg, .themeListIndividuel .cross svg, .paletteListIndividuel .cross svg{
   height: 100%;
   width: 100%;
   color : var(--accentcolor);
   border:none;
+}
+
+
+
+.editdelete{
+  display: flex;
+}
+
+.editdelete button, .editdelete a{
+  display: block;
+  background-color: var(--sectioncolor);
+  border: 3px solid #7d4193;
+  border-radius: 10px;
+  font-size: large;
+  font-weight: bold;
+  margin: 10px;
+  padding: 20px;
+  width: 50%;
+  text-decoration: none;
+  color: black;
 }

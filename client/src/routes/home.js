@@ -54,7 +54,7 @@ class PaletteHome extends React.Component{
     return(
       <div className="paletteHome">
         <h3>Palette</h3>
-        <AddToFav content={this.props.palette} type="palette"/>
+        <AddToFav content={this.props.palette.join().replaceAll("#","%23")} type="palette"/>
         <Palette content={this.props.palette}/>
       </div>
     );
