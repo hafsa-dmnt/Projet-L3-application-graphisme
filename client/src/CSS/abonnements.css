@@ -137,10 +137,20 @@
     width: 40px;
   }
   
-  .btnRetour svg{
+  .btnRetour svg, .btnGoToProfil svg{
     height: 100%;
     width: 100%;
     color : var(--accentcolor);
     border:none;
+  }
+
+  .btnGoToProfil{
+    display: inline-block;
+    right: 3%;
+    position: absolute;
+    background-color: inherit;
+    border: none;
+    height: 40px;
+    width: 40px;
   }
   

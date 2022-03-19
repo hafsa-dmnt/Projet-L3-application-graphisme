@@ -5,6 +5,7 @@ import {Link} from "react-router-dom";
 import { Navigate } from "react-router-dom";
 import {AdvancedImage} from '@cloudinary/react';
 import {Cloudinary} from "@cloudinary/url-gen";
+import { threshold1x1Nondither } from '@cloudinary/url-gen/qualifiers/dither';
 
 
 class BoutonRetour extends React.Component{
@@ -26,14 +27,32 @@ class BoutonRetour extends React.Component{
     }
 }
 
+class BoutonGoToProfil extends React.Component{
+  state = { redirect: null };
+  handleClick() {
+      let redirect = this.state.redirect;
+      redirect = '/visit?pseudo='+this.props.pseudo;
+      this.setState({redirect: redirect});
+  }
+  render() {
+      if (this.state.redirect) {
+      return <Navigate to={this.state.redirect} />
+      }
+      return(
+      <button className='btnGoToProfil' onClick={() => this.handleClick()}>
+          <Icon icon="bi:arrow-right-circle" />
+      </button>
+      );
+  }
+}
+
+
 class DisplayOneUser extends React.Component{
   constructor(props){
     super(props);
   }
 
   render(){
-    let btnAfficher = <BoutonRetour/>//TODO unfollow;
-
     const cld = new Cloudinary({
       cloud: {
         cloudName: "hzcpqfz4w"//process.env.CLOUD_NAME
@@ -48,6 +67,7 @@ class DisplayOneUser extends React.Component{
           <AdvancedImage cldImg={myImage} />
         </div>
         <h3>{this.props.pseudo.trim()}</h3>
+        <BoutonGoToProfil pseudo={this.props.pseudo.trim()}/>
       </header>
     );
   }

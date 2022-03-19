@@ -98,8 +98,9 @@ class Publication extends React.Component {
         cloudName: 'hzcpqfz4w'
       }
     });
-  
-    const myImage = cld.image('testpdp');
+    
+    let url = this.props.photo.trim();
+    const myImage = cld.image(url);
     return(
       <div key={this.props.idx} className="defijour publication">
         <AdvancedImage cldImg={myImage} />
@@ -141,6 +142,8 @@ class Defijour extends React.Component {
       if(data[1] != undefined){
         arrayPublications = data[1].map( Object.values );
       }
+
+      console.log(arrayPublications);
       this.setState({
         day: this.state.day,
         theme: tabNoms[0].theme_nom,
@@ -173,7 +176,7 @@ class Defijour extends React.Component {
                     </section>
     if(this.state.publications.length > 0){
       divPubli = this.state.publications.map((elt, idx) =>
-                <Publication pseudo = {elt[3]} photo={elt[5]} idx = {idx}/>  );
+                <Publication photo={elt[1]} idx = {elt[1]+elt[0]}/>  );
     }
     
     return (
