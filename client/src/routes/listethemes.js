@@ -37,9 +37,11 @@ class Liste extends React.Component{
     let divListe = "";
     if(this.props.listeThemes.length > 0){
       divListe = Object.keys(tabListeTheme).map((keyName, i)  => (
-        <div key= {i} className="iconlist">
-          {tabListeTheme[keyName].theme_nom}
-          <button onClick={() => this.delete(tabListeTheme[keyName].theme_id)}>x</button>
+        <div key= {i} className="themeListIndividuel">
+          <h3>{tabListeTheme[keyName].theme_nom}</h3>
+          <button onClick={() => this.delete(tabListeTheme[keyName].theme_id)} className="cross">
+            <Icon icon="bi:x-circle" className="cross-icon"/>
+          </button>
         </div>
     ))
     }else{
@@ -48,7 +50,9 @@ class Liste extends React.Component{
     
     return (
       <div className="liste_paletteTheme">
-        {divListe}
+        <div className="container">
+          {divListe}
+        </div>
       </div>
      
     );
@@ -59,11 +63,15 @@ class ListeThemes extends React.Component {
   constructor(props) {
     const queryParams = new URLSearchParams(window.location.search);
     const id = queryParams.get('idlist');
+    const nomlist = queryParams.get('nomlist');
+    const icon = queryParams.get('icon');
     super(props);
     //ici on récupère à l'aide d'une requête toutes les listes de thèmes existantes (on peut ajouter un bouton supprimer liste)
     this.state = {
       listeThemes:  "",
-      idliste: id
+      idliste: id,
+      nomlist: nomlist,
+      icon: icon
     }
   } 
 
@@ -83,6 +91,8 @@ class ListeThemes extends React.Component {
   callBackendAPI = async () => {
     const queryParams = new URLSearchParams(window.location.search);
     const id = queryParams.get('idlist')
+    const nomlist = queryParams.get('nomlist')
+    const icon = queryParams.get('icon')
     const lien="/listthemes/"+id;
     const response = await fetch(lien);
     const body = await response.json();
@@ -96,10 +106,15 @@ class ListeThemes extends React.Component {
   render(){
     return (
       <section className="page page_listes">
+        <div className='list_title section'>
         <BoutonRetour/>
-        <button onClick={this.delete}>Supprimer la liste</button>
-        <Link to={"/profil/listethemes/modifier?idlist="+this.state.idliste}>modifier</Link>
+          <h3>{this.state.nomlist}</h3> <Icon icon={this.state.icon} className='icon'/>
+        </div>
         <Liste listeThemes={this.state.listeThemes}></Liste>
+        <div className='editdelete'>
+          <button onClick={this.delete}>Supprimer</button>
+          <Link to={"/profil/listethemes/modifier?idlist="+this.state.idliste}>Modifier</Link>
+        </div>
       </section>
     );
   }

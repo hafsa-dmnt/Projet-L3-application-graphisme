@@ -201,8 +201,9 @@ app.get('/idduthemes/:nomtheme', (req, res) => {
 
 //get l'id d'une palette
 app.get('/iddelapalettes/:nom', (req, res) => {
+  var paletteavecd=req.params.nom.replaceAll("%23","#");
   console.log(req.params);
-  const sql = `SELECT palette_nom, palette_id FROM palette WHERE palette_nom='${req.params.nom}';`;
+  const sql = `SELECT palette_nom, palette_id FROM palette WHERE palette_nom='${paletteavecd}';`;
   basedonnee.getQuery(sql)
   .then(response => {
     res.status(200).send(response);
@@ -215,8 +216,8 @@ app.get('/iddelapalettes/:nom', (req, res) => {
 //get tous les thèmes d'une liste de thème
 app.get('/listthemes/:idList', (req, res) => {
   console.log(req.params);
-  var sql = `SELECT * FROM lien_list_theme, theme WHERE `;
-  sql+=`l_theme_list_id=${req.params.idList} AND l_theme_id = theme_id ;`;
+  var sql = `SELECT * FROM lien_list_theme, theme, theme_list WHERE `;
+  sql+=`l_theme_list_id=${req.params.idList} AND l_theme_id = theme_id AND tl_id =l_theme_list_id ;`;
   basedonnee.getQuery(sql)
   .then(response => {
     res.status(200).send(response);
@@ -438,8 +439,10 @@ app.use('/listpalettes/element/creer/:idList-:idPalette', (req, res) => {
 
 //ajouter une palette
 app.use('/palette/creer/:nom', (req, res) => {
+  var paletteavecd=req.params.nom.replaceAll("%23","#");
   console.log(req.params);
-  const sql = `INSERT INTO palette (palette_nom) VALUES ( '${req.params.nom}');`;
+  console.log(res);
+  const sql = `INSERT INTO palette (palette_nom) VALUES ( '${paletteavecd}') RETURNING *;`;
   basedonnee.getQuery(sql)
   .then(response => {
     res.status(200).send(response);
@@ -527,6 +530,35 @@ app.use('/nouvellepublication/:date.:pseudo.:datedefi.:imageurl', (req, res) => 
   })
 });
 
+//un utilisateur follow un autre utilisateur 
+app.use('/follow/:alreadyfollowing-:suivi-:suiveur', (req, res) => {
+  let sql = `INSERT INTO abonner (abonner_suiveur, abonner_suivi) 
+  VALUES ('${req.params.suiveur}', '${req.params.suivi}');`;
+  if(req.params.alreadyfollowing == "true"){
+    sql = `DELETE FROM abonner WHERE abonner_suiveur = '${req.params.suiveur}' AND abonner_suivi = '${req.params.suivi}' ;`;
+  }
+  console.log(sql);
+  basedonnee.getQuery(sql)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});
+
+//un utilisateur unfollow un autre utilisateur 
+app.get('/followinguser/:pseudosuivi.:pseudosuiveur', (req, res) => {
+  const sql = `SELECT * FROM abonner WHERE abonner_suivi = '${req.params.pseudosuivi}' 
+  AND  abonner_suiveur = '${req.params.pseudosuiveur}' ;`;
+  basedonnee.getQuery(sql)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});
 
 
 /*

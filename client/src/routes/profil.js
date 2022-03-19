@@ -154,7 +154,7 @@ class Profil extends React.Component{
     ))
     .then(data => {
       // assign to requested URL as define in array with array index.
-      var pseudos = data[1][0].utilisateur_pseudo;
+      var pseudos = data[1][0].utilisateur_pseudo.trim();
       var datas = [];
       var pdps = data[1][0].utilisateur_pdp;
       
