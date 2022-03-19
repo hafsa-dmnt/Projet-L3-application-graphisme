@@ -110,7 +110,7 @@ app.get('/publicationsofuser/:token', (req, res) => {
 });
 
 app.get('/publicationsofuserpseudo/:pseudo', (req, res) => {
-  var sql = `SELECT publication_id, publication_image FROM utilisateur, publication WHERE utilisateur_pseudo='${req.params.pseudo}';`;
+  var sql = `SELECT publication_id, publication_image FROM publication WHERE publication_utilisateurpseudo='${req.params.pseudo}';`;
   basedonnee.getQuery(sql)
   .then(response => {
     res.status(200).send(response);
@@ -120,6 +120,7 @@ app.get('/publicationsofuserpseudo/:pseudo', (req, res) => {
   })
 });
 
+//TODO supprimer 
 app.get('/pdpuser/:pseudo', (req, res) => {
   var sql = `SELECT utilisateur_pdp FROM utilisateur WHERE utilisateur_pseudo='${req.params.pseudo}';`;
   basedonnee.getQuery(sql)
@@ -131,6 +132,16 @@ app.get('/pdpuser/:pseudo', (req, res) => {
   })
 });
 
+app.get('/abonnements/:pseudo', (req, res) => {
+  var sql = `SELECT abonner_suivi FROM abonner WHERE abonner_suiveur='${req.params.pseudo}';`;
+  basedonnee.getQuery(sql)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});
 
 //get les listes de themes de l'utilisateur
 app.get('/listesthemes/:token', (req, res) => {
@@ -229,7 +240,6 @@ app.get('/listpalettes/:idList', (req, res) => {
     res.status(500).send(error);
   })
 });
-
 
 app.get('/defiatdate/:dateselected', (req, res) => {
   var sql = "SELECT theme.theme_nom, palette.palette_nom FROM theme, palette, defi WHERE defi_date = '"+req.params.dateselected+"' AND defi_themeid = theme_id AND defi_paletteid = palette_id;";
@@ -496,8 +506,21 @@ app.use('/getVerifToken/:token', (req, res) => {
 
 //modifier le token d'une personne
 app.use('/modifierToken/:pseudo-:token', (req, res) => {
-  console.log("je modifie le token", req.params.pseudo);
   const sql = `UPDATE utilisateur SET utilisateur_token = '${req.params.token}' WHERE utilisateur_pseudo = '${req.params.pseudo}';`;
+  basedonnee.getQuery(sql)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});
+
+//ajouter une nouvelle publication
+app.use('/nouvellepublication/:date.:pseudo.:datedefi.:imageurl', (req, res) => {
+  const sql = `INSERT INTO publication (publication_date, publication_heure, publication_utilisateurpseudo, publication_datedefi, publication_image, publication_theme) 
+  VALUES ('${req.params.date}', '2000-03-03', '${req.params.pseudo}', '${req.params.datedefi}', '${req.params.imageurl}', 'notheme');`;
+  console.log(sql);
   basedonnee.getQuery(sql)
   .then(response => {
     res.status(200).send(response);

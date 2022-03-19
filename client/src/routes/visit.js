@@ -13,7 +13,8 @@ class Follow extends React.Component{
   }
 
   followSomeone(){
-    alert("todo : follow someone");
+    alert("todo : follow "+this.props.pseudo);
+    this.props.handleChange();
   }
 
   render(){
@@ -25,12 +26,45 @@ class Follow extends React.Component{
   }
 }
 
-class ProfilHead extends React.Component{
+class Unfollow extends React.Component{
   constructor(props){
     super(props);
   }
+
+  followSomeone(){
+    alert("todo : unfollow "+this.props.pseudo);
+    this.props.handleChange();
+  }
+
   render(){
-    let btnAfficher = <Follow/>;
+    return(
+        <button id="btnFollow" onClick={() => this.followSomeone()}>
+          <Icon icon="eva:person-remove-fill" />
+        </button>
+    );
+  }
+}
+
+class ProfilHead extends React.Component{
+  constructor(props){
+    super(props);
+    this.state = {
+      follow: false//see if we follow them :) 
+    }
+
+    this.handleFollow = this.handleFollow.bind(this);
+  }
+
+  handleFollow(){
+    var following = !this.state.follow;
+    this.setState({follow: following});
+  }
+
+  render(){
+    let btnAfficher = <Follow pseudo={this.props.pseudo} handleChange = {this.handleFollow}/>;
+    if(this.state.follow){
+      btnAfficher = <Unfollow pseudo={this.props.pseudo} handleChange = {this.handleFollow}/>;
+    }
     const cld = new Cloudinary({
       cloud: {
         cloudName: "hzcpqfz4w"//process.env.CLOUD_NAME
@@ -72,18 +106,16 @@ class ProfilContent extends React.Component{
     super(props);
   }
   render(){
-    //requête pour aller chercher les publications d'une personne
-    console.log(this.props.content);
-    let tabPublication = this.props.content;
-    console.log(tabPublication);
+    let tabPublication = this.props.content.reverse();
     let divPubli = <section className='aucunePubli'>
                       <div className='iconPasDePubli'><Icon icon="ep:picture-rounded"/></div>
                       <h3>Aucune publication</h3>
                     </section>;
     if(tabPublication.length > 0){
-      divPubli = tabPublication.map((elt, idx) =>
-        <Publication photo = {elt} idx = {idx}/>  );
-      }
+        divPubli = tabPublication.map((elt, idx) =>
+        <Publication photo = {elt.publication_image} idx = {elt.publication_id}/>  );
+    }
+      
 
     return(
       <section className="section profilContent">
@@ -125,10 +157,16 @@ class Profil extends React.Component{
     .then(data => {
       // assign to requested URL as define in array with array index.
       var pseudoActuel = this.state.pseudo;
+      var datas = [];
+
+      if(data[0].length > 0){
+        datas = data[0];
+      }
+      
       this.setState({
         pseudo: pseudoActuel,
         pdp : ""+data[1][0].utilisateur_pdp,
-        data: Object.values(data[0][0])
+        data: datas
       })
     })
 

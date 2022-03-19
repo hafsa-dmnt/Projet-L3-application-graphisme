@@ -11,13 +11,15 @@ import {Cloudinary} from "@cloudinary/url-gen";
 
 registerLocale('fr', fr)
 
+let url = "publication";
+
 function CreateForm(props){
     const [dateDefi, setDateDefi] = useState(new Date());
-    const [defi, setDefi] = useState(false);
+    const [defi, setDefi] = useState(null);
     const today = new Date();
     const [imageUrl, setImageUrl] = useState();
     const [image, setImage ] = useState("");
-    const [ url, setUrl ] = useState("");
+    const [urldata, setUrl ] = useState("");
     const queryParams = new URLSearchParams(window.location.search);
     const pseudo = queryParams.get('pseudo');  
 
@@ -28,9 +30,10 @@ function CreateForm(props){
         return;
       }
 
+      url = "publication_"+pseudo;
 
-      const chemin = [
-        "/publicationsofuser/"+pseudo 
+      let chemin = [
+        "/publicationsofuserpseudo/"+pseudo 
       ];
   
       Promise.all(chemin.map(url =>
@@ -41,8 +44,58 @@ function CreateForm(props){
       ))
       .then(data => {
         // assign to requested URL as define in array with array index.
+        url += data[0].length+1;
 
-        //get number of publications to set the image's url correctly 
+        //envoi à la bd 
+        var month = Number(dateDefi.getMonth())+1;
+        if(month < 10){
+            month = "0"+month;
+        }
+        var day = Number(dateDefi.getDate());
+        if(day < 10){
+            day = "0"+day;
+        }
+        var year = 2000 + (Number(dateDefi.getYear())-100);
+        var dateDefiBonFormat = year +"-"+month+"-"+day;
+
+        var dateDefiBd = dateDefiBonFormat;
+        if(defi == false){
+          dateDefiBd = null;
+        }
+
+        month = Number(today.getMonth())+1;
+        if(month < 10){
+            month = "0"+month;
+        }
+        day = Number(today.getDate());
+        if(day < 10){
+            day = "0"+day;
+        }
+        year = 2000 + (Number(today.getYear())-100);
+        var todayBonFormat = year +"-"+month+"-"+day;
+
+        console.log(url);
+
+        fetch('/nouvellepublication/'+todayBonFormat+'.'+pseudo+'.'+dateDefiBd+'.'+url);
+
+        const formData = new FormData();
+
+        formData.append("file", image)
+        formData.append("public_id", url)
+        console.log(url);
+        formData.append("upload_preset", "hhd3mufr")
+        formData.append("cloud_name","hzcpqfz4w")
+
+        console.log({image});
+
+        fetch(" https://api.cloudinary.com/v1_1/hzcpqfz4w/image/upload",{
+          method:"post",
+          body: formData
+        }).then(resp => resp.json()).then(data => {
+                                                    setUrl(data.url);
+                                                    alert("Publication ajoutée !");
+                                                    window.location.reload(false);
+                                              }).catch(err => {console.log(err); alert("Une erreur s'est produite. Veuillez réessayer.");});
       })
   
       function checkStatus(response) {
@@ -56,38 +109,7 @@ function CreateForm(props){
       function parseJSON(response) {
         return response.json();
       }
-
-//////// TODO :
-
-      // BD : get id utilisateur + nombre de publication
-
-      // var id = nomUti + (nbPubli+1)
-
-      // envoie a la bd de
-        // si c un defi = {defi}
-        // date du jour = {today}
-        // date du defi si besoin = {dateDefi}
-        // id de l'image = id
-
-      var id = "pdp_bloomlater";
-
-      const formData = new FormData();
-
-      formData.append("file", image)
-      formData.append("public_id", id)
-      formData.append("upload_preset", "hhd3mufr")
-      formData.append("cloud_name","hzcpqfz4w")
-
-      console.log({image});
-
-      fetch(" https://api.cloudinary.com/v1_1/hzcpqfz4w/image/upload",{
-        method:"post",
-        body: formData
-      }).then(resp => resp.json()).then(data => {
-                                                  setUrl(data.url)
-                                            }).catch(err => console.log(err));
-
-      }
+    }
 
 
     const handleChangeImage = (event) => {

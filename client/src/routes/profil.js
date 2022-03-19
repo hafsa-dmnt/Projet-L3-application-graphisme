@@ -52,6 +52,10 @@ class ProfilHead extends React.Component{
     let lienListes= <div>
                   <Link to="/profil/listes?type=themes">Mes thèmes et palettes</Link>
                 </div>;
+    var linkabonnements = "/profil/abonnements?pseudo="+this.props.pseudo;
+    let lienAbonnes= <div>
+      <Link to={linkabonnements}>Les personnes que je suis</Link>
+    </div>;
 
     const cld = new Cloudinary({
       cloud: {
@@ -69,6 +73,7 @@ class ProfilHead extends React.Component{
         <h3>{this.props.pseudo}</h3>
         {btnAfficher}
         {lienListes}
+        {lienAbonnes}
       </header>
     );
   }
@@ -82,8 +87,7 @@ class Publication extends React.Component {
       }
     });
 
-    //todo : change with name of the image from db
-    const myImage = cld.image('testpdp');
+    const myImage = cld.image(this.props.photo);
     return(
       <div key={this.props.idx} className="publication">
         <AdvancedImage cldImg={myImage} />
@@ -97,39 +101,26 @@ class ProfilContent extends React.Component{
     super(props);
   }
   render(){
-    //requête pour aller chercher les publications d'une personne
-    const tabPublication = [];
+    let tabPublication = this.props.content.reverse();
     let divPubli = <section className='aucunePubli'>
                       <div className='iconPasDePubli'><Icon icon="ep:picture-rounded"/></div>
                       <h3>Aucune publication</h3>
                     </section>;
     if(tabPublication.length > 0){
-      divPubli = tabPublication.map((elt, idx) =>
-      <Publication photo = {elt} idx = {idx}/>  );
+        divPubli = tabPublication.map((elt, idx) =>
+        <Publication photo = {elt.publication_image} idx = {elt.publication_id}/>  );
     }
 
-    if(this.props.isSameProfil){
-      return(
-        <section className="section profilContent">
-          <section className="galerie">
-            <div className='maGalerie'>
-              <h3>Galerie</h3>
-              <ButtonClick chemin='/creerPublication' iconbtn="fluent:add-12-filled" idbtn="btnAddPublication"/>
-            </div>
-            {divPubli}
-          </section>
-        </section>
-      );
-    }
     return(
       <section className="section profilContent">
-          <section className="galerie">
-            <div className='maGalerie'>
-              <h3>Galerie</h3>
-            </div>
-            {divPubli}
-          </section>
+        <section className="galerie">
+          <div className='maGalerie'>
+            <h3>Galerie</h3>
+            <ButtonClick chemin={'/creerPublication?pseudo='+this.props.pseudo} iconbtn="fluent:add-12-filled" idbtn="btnAddPublication"/>
+          </div>
+          {divPubli}
         </section>
+      </section>
     );
   }
 }
@@ -195,8 +186,8 @@ class Profil extends React.Component{
   render(){
     return (
       <div className="profil page">
-        <ProfilHead photo = {this.state.pdp} pseudo = {this.state.pseudo} isSameProfil={this.state.isSameProfil}/>
-        <ProfilContent content = {this.state.data} isSameProfil={this.state.isSameProfil}/>
+        <ProfilHead photo = {this.state.pdp} pseudo = {this.state.pseudo}/>
+        <ProfilContent content = {this.state.data} pseudo = {this.state.pseudo}/>
       </div>
     );
   }

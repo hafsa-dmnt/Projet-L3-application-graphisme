@@ -20,6 +20,7 @@ import AddToList from './routes/addToList.js'
 import CreerPublication from './routes/creerPublication.js'
 import ModifierListePalettes from './routes/modifierlistepalettes.js'
 import ModifierListeThemes from './routes/modifierlistethemes.js'
+import Abonnements from './routes/abonnements';
 
 import Connexion from './routes/connexion.js'
 import {useToken} from './classes/useToken';
@@ -54,6 +55,7 @@ class AppComponent extends React.Component{
             <Route exact path="/profil/listes" element={<Listes/>}/>
             <Route exact path="/profil/listethemes" element={<ListeThemes/>}/>
             <Route exact path="/profil/listepalettes" element={<ListePalettes/>}/>
+            <Route exact path="/profil/abonnements" element={<Abonnements/>}/>
             <Route exact path="/calendrier" element={<Calendrier/>}/>
             <Route exact path="/calendrier/defijour" element={<Defijour/>}/>
             <Route exact path="/compte/publication" element={<Publication/>}/>
@@ -126,13 +128,13 @@ export default function App() {
     return(<Router>
       <div>
         <Routes>
+          <Route exact path="/" element={<Connexion setToken={setToken} setPseudoFromToken={setPseudoFromToken} />}/>
           <Route exact path="/inscription" element={<Inscription/>}/>
           <Route exact path="/connexion" element={
             <Connexion setToken={setToken} setPseudoFromToken={setPseudoFromToken} />}
           />
         </Routes>
       </div>
-      <Connexion setToken={setToken} setPseudoFromToken={setPseudoFromToken} />
       </Router>
     );
   }
