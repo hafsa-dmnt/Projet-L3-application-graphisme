@@ -326,9 +326,7 @@ app.get('/listpalettesinfo/:idList', (req, res) => {
 //delete une liste de themes depuis la page de la liste
 app.use('/listthemes/delete/:idList', (req, res) => {
   console.log(req.params);
-  sql = "SELECT * FROM palette_list";
-  sql +="WHERE pl_utilisateurpseudo = '"+req.params.userPseudo+"';";
-  sql +="AND pl_nom = '"+req.params.nomListPalette+"';";
+  const sql = `DELETE from theme_list WHERE tl_id = ${req.params.idList};`;
   basedonnee.getQuery(sql)
   .then(response => {
     res.status(200).send(response);
@@ -341,9 +339,7 @@ app.use('/listthemes/delete/:idList', (req, res) => {
 //delete une liste de palettes depuis la page de la liste
 app.use('/listpalettes/delete/:idList', (req, res) => {
   console.log(req.params);
-  sql = "SELECT * FROM theme_list";
-  sql +="WHERE tl_utilisateurpseudo = '"+req.params.userPseudo+"';";
-  sql +="AND tl_nom = '"+req.params.nomListTheme+"';";
+  const sql = `DELETE from palette_list WHERE pl_id = ${req.params.idList};`;
   basedonnee.getQuery(sql)
   .then(response => {
     res.status(200).send(response);
