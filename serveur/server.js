@@ -527,6 +527,35 @@ app.use('/nouvellepublication/:date.:pseudo.:datedefi.:imageurl', (req, res) => 
   })
 });
 
+//un utilisateur follow un autre utilisateur 
+app.use('/follow/:alreadyfollowing-:suivi-:suiveur', (req, res) => {
+  let sql = `INSERT INTO abonner (abonner_suiveur, abonner_suivi) 
+  VALUES ('${req.params.suiveur}', '${req.params.suivi}');`;
+  if(req.params.alreadyfollowing == "true"){
+    sql = `DELETE FROM abonner WHERE abonner_suiveur = '${req.params.suiveur}' AND abonner_suivi = '${req.params.suivi}' ;`;
+  }
+  console.log(sql);
+  basedonnee.getQuery(sql)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});
+
+//un utilisateur unfollow un autre utilisateur 
+app.get('/followinguser/:pseudosuivi.:pseudosuiveur', (req, res) => {
+  const sql = `SELECT * FROM abonner WHERE abonner_suivi = '${req.params.pseudosuivi}' 
+  AND  abonner_suiveur = '${req.params.pseudosuiveur}' ;`;
+  basedonnee.getQuery(sql)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});
 
 
 /*
