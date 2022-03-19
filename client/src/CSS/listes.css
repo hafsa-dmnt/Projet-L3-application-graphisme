@@ -211,3 +211,16 @@
   text-decoration: none;
   color: black;
 }
+
+.addToList{
+  background-color: transparent;
+  vertical-align: top;
+  display: inline-block;
+  width: 20vW;
+  height: 26vW;
+  border-style: none;
+  margin: 2vh;
+  text-decoration: none;
+  color: var(--accentcolor);
+  text-align: center;
+}
