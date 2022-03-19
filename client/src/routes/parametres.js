@@ -318,8 +318,7 @@ class Parametres extends React.Component{
 
   deleteToken(){
     localStorage.removeItem('token');
-    this.setState({ redirect: "/connexion" });
-
+    window.location.reload(false);
   }
 
   handleInfo(){

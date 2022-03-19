@@ -135,6 +135,9 @@ export default function App() {
           <Route exact path="/connexion" element={
             <Connexion setToken={setToken} setPseudoFromToken={setPseudoFromToken} />}
           />
+          <Route path="*" element={
+            <Connexion setToken={setToken} setPseudoFromToken={setPseudoFromToken} />}
+          />
         </Routes>
       </div>
       </Router>

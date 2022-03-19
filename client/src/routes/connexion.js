@@ -55,6 +55,7 @@ export default function Connexion(prop) {
 
   const [pseudo, setPseudo] = useState('');
   const [mdp, setMdp] = useState('');
+  console.log(prop);
 
   const handleChangePseudo = (event) => {
     event.preventDefault();
@@ -100,7 +101,7 @@ export default function Connexion(prop) {
       pseudo,
       mdp
     });
-    
+
     prop.setPseudoFromToken(pseudo);
     prop.setToken(token);
     setPseudo(pseudo);
