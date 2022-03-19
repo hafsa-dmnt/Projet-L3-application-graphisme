@@ -166,7 +166,6 @@ class Profil extends React.Component{
     const tokenString = localStorage.getItem('token');
     var temp = JSON.parse(tokenString);
     temp = temp.token;
-    console.log(temp);
     let chemin = [
       "/publicationsofuserpseudo/"+this.state.pseudo, 
       '/pseudouser/'+temp      
@@ -180,7 +179,7 @@ class Profil extends React.Component{
     ))
     .then(data => {
       // assign to requested URL as define in array with array index.
-      var pseudoActuel = this.state.pseudo;
+      var pseudoActuel = this.state.pseudo.trim();
       var datas = [];
 
       if(data[0].length > 0){
@@ -191,7 +190,7 @@ class Profil extends React.Component{
         pseudo: pseudoActuel,
         data: datas, 
         follow: false, 
-        visiteur: data[1][0].utilisateur_pseudo
+        visiteur: data[1][0].utilisateur_pseudo.trim()
       })
 
 
