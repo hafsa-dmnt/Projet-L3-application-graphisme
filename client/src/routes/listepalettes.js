@@ -36,9 +36,14 @@ class Liste extends React.Component{
     let divListe = "";
     if(this.props.listePalettes.length > 0){
       divListe = Object.keys(tabListePalette).map((keyName, i)  => (
-        <div key= {i} className="iconlist">
-          {tabListePalette[keyName].palette_nom}
-          <button onClick={() => this.delete(tabListePalette[keyName].palette_id)}>x</button>
+        <div key= {i} className="section paletteListIndividuel">
+          <button onClick={() => this.delete(tabListePalette[keyName].palette_id)} className='cross'>
+            <Icon icon="bi:x-circle" className="cross-icon"/>
+          </button>
+            <section className='miniPalette'>
+                <p className='small'>{tabListePalette[keyName].palette_nom}</p>
+                {tabListePalette[keyName].palette_nom.split(',').map((elt) =>    <div className="minicolorPaletteListe" style={{background:elt}}></div>  )}
+            </section>
         </div>
     ))
     }else{
@@ -47,7 +52,9 @@ class Liste extends React.Component{
     
     return (
       <div className="liste_paletteTheme">
-        {divListe}
+        <div className="container">
+          {divListe}
+        </div>
       </div>
      
     );
@@ -58,10 +65,14 @@ class ListePalettes extends React.Component {
   constructor(props) {
     const queryParams = new URLSearchParams(window.location.search);
     const id = queryParams.get('idlist');
+    const nomlist = queryParams.get('nomlist');
+    const icon = queryParams.get('icon');
     super(props);
     this.state = {
       listePalettes:  "",
-      idliste: id
+      idliste: id,
+      nomlist: nomlist,
+      icon: icon
     }
   } 
 
@@ -94,10 +105,15 @@ class ListePalettes extends React.Component {
   render(){
     return (
       <section className="page page_listes">
+        <div className='list_title section'>
         <BoutonRetour/>
-        <button onClick={this.delete}>Supprimer la liste</button>
-        <Link to={"/profil/listepalettes/modifier?idlist="+this.state.idliste}>modifier</Link>
+          <h3>{this.state.nomlist}</h3> <Icon icon={this.state.icon} className='icon'/>
+        </div>
         <Liste listePalettes={this.state.listePalettes}></Liste>
+        <div className='editdelete'>
+          <button onClick={this.delete}>Supprimer</button>
+          <Link to={"/profil/listepalettes/modifier?idlist="+this.state.idliste}>modifier</Link>
+        </div>
       </section>
     );
   }

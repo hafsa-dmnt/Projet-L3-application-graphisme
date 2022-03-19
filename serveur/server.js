@@ -216,8 +216,8 @@ app.get('/iddelapalettes/:nom', (req, res) => {
 //get tous les thèmes d'une liste de thème
 app.get('/listthemes/:idList', (req, res) => {
   console.log(req.params);
-  var sql = `SELECT * FROM lien_list_theme, theme WHERE `;
-  sql+=`l_theme_list_id=${req.params.idList} AND l_theme_id = theme_id ;`;
+  var sql = `SELECT * FROM lien_list_theme, theme, theme_list WHERE `;
+  sql+=`l_theme_list_id=${req.params.idList} AND l_theme_id = theme_id AND tl_id =l_theme_list_id ;`;
   basedonnee.getQuery(sql)
   .then(response => {
     res.status(200).send(response);
