@@ -283,10 +283,18 @@ class ImageForm extends React.Component{
 
 class Parametres extends React.Component{
 
-  state = {
-    pseudo: null,
-    data: null
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      pseudo: null,
+      data: null,
+      redirect : null
+    };
+    this.handleInfo = this.handleInfo.bind(this);
+
+  }
+
+
 
   componentDidMount() {
     // Call our fetch function below once the component mounts
@@ -312,9 +320,18 @@ class Parametres extends React.Component{
     window.location.reload(false);
   }
 
+  handleInfo(){
+    this.setState({ redirect: "/informations" });
+  }
+
   render(){
 
+    if (this.state.redirect) {
+      return <Navigate to={this.state.redirect} />
+    }
+
     const dataLoaded = (this.state.pseudo!=null);
+
 
     if(dataLoaded){
 
@@ -337,6 +354,9 @@ class Parametres extends React.Component{
           </div>
           <div className="section mdp">
             <MdpForm/>
+          </div>
+          <div className="section info">
+            <button onClick={this.handleInfo}>Informations</button>
           </div>
           <div className="section deco">
             <button onClick={this.deleteToken}>Déconnexion</button>
