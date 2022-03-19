@@ -101,7 +101,7 @@ class InscriptionForm extends React.Component {
     var mdpchiffre = passwordHash.generate(this.state.mdp);
     //var mdpchiffre=bcrypt.hashSync(this.state.mdp, bcrypt.genSaltSync());
 
-    const lien="/inscription/creer/"+id+"-"+this.state.pseudo+"-"+this.state.mail+"-"+this.state.bio+"-"+mdpchiffre;
+    const lien="/inscription/creer/"+this.state.pseudo+"-"+this.state.mail+"-"+this.state.bio+"-"+mdpchiffre;
     const response = fetch(lien);
 
     //var id = 'testpdp';
