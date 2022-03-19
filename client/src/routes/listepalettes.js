@@ -112,7 +112,7 @@ class ListePalettes extends React.Component {
         <Liste listePalettes={this.state.listePalettes}></Liste>
         <div className='editdelete'>
           <button onClick={this.delete}>Supprimer</button>
-          <Link to={"/profil/listepalettes/modifier?idlist="+this.state.idliste}>modifier</Link>
+          <Link to={"/profil/listepalettes/modifier?idlist="+this.state.idliste}>Modifier</Link>
         </div>
       </section>
     );
