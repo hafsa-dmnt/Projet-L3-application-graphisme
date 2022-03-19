@@ -1,7 +1,7 @@
 import React from 'react';
 import '../CSS/inscription.css';
 import { Icon } from '@iconify/react';
-import {Link} from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 class CreerListeThemes extends React.Component{
     constructor(props) {
@@ -26,6 +26,7 @@ class CreerListeThemes extends React.Component{
         temp = temp.token;
         const lien="/listthemes/creer/"+temp+"-"+this.state.nom+"---"+this.state.icon;
         const response = await fetch(lien);
+        window.location.href = '/profil/listes?type=themes';
     }
 
     render(){

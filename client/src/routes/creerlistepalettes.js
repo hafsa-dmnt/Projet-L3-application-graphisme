@@ -26,6 +26,7 @@ class CreerListePalettes extends React.Component{
         temp = temp.token;
         const lien="/listpalettes/creer/"+temp+"-"+this.state.nom+"---"+this.state.icon;
         const response = await fetch(lien);
+        window.location.href = '/profil/listes?type=themes';
     }
 
     render(){
