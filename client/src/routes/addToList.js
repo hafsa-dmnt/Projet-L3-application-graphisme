@@ -31,24 +31,18 @@ class AddToList extends React.Component{
         idtheme=idtheme[0][0];
         idtheme=idtheme.theme_id;
     }else{
+        var palettesand=this.props.content.replaceAll("#","%23");
         var chemin = [
-            "/palette/creer/"+this.props.content
+            "/palette/creer/"+palettesand
         ];
-        await Promise.all(chemin.map(url =>
+        var idpalette = await Promise.all(chemin.map(url =>
             fetch(url)
                 .then(checkStatus)  // check the response of our APIs
                 .then(parseJSON)    // parse it to Json
                 .catch(error => console.log('There was a problem!', error))
         ))
-        chemin = [
-            "/iddelapalette/"+this.props.content
-        ];
-        var idpalette=await Promise.all(chemin.map(url =>
-            fetch(url)
-                .then(checkStatus)  // check the response of our APIs
-                .then(parseJSON)    // parse it to Json
-                .catch(error => console.log('There was a problem!', error))
-        ))
+        idpalette=idpalette[0][0].palette_id;
+        console.log("idpalette : ", idpalette);
     }
 
 
