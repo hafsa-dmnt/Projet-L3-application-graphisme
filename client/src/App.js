@@ -71,7 +71,8 @@ class AppComponent extends React.Component{
             <Route exact path="/informations" element={<Informations/>}/>
             <Route exact path="/connexion" element={
               <Connexion  setToken={this.props.setToken} setPseudoFromToken={this.props.setPseudoFromToken}/>}
-
+            />
+            <Route path="*" element={<Home/>}/>}
             />
           </Routes>
 
