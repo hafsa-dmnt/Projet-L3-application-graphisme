@@ -44,6 +44,7 @@ class ModifierListeThemes extends React.Component{
     handleSubmit= async () => {
         const lien="/listthemes/modifier/"+this.state.idlist+"-"+this.state.nom+"-"+this.state.icon;
         const response = await fetch(lien);
+        window.location.href = '/profil/listes?type=themes';
     }
 
     render(){

@@ -73,6 +73,7 @@
 .page_creerPubli .subSection button svg, .page_creerPubli .subSection button{
   height: 40px;
   width: 40px;
+  color : black;
 }
 
 .page_creerPubli .subSection button{

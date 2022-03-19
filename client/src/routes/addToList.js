@@ -1,7 +1,6 @@
 import React from 'react';
 import '../CSS/listes.css';
 import { Icon } from '@iconify/react';
-import {Link} from "react-router-dom";
 
 class AddToList extends React.Component{
 
@@ -56,6 +55,7 @@ class AddToList extends React.Component{
         lien="/listpalettes/element/creer/"+i+"-"+idpalette;
     }
     const response = fetch(lien);
+    window.location.href = '/home';
   }
 
   render(){
@@ -65,7 +65,7 @@ class AddToList extends React.Component{
     if(this.props.istheme){
       if(this.props.listeTheme.length > 0){
         divListe = Object.keys(tabListeTheme).map((keyName, i)  => (
-          <button key= {i} onClick={() => (this.handleClick(tabListeTheme[keyName].tl_id,1))} className="iconlist">
+          <button key= {i} onClick={() => (this.handleClick(tabListeTheme[keyName].tl_id,1))} className="addToList">
             <Icon icon={tabListeTheme[keyName].tl_icon.trim() == "" ? "emojione-monotone:sparkles" : tabListeTheme[keyName].tl_icon.trim()} />
             <p>{tabListeTheme[keyName].tl_nom.trim()}</p>
           </button>
@@ -76,7 +76,7 @@ class AddToList extends React.Component{
     }else{
       if(this.props.listePalette.length > 0){
         divListe = Object.keys(tabListePalette).map((keyName, i)  => (
-          <button key= {i} onClick={() => (this.handleClick(tabListePalette[keyName].pl_id,0))} className="iconlist">
+          <button key= {i} onClick={() => (this.handleClick(tabListePalette[keyName].pl_id,0))} className="addToList">
             <Icon icon={tabListePalette[keyName].pl_icon.trim() == "" ? "emojione-monotone:sparkles" : tabListePalette[keyName].pl_icon.trim()} />
             <p>{tabListePalette[keyName].pl_nom.trim()}</p>
           </button>
