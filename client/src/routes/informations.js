@@ -27,7 +27,7 @@ class Informations extends React.Component{
         <div className="section">
           <h3> Une question, un problème ? </h3>
           <p>N'hésitez pas à nous contacter :</p>
-          <p> <a href='mailto:getrandomart@futurMail.com'>getrandomart@futurMail.com</a></p>
+          <p> <a href='mailto:getrandomart@gmail.com'>getrandomart@gmail.com</a></p>
         </div>
 
         <div className="section credits">
