@@ -59,7 +59,7 @@ class AppComponent extends React.Component{
             <Route exact path="/calendrier" element={<Calendrier/>}/>
             <Route exact path="/calendrier/defijour" element={<Defijour/>}/>
             <Route exact path="/parametres" element={<Parametres/>}/>
-            <Route exact path="/inscription" element={<Inscription/>}/>
+            <Route exact path="/inscription" element={<Home/>}/>
             <Route exact path="/creerPublication" element={<CreerPublication/>}/>
             <Route exact path="/profil/listethemes/creer" element={<CreerListeThemes/>}/>
             <Route exact path="/profil/listepalettes/creer" element={<CreerListePalettes/>}/>
@@ -67,10 +67,9 @@ class AppComponent extends React.Component{
             <Route exact path="/profil/listepalettes/modifier" element={<ModifierListePalettes/>}/>
             <Route exact path="/informations" element={<Informations/>}/>
             <Route exact path="/connexion" element={
-              <Connexion  setToken={this.props.setToken} setPseudoFromToken={this.props.setPseudoFromToken}/>}
+              <Home/>}
             />
-            <Route path="*" element={<Home/>}/>}
-            />
+            <Route path="*" element={<Home/>}/>
           </Routes>
 
 
