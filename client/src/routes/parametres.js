@@ -12,6 +12,36 @@ import {validateEmail,
         isPseudoAlreadyUsed
         } from '../classes/formValidation.js';
 
+//'/changeuserinfo/:oldpseudo-:newpseudo-:bio-:mdp-:mail'
+
+async function changeUser(oldp, newp, bio, mdp, mail){
+  const chemin = [
+    '/changeuserinfo/'+oldp+'-'+newp+'-'+bio+'-'+mdp+'-'+mail
+  ];
+
+  Promise.all(chemin.map(url =>
+    fetch(url)
+    .then(checkStatus)  // check the response of our APIs
+    .then(parseJSON)    // parse it to Json
+    .catch(error => console.log('There was a problem!', error))
+  ))
+  .then(data => { 
+    window.location.reload(false);
+  })
+}
+
+function checkStatus(response) {
+  if (response.ok) {
+    return Promise.resolve(response);
+  } else {
+    return Promise.reject(new Error(response.statusText));
+  }
+}
+
+function parseJSON(response) {
+  return response.json();
+}
+
 class BoutonRetour extends React.Component{
   state = { redirect: null };
   handleClick() {
@@ -34,7 +64,6 @@ class BoutonRetour extends React.Component{
 class SimpleForm extends React.Component {
   constructor(props) {
     super(props);
-    console.log(props);
     this.state = {value: this.props.value};
 
     this.handleChange = this.handleChange.bind(this);
@@ -50,40 +79,33 @@ class SimpleForm extends React.Component {
 
     const value = event.target.value;
 
-    // this.props.type = le truc qu'on envoie
-      // pseudo mail ou bio
-    // value = la valeur de ce truc
-
-
-/////// TODO
-
-    // verif mail pas meme que Ancien
-    // verif pseudo pas meme que ancien
-    // verif pas de script etc
-
-    // update bd
-
     switch (this.props.type) {
       case 'pseudo':
-        if(!isCompleted('pseudo',value)){
+        if(!isCompleted('pseudo',this.state.value)){
           return;
         }
-        if(isPseudoAlreadyUsed(value)){
+        if(isPseudoAlreadyUsed(this.state.value)){
           return;
         }
+        alert(this.state.value);
+        changeUser(this.props.pseudo, this.state.value, this.props.bio, this.props.mdp, this.props.mail);
       break;
       case 'mail':
-        if(!isCompleted('email',value)){
+        if(!isCompleted('email',this.state.value)){
           return;
         }
-        if(isMailAlreadyUsed(value)){
+        if(isMailAlreadyUsed(this.state.value)){
           return;
         }
+        alert(this.state.value);
+        changeUser(this.props.pseudo, this.props.pseudo, this.props.bio, this.props.mdp, this.state.value);
       break;
       case 'bio':
-        if(!isCompleted('biographie',value)){
+        if(!isCompleted('biographie',this.state.value)){
           return;
         }
+        alert(this.state.value);
+        changeUser(this.props.pseudo, this.props.pseudo, this.state.value, this.props.mdp, this.props.mail);
 
       break;
     }
@@ -116,7 +138,7 @@ class SimpleForm extends React.Component {
 class MdpForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {mdp: '',confirm:'',old:''};
+    this.state = {mdp: '',confirm:'',old:this.props.mdp};
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -143,10 +165,16 @@ class MdpForm extends React.Component {
           + "\nconfirm : "+ this.state.confirm
           +"\nold : "+ this.state.old);
 
-    if(this.state.mdp != this.state.mdp){
-      alert("Les mots de passes ne correpondent pas.");
+    if(this.state.mdp != this.state.confirm){
+      alert("Les mots de passe ne correspondent pas.");
       return;
     }
+
+    if(this.state.mdp != this.state.confirm){
+      alert("Les mots de passe ne correspondent pas.");
+      return;
+    }
+
 /////// TODO
     // verifier old mdp correspond a celui enregistrer dans bd
     // update mdp
@@ -213,22 +241,13 @@ class ImageForm extends React.Component{
   }
 
   handleSubmit(event) {
-    alert('yay');
     event.preventDefault();
-
-///////// TODOOOO
-    // BD : get id utilisateur
-
-    // var id = nomUti + 'pdp'
-
-    // pas besoin update bd paske l'id ne change pas
-
-
-    var id = "test";
+    
+    var url = this.props.pseudo.trim()+"_pdp";
 
     const formData = new FormData();
     formData.append("file", this.state.image);
-    formData.append("public_id", id);
+    formData.append("public_id", url);
     formData.append("upload_preset", "hhd3mufr");
     formData.append("cloud_name","hzcpqfz4w");
 
@@ -300,18 +319,21 @@ class Parametres extends React.Component{
   componentDidMount() {
     // Call our fetch function below once the component mounts
     this.callBackendAPI()
-      .then(res => this.setState({ pseudo: res[0].utilisateur_pseudo.trim(), email: res[0].utilisateur_email.trim(), bio: res[0].utilisateur_bio.trim(), data:null }))
+      .then(res => this.setState({ pseudo: res[0].utilisateur_pseudo.trim(), email: res[0].utilisateur_email.trim(), bio: res[0].utilisateur_bio.trim(), mdp: res[0].utilisateur_mdp }))
       .catch(err => console.log(err));
   }
     // Fetches our GET route from the Express server. (Note the route we are fetching matches the GET route from server.js
   callBackendAPI = async () => {
-    const response = await fetch('/parametersUser/user2');
+    const tokenString = localStorage.getItem('token');
+    var temp = JSON.parse(tokenString);
+    temp = temp.token;
+
+    const response = await fetch('/parametersUser/'+temp);
     const body = await response.json();
 
     if (response.status !== 200) {
       throw Error(body.message)
     }
-    console.log("requete", body);
     return body;
   };
 
@@ -341,20 +363,20 @@ class Parametres extends React.Component{
       return (
         <div className="page page_parametre">
           <div className="section pdp">
-            <ImageForm/>
+            <ImageForm pseudo={this.state.pseudo}/>
           </div>
 
           <div className="section pseudo">
-            <SimpleForm type="pseudo" value={this.state.pseudo} />
+            <SimpleForm type="pseudo" value = {this.state.pseudo} pseudo = {this.state.pseudo} bio = {this.state.bio} mail = {this.state.email} mdp = {this.state.mdp}/>
           </div>
           <div className="section mail">
-            <SimpleForm type="mail" value={this.state.email}/>
+            <SimpleForm type="mail" value = {this.state.email} pseudo = {this.state.pseudo} bio = {this.state.bio} mail = {this.state.email} mdp = {this.state.mdp}/>
           </div>
           <div className="section bio">
-            <SimpleForm type="bio" value={this.state.bio}/>
+            <SimpleForm type="bio" value = {this.state.bio} pseudo = {this.state.pseudo} bio = {this.state.bio} mail = {this.state.email} mdp = {this.state.mdp}/>
           </div>
           <div className="section mdp">
-            <MdpForm/>
+            <MdpForm pseudo = {this.state.pseudo} bio = {this.state.bio} mail = {this.state.email} mdp = {this.state.mdp}/>
           </div>
           <div className="section info">
             <button onClick={this.handleInfo}>Informations</button>

@@ -86,7 +86,6 @@ function CreateForm(props){
         formData.append("upload_preset", "hhd3mufr")
         formData.append("cloud_name","hzcpqfz4w")
 
-        console.log({image});
 
         fetch(" https://api.cloudinary.com/v1_1/hzcpqfz4w/image/upload",{
           method:"post",

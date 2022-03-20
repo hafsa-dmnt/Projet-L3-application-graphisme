@@ -75,9 +75,9 @@ app.get('/searchUser/:userPseudo', (req, res) => {
   })
 });
 
-app.get('/parametersUser/:userPseudo', (req, res) => {
+app.get('/parametersUser/:token', (req, res) => {
   console.log(req.params);
-  const sql = `SELECT * FROM utilisateur WHERE utilisateur_pseudo = '${req.params.userPseudo}';`;
+  const sql = `SELECT * FROM utilisateur WHERE utilisateur_token = '${req.params.token}';`;
   basedonnee.getQuery(sql)
   .then(response => {
     res.status(200).send(response);
@@ -243,6 +243,17 @@ app.get('/listpalettes/:idList', (req, res) => {
 
 app.get('/defiatdate/:dateselected', (req, res) => {
   var sql = "SELECT theme.theme_nom, palette.palette_nom FROM theme, palette, defi WHERE defi_date = '"+req.params.dateselected+"' AND defi_themeid = theme_id AND defi_paletteid = palette_id;";
+  basedonnee.getQuery(sql)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});
+
+app.use('/changeuserinfo/:oldpseudo-:newpseudo-:bio-:mdp-:mail', (req, res) => {
+  var sql = `UPDATE utilisateur SET utilisateur_pseudo = '${req.params.newpseudo}', utilisateur_bio = '${req.params.bio}', utilisateur_mdp = '${req.params.mdp}', utilisateur_email = '${req.params.mail}' WHERE utilisateur_pseudo = '${req.params.oldpseudo}';`;
   basedonnee.getQuery(sql)
   .then(response => {
     res.status(200).send(response);
