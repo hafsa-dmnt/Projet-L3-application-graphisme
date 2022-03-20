@@ -149,16 +149,13 @@ class Profil extends React.Component{
       .then(checkStatus)  // check the response of our APIs
       .catch(error => console.log('There was a problem!', error))
     ))
+
     function checkStatus(response) {
       if (response.ok) {
         return Promise.resolve(response);
       } else {
         return Promise.reject(new Error(response.statusText));
       }
-    }
-
-    function parseJSON(response) {
-      return response.json();
     }
   }
   
@@ -179,6 +176,11 @@ class Profil extends React.Component{
     ))
     .then(data => {
       // assign to requested URL as define in array with array index.
+      if(data[1].length == 0){
+        localStorage.removeItem('token');
+        window.location.reload(false);
+      }
+      
       var pseudoActuel = this.state.pseudo.trim();
       var datas = [];
 
@@ -188,7 +190,7 @@ class Profil extends React.Component{
       
       this.setState({
         pseudo: pseudoActuel,
-        data: datas, 
+        data: datas.reverse(), 
         follow: false, 
         visiteur: data[1][0].utilisateur_pseudo.trim()
       })

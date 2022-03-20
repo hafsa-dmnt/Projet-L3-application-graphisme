@@ -154,6 +154,12 @@ class Profil extends React.Component{
     ))
     .then(data => {
       // assign to requested URL as define in array with array index.
+      if(data[1].length == 0){
+        localStorage.removeItem('token');
+        window.location.reload(false);
+      }
+
+
       var pseudos = data[1][0].utilisateur_pseudo.trim();
       var datas = [];
       var pdps = data[1][0].utilisateur_pdp;
@@ -164,7 +170,7 @@ class Profil extends React.Component{
       
       this.setState({
         pseudo: pseudos,
-        pdp : pdps,
+        pdp : pseudos+"_pdp",
         data: datas
       })
     })

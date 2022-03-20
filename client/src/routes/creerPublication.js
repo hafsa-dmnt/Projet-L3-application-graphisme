@@ -74,8 +74,6 @@ function CreateForm(props){
         year = 2000 + (Number(today.getYear())-100);
         var todayBonFormat = year +"-"+month+"-"+day;
 
-        console.log(url);
-
         fetch('/nouvellepublication/'+todayBonFormat+'.'+pseudo+'.'+dateDefiBd+'.'+url);
 
         const formData = new FormData();
@@ -86,7 +84,6 @@ function CreateForm(props){
         formData.append("upload_preset", "hhd3mufr")
         formData.append("cloud_name","hzcpqfz4w")
 
-        console.log({image});
 
         fetch(" https://api.cloudinary.com/v1_1/hzcpqfz4w/image/upload",{
           method:"post",

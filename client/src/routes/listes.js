@@ -79,6 +79,10 @@ class ThemesAndPalettes extends React.Component{
     ))
         .then(data => {
             // assign to requested URL as define in array with array index.
+            if(data.length == 0){
+              localStorage.removeItem('token');
+              window.location.reload(false);
+            }
             const data_theme = data[0];
             const data_palette = data[1];
             this.setState({

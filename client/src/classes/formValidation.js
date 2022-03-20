@@ -27,7 +27,7 @@ export const passwordConfirmation = (mdp,confirm) => {
 }
 
 export const isCompleted = (name,value) => {
-  if(!value||value==''){
+  if(!value||value===""){
     alert('Le champs '+name+' est vide');
     return false;
   }
