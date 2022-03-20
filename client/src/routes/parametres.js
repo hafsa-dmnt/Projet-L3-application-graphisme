@@ -325,6 +325,11 @@ class Parametres extends React.Component{
     const response = await fetch('/parametersUser/'+temp);
     const body = await response.json();
 
+    if(body.length == 0){
+      localStorage.removeItem('token');
+      window.location.reload(false);
+    }
+
     if (response.status !== 200) {
       throw Error(body.message)
     }

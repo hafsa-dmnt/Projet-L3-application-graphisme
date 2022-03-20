@@ -176,6 +176,11 @@ class Profil extends React.Component{
     ))
     .then(data => {
       // assign to requested URL as define in array with array index.
+      if(data[1].length == 0){
+        localStorage.removeItem('token');
+        window.location.reload(false);
+      }
+      
       var pseudoActuel = this.state.pseudo.trim();
       var datas = [];
 

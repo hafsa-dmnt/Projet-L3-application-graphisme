@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Icon } from '@iconify/react';
 //import logo from './logo.svg'; //remplacer par notre logo
 import './App.css';
-import Compte from './routes/compte.js'
 import Publication from './routes/publication.js'
 import Profil from './routes/profil.js'
 import Visit from './routes/visit.js'
@@ -59,8 +58,6 @@ class AppComponent extends React.Component{
             <Route exact path="/profil/abonnements" element={<Abonnements/>}/>
             <Route exact path="/calendrier" element={<Calendrier/>}/>
             <Route exact path="/calendrier/defijour" element={<Defijour/>}/>
-            <Route exact path="/compte/publication" element={<Publication/>}/>
-            <Route exact path="/compte" element={<Compte/>}/>
             <Route exact path="/parametres" element={<Parametres/>}/>
             <Route exact path="/inscription" element={<Inscription/>}/>
             <Route exact path="/creerPublication" element={<CreerPublication/>}/>
