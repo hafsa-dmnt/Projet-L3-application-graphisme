@@ -87,7 +87,7 @@ class SimpleForm extends React.Component {
         if(isPseudoAlreadyUsed(this.state.value)){
           return;
         }
-        alert(this.state.value);
+
         changeUser(this.props.pseudo, this.state.value, this.props.bio, this.props.mdp, this.props.mail);
       break;
       case 'mail':
@@ -97,14 +97,14 @@ class SimpleForm extends React.Component {
         if(isMailAlreadyUsed(this.state.value)){
           return;
         }
-        alert(this.state.value);
+
         changeUser(this.props.pseudo, this.props.pseudo, this.props.bio, this.props.mdp, this.state.value);
       break;
       case 'bio':
         if(!isCompleted('biographie',this.state.value)){
           return;
         }
-        alert(this.state.value);
+
         changeUser(this.props.pseudo, this.props.pseudo, this.state.value, this.props.mdp, this.props.mail);
 
       break;
@@ -161,24 +161,18 @@ class MdpForm extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    alert('Le new mdp : ' + this.state.mdp
-          + "\nconfirm : "+ this.state.confirm
-          +"\nold : "+ this.state.old);
-
+    
     if(this.state.mdp != this.state.confirm){
       alert("Les mots de passe ne correspondent pas.");
       return;
     }
 
-    if(this.state.mdp != this.state.confirm){
-      alert("Les mots de passe ne correspondent pas.");
+    if(this.state.old != this.props.mdp){
+      alert("Le mot de passe ne correspond pas à celui enregistré.");
       return;
     }
 
-/////// TODO
-    // verifier old mdp correspond a celui enregistrer dans bd
-    // update mdp
-
+    changeUser(this.props.pseudo, this.props.pseudo, this.state.value, this.props.mdp, this.props.mail);
   }
 
   render() {
