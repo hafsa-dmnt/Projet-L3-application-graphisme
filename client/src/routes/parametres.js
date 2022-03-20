@@ -161,7 +161,7 @@ class MdpForm extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    
+
     if(this.state.mdp != this.state.confirm){
       alert("Les mots de passe ne correspondent pas.");
       return;
@@ -172,7 +172,7 @@ class MdpForm extends React.Component {
       return;
     }
 
-    changeUser(this.props.pseudo, this.props.pseudo, this.state.value, this.props.mdp, this.props.mail);
+    changeUser(this.props.pseudo, this.props.pseudo, this.props.bio, this.state.mdp, this.props.mail);
   }
 
   render() {
