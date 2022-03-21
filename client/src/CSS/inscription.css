@@ -46,9 +46,7 @@
   margin-right: 15px;
 }
 
-.page_inscription .subSection button{
-  cursor: pointer;
-}
+
 
 
 .page_inscription .section.title {
@@ -83,4 +81,13 @@
 
 .page_inscription .subSection #file-input {
     display: none;
+}
+
+.page_inscription .subSection.submit{
+    height: 30px;
+}
+
+.page_inscription .subSection.submit button{
+  cursor: pointer;
+  margin-right: 15px;
 }

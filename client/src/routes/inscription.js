@@ -111,7 +111,7 @@ class InscriptionForm extends React.Component {
           <input type="password" name="confirm" value={this.state.confirm} onChange={this.handleChange} />
         </div>
 
-        <div className="subSection">
+        <div className="subSection submit">
           <button type="submit" >
             <Icon icon="akar-icons:check-box-fill" />
           </button>

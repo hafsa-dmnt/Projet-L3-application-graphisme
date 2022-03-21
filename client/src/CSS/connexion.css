@@ -43,6 +43,7 @@
 .page_connexion .subSection button svg, .page_connexion .subSection button{
     height: 30px;
     width: 30px;
+    color: black;
 }
 
 .page_connexion .subSection button{
