@@ -25,7 +25,7 @@ async function changeUser(oldp, newp, bio, mdp, mail){
     .then(parseJSON)    // parse it to Json
     .catch(error => console.log('There was a problem!', error))
   ))
-  .then(data => { 
+  .then(data => {
     window.location.reload(false);
   })
 }
@@ -80,16 +80,6 @@ class SimpleForm extends React.Component {
     const value = event.target.value;
 
     switch (this.props.type) {
-      case 'pseudo':
-        if(!isCompleted('pseudo',this.state.value)){
-          return;
-        }
-        if(isPseudoAlreadyUsed(this.state.value)){
-          return;
-        }
-
-        changeUser(this.props.pseudo, this.state.value, this.props.bio, this.props.mdp, this.props.mail);
-      break;
       case 'mail':
         if(!isCompleted('email',this.state.value)){
           return;
@@ -236,7 +226,7 @@ class ImageForm extends React.Component{
 
   handleSubmit(event) {
     event.preventDefault();
-    
+
     var url = this.props.pseudo.trim()+"_pdp";
 
     const formData = new FormData();
@@ -365,9 +355,6 @@ class Parametres extends React.Component{
             <ImageForm pseudo={this.state.pseudo}/>
           </div>
 
-          <div className="section pseudo">
-            <SimpleForm type="pseudo" value = {this.state.pseudo} pseudo = {this.state.pseudo} bio = {this.state.bio} mail = {this.state.email} mdp = {this.state.mdp}/>
-          </div>
           <div className="section mail">
             <SimpleForm type="mail" value = {this.state.email} pseudo = {this.state.pseudo} bio = {this.state.bio} mail = {this.state.email} mdp = {this.state.mdp}/>
           </div>

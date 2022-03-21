@@ -2,8 +2,6 @@ import React from 'react';
 import '../CSS/inscription.css';
 import { Icon } from '@iconify/react';
 
-import {AdvancedImage} from '@cloudinary/react';
-import {Cloudinary} from "@cloudinary/url-gen";
 
 import { Navigate } from "react-router-dom";
 
@@ -17,14 +15,10 @@ import {validateEmail,
 
 class InscriptionForm extends React.Component {
 
-
-
   constructor(props) {
     super(props);
-    this.state = {pseudo:'',mail:'',bio:'', mdp: '',confirm:'',pdp:'',url:'',pdp_url:'', redirect: null};
-    this.handleChangeImage = this.handleChangeImage.bind(this);
+    this.state = {pseudo:'',mail:'', mdp: '',confirm:'', redirect: null};
     this.handleChange = this.handleChange.bind(this);
-
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -37,14 +31,6 @@ class InscriptionForm extends React.Component {
     });
   }
 
-  handleChangeImage(event) {
-    const value = URL.createObjectURL(event.target.files[0]);
-    this.setState({
-      ...this.state,
-      pdp: event.target.files[0],
-      pdp_url:value
-    });
-  }
 
   handleSubmit(event) {
     event.preventDefault();
@@ -56,7 +42,7 @@ class InscriptionForm extends React.Component {
       return;
     }
 
-    if(!(isCompleted('mail',this.state.mail)&isCompleted('bio',this.state.bio))){
+    if(!(isCompleted('mail',this.state.mail))){
       return;
     }
 
@@ -80,52 +66,9 @@ class InscriptionForm extends React.Component {
       return;
     }
 
-    if(this.state.pdp_url === ''){
-      alert('Pas d\'image de profil.');
-      return;
-    }
 
-    const formData = new FormData();
-
-//////// TODO
-    // BD : get id utilisateur
-     var id = this.state.pseudo + "_pdp"
-
-    // envoie a la bd
-      // id photo = id
-      // pseudo = this.state.pseudo
-      // mail = this.state.mail
-      // bio = this.state.bio
-      // mdp = this.state.mdp
-    var passwordHash = require('password-hash');
-    var mdpchiffre = passwordHash.generate(this.state.mdp);
-    //var mdpchiffre=bcrypt.hashSync(this.state.mdp, bcrypt.genSaltSync());
-
-    const lien="/inscription/creer/"+this.state.pseudo+"-"+this.state.mail+"-"+this.state.bio+"-"+mdpchiffre;
-    const response = fetch(lien);
-
-    //var id = 'testpdp';
-
-
-    formData.append("file", this.state.pdp);
-    formData.append("public_id", id);
-    formData.append("upload_preset", "hhd3mufr");
-    formData.append("cloud_name","hzcpqfz4w");
-
-
-    fetch(" https://api.cloudinary.com/v1_1/hzcpqfz4w/image/upload",{
-      method:"post",
-      body: formData
-    }).then(resp =>
-              resp.json()).then(data => {
-                                      this.setState({
-                                        ...this.state,
-                                        url: data.url
-                                      })
-                                          }).catch(err => console.log(err));
-
-
-      this.setState({ redirect: "/Connexion" });
+    alert("Pensez à compléter votre photo de profil et votre biographie dans les réglages !");
+    this.setState({ redirect: "/Connexion" });
 
     }
 
@@ -139,20 +82,6 @@ class InscriptionForm extends React.Component {
 
       <form onSubmit={this.handleSubmit} className = "inscriptionForm">
 
-        <div className='subSection'>
-          <label>
-            <h3>Photo de profil :</h3>
-          </label>
-
-          <label htmlFor="file-input" className="label-file">
-            <p>Parcourir...</p>
-          </label>
-
-          <input id="file-input" type="file" accept="image/*" onChange={this.handleChangeImage}/>
-
-          <img src={this.state.pdp_url}/>
-
-        </div>
 
         <div className="subSection">
           <label>
@@ -166,13 +95,6 @@ class InscriptionForm extends React.Component {
             <h3>Mail :</h3>
           </label>
           <input type="text" name="mail" value={this.state.mail} onChange={this.handleChange} />
-        </div>
-
-        <div className="subSection">
-          <label>
-            <h3>Biographie :</h3>
-          </label>
-          <input type="text" name="bio" value={this.state.bio} onChange={this.handleChange} />
         </div>
 
         <div className="subSection">
