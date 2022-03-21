@@ -59,3 +59,8 @@
 .page_connexion .subSection button{
     cursor: pointer;
 }
+
+.page_connexion .subSection.link a{
+  color : black;
+  font-weight: bold;
+}

@@ -49,12 +49,16 @@ class ProfilHead extends React.Component{
   }
   render(){
     let btnAfficher = <ButtonClick chemin='/parametres' iconbtn="ant-design:setting-twotone" idbtn="btnParameters"/>
-    let lienListes= <div>
+    let lienListes= <div className="link liste">
+                  <Icon icon="fluent:text-bullet-list-square-20-filled" />
                   <Link to="/profil/listes?type=themes">Mes thèmes et palettes</Link>
+
                 </div>;
     var linkabonnements = "/profil/abonnements?pseudo="+this.props.pseudo;
-    let lienAbonnes= <div>
+    let lienAbonnes= <div className="link follow">
+      <Icon icon="bi:person-fill" />
       <Link to={linkabonnements}>Les personnes que je suis</Link>
+      
     </div>;
 
     const cld = new Cloudinary({
@@ -64,7 +68,7 @@ class ProfilHead extends React.Component{
     });
 
     const myImage = cld.image(this.props.photo);
-    
+
     return(
       <header className="profilHead section">
         <div key={this.props.idx} className="profilePic" alt="photo de profil">
@@ -129,7 +133,7 @@ class ProfilContent extends React.Component{
 class Profil extends React.Component{
   constructor(props){
     super(props);
-    
+
     this.state = {
       pseudo: "",
       pdp: "",
@@ -142,7 +146,7 @@ class Profil extends React.Component{
     var temp = JSON.parse(tokenString);
     temp = temp.token;
     const chemin = [
-      "/publicationsofuser/"+temp, 
+      "/publicationsofuser/"+temp,
       '/pseudouser/'+temp
     ];
 
@@ -163,11 +167,11 @@ class Profil extends React.Component{
       var pseudos = data[1][0].utilisateur_pseudo.trim();
       var datas = [];
       var pdps = data[1][0].utilisateur_pdp;
-      
+
       if(data[0].length > 0){
         datas = data[0];
       }
-      
+
       this.setState({
         pseudo: pseudos,
         pdp : pseudos+"_pdp",

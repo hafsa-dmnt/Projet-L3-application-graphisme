@@ -1,6 +1,8 @@
 import React from 'react';
 import '../CSS/inscription.css';
 import { Icon } from '@iconify/react';
+import {Link} from "react-router-dom";
+
 
 
 import { Navigate } from "react-router-dom";
@@ -138,6 +140,9 @@ class Inscription extends React.Component{
           <InscriptionForm type="Pseudo"/>
         </div>
 
+        <div className="section link">
+            <p>Déja un compte ? <Link to={"/connexion"}>Connectez-vous !</Link></p>
+        </div>
 
       </div>
     );

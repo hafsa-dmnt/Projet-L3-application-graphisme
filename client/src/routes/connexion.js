@@ -138,7 +138,7 @@ export default function Connexion(prop) {
             </button>
           </div>
 
-          <div className="subSection">
+          <div className="subSection link">
               <p>Pas encore de compte ? <Link to={"/inscription"}>Vous pouvez en créer un !</Link></p>
           </div>
 

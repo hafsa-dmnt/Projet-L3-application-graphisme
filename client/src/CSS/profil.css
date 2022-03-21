@@ -40,7 +40,7 @@
     border-radius: 10px;
     margin: auto;
     margin-right: 70%;
-    margin-bottom: 5vh; 
+    margin-bottom: 5vh;
     padding: 5px;
     display: inline-flex;
     position: relative;
@@ -91,4 +91,30 @@
     display: inline-block;
     font-weight: bold;
     margin: 1vh;
+}
+
+.profil .link{
+  margin-top: 10px;
+  text-align: left;
+}
+
+.profil .link.liste{
+  margin-top: 20px;
+  text-align: left;
+}
+
+.profil .link a{
+  color: var(--accentcolor);
+  text-decoration: none;
+  font-weight: bold;
+  vertical-align: middle;
+}
+
+.profil .link svg{
+  color:black;
+  height: 30px;
+  width: 30px;
+  color: var(--accentcolor);
+  vertical-align: middle;
+  margin-right: 10px;
 }

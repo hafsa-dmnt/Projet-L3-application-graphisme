@@ -91,3 +91,9 @@
   cursor: pointer;
   margin-right: 15px;
 }
+
+
+.page_inscription .section.link a{
+  color : black;
+  font-weight: bold;
+}
