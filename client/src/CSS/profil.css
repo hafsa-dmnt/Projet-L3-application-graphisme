@@ -111,10 +111,10 @@
 }
 
 .profil .link svg{
-  color:black;
   height: 30px;
   width: 30px;
-  color: var(--accentcolor);
   vertical-align: middle;
   margin-right: 10px;
+  color: var(--accentcolor);
+
 }

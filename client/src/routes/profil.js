@@ -50,15 +50,13 @@ class ProfilHead extends React.Component{
   render(){
     let btnAfficher = <ButtonClick chemin='/parametres' iconbtn="ant-design:setting-twotone" idbtn="btnParameters"/>
     let lienListes= <div className="link liste">
-                  <Icon icon="fluent:text-bullet-list-square-20-filled" />
-                  <Link to="/profil/listes?type=themes">Mes thèmes et palettes</Link>
+                  <Link to="/profil/listes?type=themes"> <Icon icon="fluent:text-bullet-list-square-20-filled" /> Mes thèmes et palettes</Link>
 
                 </div>;
     var linkabonnements = "/profil/abonnements?pseudo="+this.props.pseudo;
     let lienAbonnes= <div className="link follow">
-      <Icon icon="bi:person-fill" />
-      <Link to={linkabonnements}>Les personnes que je suis</Link>
-      
+      <Link to={linkabonnements}><Icon icon="bi:person-fill" /> Les personnes que je suis</Link>
+
     </div>;
 
     const cld = new Cloudinary({
