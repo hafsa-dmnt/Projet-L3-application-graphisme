@@ -64,8 +64,18 @@ app.use('/validateToken/:token', (req, res) => {
 
 // create a GET route
 app.get('/searchUser/:userPseudo', (req, res) => {
-  console.log(req.params);
   const sql = `SELECT utilisateur_pseudo FROM utilisateur WHERE utilisateur_pseudo = '${req.params.userPseudo}';`;
+  basedonnee.getQuery(sql)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});
+
+app.get('/biouser/:userPseudo', (req, res) => {
+  const sql = `SELECT utilisateur_bio FROM utilisateur WHERE utilisateur_pseudo = '${req.params.userPseudo}';`;
   basedonnee.getQuery(sql)
   .then(response => {
     res.status(200).send(response);

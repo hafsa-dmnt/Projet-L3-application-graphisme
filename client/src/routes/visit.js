@@ -4,6 +4,7 @@ import { Icon } from '@iconify/react';
 import {AdvancedImage} from '@cloudinary/react';
 import {Cloudinary} from "@cloudinary/url-gen";
 import {Link} from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 
 class Follow extends React.Component{
@@ -67,6 +68,7 @@ class ProfilHead extends React.Component{
         </div>
         <h3>{this.props.pseudo}</h3>
         {btnAfficher}
+        <p>{this.props.bio}</p>
       </header>
     );
   }
@@ -102,7 +104,7 @@ class ProfilContent extends React.Component{
                     </section>;
     if(tabPublication.length > 0){
         divPubli = tabPublication.map((elt, idx) =>
-        <Publication photo = {elt.publication_image} idx = {elt.publication_id} pseudo = {this.state.pseudo}/> );
+        <Publication photo = {elt.publication_image} idx = {elt.publication_id} pseudo = {this.props.pseudo}/> );
     }
       
 
@@ -129,7 +131,8 @@ class Profil extends React.Component{
       pseudo: pseudo,
       follow: false,
       data: [], 
-      visiteur: ""
+      visiteur: "", 
+      bio: ""
     };
 
     this.handleFollow = this.handleFollow.bind(this);
@@ -165,7 +168,8 @@ class Profil extends React.Component{
     temp = temp.token;
     let chemin = [
       "/publicationsofuserpseudo/"+this.state.pseudo, 
-      '/pseudouser/'+temp      
+      '/pseudouser/'+temp, 
+      '/biouser/'+this.state.pseudo   
     ];
 
     Promise.all(chemin.map(url =>
@@ -187,13 +191,19 @@ class Profil extends React.Component{
       if(data[0].length > 0){
         datas = data[0];
       }
+      console.log(data);
       
       this.setState({
         pseudo: pseudoActuel,
         data: datas.reverse(), 
         follow: false, 
-        visiteur: data[1][0].utilisateur_pseudo.trim()
+        visiteur: data[1][0].utilisateur_pseudo.trim(), 
+        bio: data[2][0].utilisateur_bio.trim()
       })
+
+      if(this.state.pseudo == this.state.visiteur){
+        return;
+      }
 
 
       chemin = [
@@ -207,16 +217,11 @@ class Profil extends React.Component{
       ))
       .then(data => {
         // assign to requested URL as define in array with array index.
-        var pseudo = this.state.pseudo;
-        var datas = this.state.data;
-        var visiteur = this.state.visiteur;
         var following = data[0].length > 0;
        
         this.setState({
-          pseudo: pseudo,
-          data: datas, 
-          follow: following, 
-          visiteur: visiteur
+          ... this.state,
+          follow: following
         })
       })
     })
@@ -235,9 +240,14 @@ class Profil extends React.Component{
   }
 
   render(){
+    if(this.state.pseudo == this.state.visiteur){
+      return (
+        <Navigate to="/profil" />
+      );
+    }
     return (
       <div className="profil page">
-        <ProfilHead pseudo = {this.state.pseudo} follow = {this.state.follow} visitor = {this.state.visiteur} handleFollow = {this.handleFollow}/>
+        <ProfilHead pseudo = {this.state.pseudo} follow = {this.state.follow} visitor = {this.state.visiteur} handleFollow = {this.handleFollow} bio = {this.state.bio}/>
         <ProfilContent content = {this.state.data} pseudo = {this.state.pseudo}/>
       </div>
     );
