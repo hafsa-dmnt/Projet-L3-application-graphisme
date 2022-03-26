@@ -27,18 +27,14 @@ class InscriptionForm extends React.Component {
   handleChange(event) {
     const value = event.target.value;
     this.setState({
-      // ...this.state c pour garder les 2 autres pas modifiés
       ...this.state,
       [event.target.name]: value
     });
   }
 
-
   handleSubmit(event) {
     event.preventDefault();
     var passwordHash = require('password-hash');
-
-    //console.log("mdp : ",sha1$b4c885be$1$dc05169eaacbe5f8bda25ace50c7fd14715e2d30
 
     if(!(isCompleted('pseudo',this.state.pseudo)&isCompleted('mail',this.state.mail))){
       return;
@@ -87,7 +83,6 @@ class InscriptionForm extends React.Component {
     return (
 
       <form onSubmit={this.handleSubmit} className = "inscriptionForm">
-
 
         <div className="subSection">
           <label>

@@ -47,14 +47,14 @@ class Liste extends React.Component{
     }else{
       divListe = <p>Il n'y a rien :( ajoute un theme !</p>
     }
-    
+
     return (
       <div className="liste_paletteTheme">
         <div className="container">
           {divListe}
         </div>
       </div>
-     
+
     );
   }
 }
@@ -73,7 +73,7 @@ class ListeThemes extends React.Component {
       nomlist: nomlist,
       icon: icon
     }
-  } 
+  }
 
   delete(){
     const queryParams = new URLSearchParams(window.location.search);
@@ -97,9 +97,8 @@ class ListeThemes extends React.Component {
     const response = await fetch(lien);
     const body = await response.json();
     if (response.status !== 200) {
-      throw Error(body.message) 
+      throw Error(body.message)
     }
-    console.log("requete", body);
     return body;
   };
 

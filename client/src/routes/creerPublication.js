@@ -21,7 +21,7 @@ function CreateForm(props){
     const [image, setImage ] = useState("");
     const [urldata, setUrl ] = useState("");
     const queryParams = new URLSearchParams(window.location.search);
-    const pseudo = queryParams.get('pseudo');  
+    const pseudo = queryParams.get('pseudo');
 
     const handleSubmit = (event) => {
       event.preventDefault();
@@ -33,9 +33,9 @@ function CreateForm(props){
       url = "publication_"+pseudo;
 
       let chemin = [
-        "/publicationsofuserpseudo/"+pseudo 
+        "/publicationsofuserpseudo/"+pseudo
       ];
-  
+
       Promise.all(chemin.map(url =>
         fetch(url)
         .then(checkStatus)  // check the response of our APIs
@@ -46,7 +46,6 @@ function CreateForm(props){
         // assign to requested URL as define in array with array index.
         url += data[0].length+1;
 
-        //envoi à la bd 
         var month = Number(dateDefi.getMonth())+1;
         if(month < 10){
             month = "0"+month;
@@ -80,10 +79,8 @@ function CreateForm(props){
 
         formData.append("file", image)
         formData.append("public_id", url)
-        console.log(url);
         formData.append("upload_preset", "hhd3mufr")
         formData.append("cloud_name","hzcpqfz4w")
-
 
         fetch(" https://api.cloudinary.com/v1_1/hzcpqfz4w/image/upload",{
           method:"post",
@@ -94,7 +91,7 @@ function CreateForm(props){
                                                     window.location.reload(false);
                                               }).catch(err => {console.log(err); alert("Une erreur s'est produite. Veuillez réessayer.");});
       })
-  
+
       function checkStatus(response) {
         if (response.ok) {
           return Promise.resolve(response);
@@ -102,7 +99,7 @@ function CreateForm(props){
           return Promise.reject(new Error(response.statusText));
         }
       }
-  
+
       function parseJSON(response) {
         return response.json();
       }
@@ -178,20 +175,9 @@ function CreateForm(props){
 
 function CreerPublication() {
 
-  const cld = new Cloudinary({
-    cloud: {
-      cloudName: 'hzcpqfz4w'
-    }
-  });
-
-  const myImage = cld.image('test');
-
-  //<AdvancedImage cldImg={myImage} />
-
   return (
       <section className="page page_creerPubli">
           <CreateForm/>
-
       </section>
   );
 }
