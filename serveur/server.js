@@ -410,9 +410,9 @@ app.use('/listpalettes/element/delete/:idList-:idPalette', (req, res) => {
 //ajouter nouvelle liste de themes
 app.use('/listthemes/creer/:token-:nom---:icon', (req, res) => {
   console.log(req.params);
-  var icon = req.params.icon=="empty" ? "" : req.params.icon;
+  var icon = req.params.icon=="empty" ? "NULL" : `'${req.params.icon}'`;
   var sql = `INSERT INTO theme_list (tl_utilisateurpseudo, tl_nom, tl_icon) `;
-  sql+=`SELECT utilisateur.utilisateur_pseudo, '${req.params.nom}', '${icon}' FROM utilisateur WHERE utilisateur.utilisateur_token= '${req.params.token}';`;
+  sql+=`SELECT utilisateur.utilisateur_pseudo, '${req.params.nom}', ${icon} FROM utilisateur WHERE utilisateur.utilisateur_token= '${req.params.token}';`;
   basedonnee.getQuery(sql)
   .then(response => {
     res.status(200).send(response);
@@ -426,9 +426,9 @@ app.use('/listthemes/creer/:token-:nom---:icon', (req, res) => {
 //ajouter nouvelle liste de palettes
 app.use('/listpalettes/creer/:token-:nom---:icon', (req, res) => {
   console.log(req.params);
-  var icon = req.params.icon=="empty" ? "" : req.params.icon;
+  var icon = req.params.icon=="empty" ? "NULL" : `'${req.params.icon}'`;
   var sql = `INSERT INTO palette_list (pl_utilisateurpseudo, pl_nom, pl_icon) `;
-  sql+=`SELECT utilisateur.utilisateur_pseudo, '${req.params.nom}', '${icon}' FROM utilisateur WHERE utilisateur.utilisateur_token= '${req.params.token}';`;
+  sql+=`SELECT utilisateur.utilisateur_pseudo, '${req.params.nom}', ${icon} FROM utilisateur WHERE utilisateur.utilisateur_token= '${req.params.token}';`;
   basedonnee.getQuery(sql)
   .then(response => {
     res.status(200).send(response);
@@ -545,9 +545,10 @@ app.use('/modifierToken/:pseudo-:token', (req, res) => {
 });
 
 //ajouter une nouvelle publication
-app.use('/nouvellepublication/:date.:pseudo.:datedefi.:imageurl', (req, res) => {
+app.use('/nouvellepublication/:date---:token---:datedefi.:imageurl', (req, res) => {
+  var datedefi = req.params.datedefi=="empty" ? "NULL" : `'${req.params.datedefi}'`;
   const sql = `INSERT INTO publication (publication_date, publication_utilisateurpseudo, publication_datedefi, publication_image) 
-  VALUES ('${req.params.date}', '${req.params.pseudo}', '${req.params.datedefi}', '${req.params.imageurl}');`;
+  SELECT '${req.params.date}', utilisateur.utilisateur_pseudo, ${datedefi}, '${req.params.imageurl}' FROM utilisateur WHERE utilisateur.utilisateur_token= '${req.params.token}';`;
   console.log(sql);
   basedonnee.getQuery(sql)
   .then(response => {

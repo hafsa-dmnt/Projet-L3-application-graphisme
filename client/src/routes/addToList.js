@@ -66,7 +66,7 @@ class AddToList extends React.Component{
       if(this.props.listeTheme.length > 0){
         divListe = Object.keys(tabListeTheme).map((keyName, i)  => (
           <button key= {i} onClick={() => (this.handleClick(tabListeTheme[keyName].tl_id,1))} className="addToList">
-            <Icon icon={tabListeTheme[keyName].tl_icon.trim() == "" ? "emojione-monotone:sparkles" : tabListeTheme[keyName].tl_icon.trim()} />
+            <Icon icon={tabListeTheme[keyName].tl_icon == null ? "emojione-monotone:sparkles" : tabListeTheme[keyName].tl_icon.trim()} />
             <p>{tabListeTheme[keyName].tl_nom.trim()}</p>
           </button>
       ))
@@ -77,7 +77,7 @@ class AddToList extends React.Component{
       if(this.props.listePalette.length > 0){
         divListe = Object.keys(tabListePalette).map((keyName, i)  => (
           <button key= {i} onClick={() => (this.handleClick(tabListePalette[keyName].pl_id,0))} className="addToList">
-            <Icon icon={tabListePalette[keyName].pl_icon.trim() == "" ? "emojione-monotone:sparkles" : tabListePalette[keyName].pl_icon.trim()} />
+            <Icon icon={tabListePalette[keyName].pl_icon == null ? "emojione-monotone:sparkles" : tabListePalette[keyName].pl_icon.trim()} />
             <p>{tabListePalette[keyName].pl_nom.trim()}</p>
           </button>
       ))

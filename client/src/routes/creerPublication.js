@@ -22,7 +22,9 @@ function CreateForm(props){
     const [urldata, setUrl ] = useState("");
     const queryParams = new URLSearchParams(window.location.search);
     const pseudo = queryParams.get('pseudo');  
-
+    const tokenString = localStorage.getItem('token');
+    var temp = JSON.parse(tokenString);
+    temp = temp.token;
     const handleSubmit = (event) => {
       event.preventDefault();
       if(!imageUrl){
@@ -60,7 +62,7 @@ function CreateForm(props){
 
         var dateDefiBd = dateDefiBonFormat;
         if(defi == false){
-          dateDefiBd = null;
+          dateDefiBd = "empty";
         }
 
         month = Number(today.getMonth())+1;
@@ -74,7 +76,7 @@ function CreateForm(props){
         year = 2000 + (Number(today.getYear())-100);
         var todayBonFormat = year +"-"+month+"-"+day;
 
-        fetch('/nouvellepublication/'+todayBonFormat+'.'+pseudo+'.'+dateDefiBd+'.'+url);
+        fetch('/nouvellepublication/'+todayBonFormat+'---'+temp+'---'+dateDefiBd+'.'+url);
 
         const formData = new FormData();
 
