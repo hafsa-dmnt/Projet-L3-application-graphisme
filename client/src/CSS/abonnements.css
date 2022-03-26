@@ -24,8 +24,9 @@
 
   .page_abonnements .search{
     display: inline-block;
-    max-width: 50%;
+    max-width: 40%;
     margin:0;
+    text-align: right;
   }
 
   .page_abonnements .search form .form_section{
@@ -39,7 +40,7 @@
     border-radius: 5px;
     vertical-align: middle;
     margin-right: 10px;
-    width: 40%;
+    width: 50%;
   }
 
   .page_abonnements .search form .form_section button{
