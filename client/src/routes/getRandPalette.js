@@ -140,12 +140,13 @@ function analogue(maxbit,minbit,nbColors,couleurAChanger,firstColor){
   palette.push(convertRgbInHex([firstColor.r, firstColor.g, firstColor.b]));
   var interval=Math.floor((maxbit-minbit)/nbColors);
   var ajout=1;
-  if(interval<10){
-    if(minbit>=100){
+  if(interval<18){
+    console.log("ici");
+    if(minbit>=128){
       ajout=-1;
-      interval=20;
+      interval=25;
     }else{
-      interval=20;
+      interval=25;
     }
   }
   var j=1;
