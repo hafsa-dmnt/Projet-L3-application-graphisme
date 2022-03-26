@@ -166,7 +166,6 @@ class Abonnements extends React.Component{
   }
 
   searchUsers(pattern){
-    alert("searching..."+pattern);
     let chemin = [
       "/searchUsers/"+pattern
     ];
