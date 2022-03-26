@@ -6,6 +6,17 @@ import {Cloudinary} from "@cloudinary/url-gen";
 import {Link} from "react-router-dom";
 import { Navigate } from "react-router-dom";
 
+function checkStatus(response) {
+  if (response.ok) {
+    return Promise.resolve(response);
+  } else {
+    return Promise.reject(new Error(response.statusText));
+  }
+}
+
+function parseJSON(response) {
+  return response.json();
+}
 
 class Follow extends React.Component{
   constructor(props){
@@ -225,18 +236,6 @@ class Profil extends React.Component{
         })
       })
     })
-
-    function checkStatus(response) {
-      if (response.ok) {
-        return Promise.resolve(response);
-      } else {
-        return Promise.reject(new Error(response.statusText));
-      }
-    }
-
-    function parseJSON(response) {
-      return response.json();
-    }
   }
 
   render(){

@@ -85,6 +85,17 @@ app.get('/biouser/:userPseudo', (req, res) => {
   })
 });
 
+app.get('/searchUsers/:pattern', (req, res) => {
+  const sql = `SELECT utilisateur_pseudo FROM utilisateur WHERE utilisateur_pseudo LIKE '${req.params.pattern}%';`;
+  basedonnee.getQuery(sql)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+});
+
 app.get('/parametersUser/:token', (req, res) => {
   console.log(req.params);
   const sql = `SELECT * FROM utilisateur WHERE utilisateur_token = '${req.params.token}';`;

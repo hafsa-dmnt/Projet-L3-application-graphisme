@@ -7,6 +7,18 @@ import {AdvancedImage} from '@cloudinary/react';
 import {Cloudinary} from "@cloudinary/url-gen";
 import { threshold1x1Nondither } from '@cloudinary/url-gen/qualifiers/dither';
 
+function checkStatus(response) {
+  if (response.ok) {
+    return Promise.resolve(response);
+  } else {
+    return Promise.reject(new Error(response.statusText));
+  }
+}
+
+function parseJSON(response) {
+  return response.json();
+}
+
 
 class BoutonRetour extends React.Component{
     state = { redirect: null };
@@ -36,7 +48,7 @@ class BoutonGoToProfil extends React.Component{
   }
   render() {
       if (this.state.redirect) {
-      return <Navigate to={this.state.redirect} />
+        return <Navigate to={this.state.redirect} />
       }
       return(
       <button className='btnGoToProfil' onClick={() => this.handleClick()}>
@@ -53,6 +65,7 @@ class DisplayOneUser extends React.Component{
   }
 
   render(){
+
     const cld = new Cloudinary({
       cloud: {
         cloudName: "hzcpqfz4w"//process.env.CLOUD_NAME
@@ -84,11 +97,16 @@ class DisplayAbos extends React.Component{
       if(tabAbo.length == 0){
         divAbos = <section className='noSub'>
                     <div className='iconNoSub'><Icon icon="clarity:heart-broken-line" /></div>
-                  <h3>Aucun abonnement</h3>
+                  <h3>Aucun résultat</h3>
       </section>;
       }else{
-        divAbos = tabAbo.map((elt, idx) =>
-        <DisplayOneUser pseudo={elt.abonner_suivi}/>  );
+        if(this.props.recherche == false){
+          divAbos = tabAbo.map((elt, idx) => 
+          <DisplayOneUser pseudo={elt.abonner_suivi} user = {this.props.user}/>  );
+        }else{
+          divAbos = tabAbo.map((elt, idx) => 
+          <DisplayOneUser pseudo={elt.utilisateur_pseudo} user = {this.props.user}/>  );
+        }
       }
       return(
         <section>
@@ -113,8 +131,7 @@ class SearchForm extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     const value = this.state.value;
-
-
+    this.props.searchUsers(value);
   }
 
 
@@ -141,8 +158,41 @@ class Abonnements extends React.Component{
 
     this.state = {
         tabAbo : [],
-        pseudo : pseudo
+        pseudo : pseudo, 
+        recherche: false
     }
+
+    this.searchUsers = this.searchUsers.bind(this);
+  }
+
+  searchUsers(pattern){
+    alert("searching..."+pattern);
+    let chemin = [
+      "/searchUsers/"+pattern
+    ];
+
+    Promise.all(chemin.map(url =>
+      fetch(url)
+      .then(checkStatus)  // check the response of our APIs
+      .then(parseJSON)    // parse it to Json
+      .catch(error => console.log('There was a problem!', error))
+    ))
+    .then(data => {
+      // assign to requested URL as define in array with array index.
+
+      var datas = [];
+
+      if(data[0].length > 0){
+        datas = data[0];
+      }
+      
+      var pseudoActuel = this.state.pseudo;
+      this.setState({
+        pseudo: pseudoActuel,
+        tabAbo: datas, 
+        recherche: true
+      })
+    });
   }
 
   componentDidMount(){
@@ -191,9 +241,9 @@ class Abonnements extends React.Component{
         <BoutonRetour/>
         <h3 className="titre">Abonnements</h3>
         <div className="search">
-          <SearchForm/>
+          <SearchForm searchUsers={this.searchUsers}/>
         </div>
-        <DisplayAbos abos = {this.state.tabAbo}/>
+        <DisplayAbos abos = {this.state.tabAbo} user = {this.state.pseudo} recherche = {this.state.recherche}/>
       </section>
     );
   }
