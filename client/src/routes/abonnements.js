@@ -60,7 +60,7 @@ class DisplayOneUser extends React.Component{
     });
     var cheminImage = this.props.pseudo.trim() + "_pdp";
     const myImage = cld.image(cheminImage);
-    
+
     return(
       <header className="profilHead section">
         <div key={this.props.idx} className="profilePic" alt="photo de profil">
@@ -82,8 +82,8 @@ class DisplayAbos extends React.Component{
       let divAbos = "";
       var tabAbo = this.props.abos;
       if(tabAbo.length == 0){
-        divAbos = <section className='aucunePubli'>
-                    <div className='iconPasDePubli'><Icon icon="clarity:heart-broken-line" /></div>
+        divAbos = <section className='noSub'>
+                    <div className='iconNoSub'><Icon icon="clarity:heart-broken-line" /></div>
                   <h3>Aucun abonnement</h3>
       </section>;
       }else{
@@ -98,12 +98,46 @@ class DisplayAbos extends React.Component{
     }
 }
 
+class SearchForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {value: this.props.value};
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({value: event.target.value});
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    const value = this.state.value;
+
+
+  }
+
+
+  render() {
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <div className="form_section">
+          <input type="text" value={this.state.value} onChange={this.handleChange} />
+          <button type="submit" >
+            <Icon icon="fluent:search-28-filled" />
+          </button>
+        </div>
+      </form>
+    );
+  }
+}
+
 class Abonnements extends React.Component{
   constructor(props) {
     super(props);
 
     const queryParams = new URLSearchParams(window.location.search);
-    var pseudo = queryParams.get('pseudo'); 
+    var pseudo = queryParams.get('pseudo');
 
     this.state = {
         tabAbo : [],
@@ -150,13 +184,15 @@ class Abonnements extends React.Component{
       return response.json();
     }
   }
-  
+
   render(){
-    console.log("là, ", this.state.tabAbo);
     return (
       <section className="page page_abonnements">
-          <BoutonRetour/>
-        <h3>Abonnements</h3>
+        <BoutonRetour/>
+        <h3 className="titre">Abonnements</h3>
+        <div className="search">
+          <SearchForm/>
+        </div>
         <DisplayAbos abos = {this.state.tabAbo}/>
       </section>
     );
