@@ -54,7 +54,7 @@ class AddToList extends React.Component{
     }else{
         lien="/listpalettes/element/creer/"+i+"-"+idpalette;
     }
-    const response = fetch(lien);
+    const response = await fetch(lien);
     window.location.href = '/home';
   }
 
