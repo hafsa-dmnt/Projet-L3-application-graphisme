@@ -4,11 +4,7 @@ import { Icon } from '@iconify/react';
 import {Link} from "react-router-dom";
 import { Navigate } from "react-router-dom";
 import {AdvancedImage} from '@cloudinary/react';
-import {Image} from '@cloudinary/react';
-
 import {Cloudinary} from "@cloudinary/url-gen";
-import {Transformation} from "@cloudinary/url-gen";
-import {Actions} from '@cloudinary/url-gen'
 
 import {defaultImage} from "@cloudinary/url-gen/actions/delivery";
 
