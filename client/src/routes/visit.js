@@ -3,6 +3,8 @@ import '../CSS/profil.css';
 import { Icon } from '@iconify/react';
 import {AdvancedImage} from '@cloudinary/react';
 import {Cloudinary} from "@cloudinary/url-gen";
+import {Link} from "react-router-dom";
+
 
 class Follow extends React.Component{
   constructor(props){
@@ -79,9 +81,10 @@ class Publication extends React.Component {
     });
 
     const myImage = cld.image(this.props.photo);
+    let lienPublication = "/publication?pseudo="+this.props.pseudo.trim()+"&type=visit&publicationname="+this.props.photo.trim();
     return(
       <div key={this.props.idx} className="publication">
-        <AdvancedImage cldImg={myImage} />
+        <Link to={lienPublication}><AdvancedImage cldImg={myImage} /></Link>
       </div>
     );
   }
@@ -99,7 +102,7 @@ class ProfilContent extends React.Component{
                     </section>;
     if(tabPublication.length > 0){
         divPubli = tabPublication.map((elt, idx) =>
-        <Publication photo = {elt.publication_image} idx = {elt.publication_id}/>  );
+        <Publication photo = {elt.publication_image} idx = {elt.publication_id} pseudo = {this.state.pseudo}/> );
     }
       
 
@@ -235,7 +238,7 @@ class Profil extends React.Component{
     return (
       <div className="profil page">
         <ProfilHead pseudo = {this.state.pseudo} follow = {this.state.follow} visitor = {this.state.visiteur} handleFollow = {this.handleFollow}/>
-        <ProfilContent content = {this.state.data}/>
+        <ProfilContent content = {this.state.data} pseudo = {this.state.pseudo}/>
       </div>
     );
   }

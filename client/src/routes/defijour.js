@@ -101,7 +101,7 @@ class Publication extends React.Component {
     
     let url = this.props.photo.trim();
     const myImage = cld.image(url);
-    let lienPublication = "/publication?pseudo="+this.props.pseudo.trim()+"&defidate="+this.props.date.trim()+"&publicationname="+this.props.photo.trim();
+    let lienPublication = "/publication?pseudo="+this.props.pseudo.trim()+"&type="+this.props.date.trim()+"&publicationname="+this.props.photo.trim();
     return(
       <div key={this.props.idx} className="defijour publication">
         <Link to={lienPublication}><AdvancedImage cldImg={myImage} /></Link>

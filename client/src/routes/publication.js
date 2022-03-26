@@ -64,22 +64,31 @@ class Publication extends React.Component {
   componentDidMount(){  
     const queryParams = new URLSearchParams(window.location.search);
     var pseudo = queryParams.get('pseudo');   
-    var defiDate = queryParams.get('defidate');   
+    var type = queryParams.get('type');   
     var publicationName = queryParams.get('publicationname');   
     
     this.setState({
       pseudo: pseudo,
-      defiDate: defiDate, 
+      type: type, 
       publicationName: publicationName
     })
   }
   render(){
+    var url = '/profil';
+    var drawer = "";
+    if(this.state.type == "visit"){
+      url = '/visit?pseudo='+this.state.pseudo;
+    }else if(this.state.type != "profil"){
+      url = '/calendrier/defijour?date='+this.state.type;
+      drawer = <PublicationDrawer pseudo = {this.state.pseudo}/>;
+    }
+
     return(
         <div className="page page_publication">
           <div className="publication">
-            <CrossButton to={'/calendrier/defijour?date='+this.state.defiDate}/>
+            <CrossButton to={url}/>
             <PublicationDrawing photo = {this.state.publicationName}/>
-            <PublicationDrawer pseudo = {this.state.pseudo}/>
+            {drawer}
           </div>
         </div>
     );

@@ -95,9 +95,10 @@ class Publication extends React.Component {
     });
 
     const myImage = cld.image(this.props.photo);
+    let lienPublication = "/publication?pseudo="+this.props.pseudo.trim()+"&type=profil&publicationname="+this.props.photo.trim();
     return(
       <div key={this.props.idx} className="publication">
-        <AdvancedImage cldImg={myImage} />
+        <Link to={lienPublication}><AdvancedImage cldImg={myImage} /></Link>
       </div>
     );
   }
@@ -115,7 +116,7 @@ class ProfilContent extends React.Component{
                     </section>;
     if(tabPublication.length > 0){
         divPubli = tabPublication.map((elt, idx) =>
-        <Publication photo = {elt.publication_image} idx = {elt.publication_id}/>  );
+        <Publication photo = {elt.publication_image} idx = {elt.publication_id} pseudo = {this.props.pseudo}/>  );
     }
 
     return(
