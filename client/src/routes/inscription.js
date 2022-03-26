@@ -68,6 +68,10 @@ class InscriptionForm extends React.Component {
       return;
     }
 
+    var passwordHash = require('password-hash');
+    var mdpchiffre = passwordHash.generate(this.state.mdp);
+    const lien="/inscription/creer/"+this.state.pseudo+"-"+this.state.mail+"-"+this.state.bio+"-"+mdpchiffre;
+    const response = fetch(lien);
 
     alert("Pensez à compléter votre photo de profil et votre biographie dans les réglages !");
     this.setState({ redirect: "/Connexion" });

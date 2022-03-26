@@ -4,7 +4,13 @@ import { Icon } from '@iconify/react';
 import {Link} from "react-router-dom";
 import { Navigate } from "react-router-dom";
 import {AdvancedImage} from '@cloudinary/react';
+import {Image} from '@cloudinary/react';
+
 import {Cloudinary} from "@cloudinary/url-gen";
+import {Transformation} from "@cloudinary/url-gen";
+import {Actions} from '@cloudinary/url-gen'
+
+import {defaultImage} from "@cloudinary/url-gen/actions/delivery";
 
 class Follow extends React.Component{
   constructor(props){
@@ -65,7 +71,10 @@ class ProfilHead extends React.Component{
       }
     });
 
-    const myImage = cld.image(this.props.photo);
+
+    var myImage = cld.image(this.props.photo);
+    myImage.delivery(defaultImage("profil_default.png"));
+
 
     return(
       <header className="profilHead section">
@@ -164,7 +173,6 @@ class Profil extends React.Component{
 
       var pseudos = data[1][0].utilisateur_pseudo.trim();
       var datas = [];
-      var pdps = data[1][0].utilisateur_pdp;
 
       if(data[0].length > 0){
         datas = data[0];
