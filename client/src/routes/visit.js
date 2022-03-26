@@ -1,11 +1,8 @@
 import React from 'react';
 import '../CSS/profil.css';
 import { Icon } from '@iconify/react';
-import {Link} from "react-router-dom";
-import { Navigate } from "react-router-dom";
 import {AdvancedImage} from '@cloudinary/react';
 import {Cloudinary} from "@cloudinary/url-gen";
-import {useToken} from '../classes/useToken';
 
 class Follow extends React.Component{
   constructor(props){

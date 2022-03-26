@@ -101,9 +101,10 @@ class Publication extends React.Component {
     
     let url = this.props.photo.trim();
     const myImage = cld.image(url);
+    let lienPublication = "/publication?pseudo="+this.props.pseudo.trim()+"&defidate="+this.props.date.trim()+"&publicationname="+this.props.photo.trim();
     return(
       <div key={this.props.idx} className="defijour publication">
-        <AdvancedImage cldImg={myImage} />
+        <Link to={lienPublication}><AdvancedImage cldImg={myImage} /></Link>
       </div>
     );
   }
@@ -176,7 +177,7 @@ class Defijour extends React.Component {
                     </section>
     if(this.state.publications.length > 0){
       divPubli = this.state.publications.map((elt, idx) =>
-                <Publication photo={elt[1]} idx = {elt[1]+elt[0]}/>  );
+                <Publication photo={elt[1]} idx = {elt[1]+elt[0]} pseudo={elt[2]} date={this.state.day}/>);
     }
     
     return (

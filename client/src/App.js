@@ -66,6 +66,7 @@ class AppComponent extends React.Component{
             <Route exact path="/profil/listethemes/modifier" element={<ModifierListeThemes/>}/>
             <Route exact path="/profil/listepalettes/modifier" element={<ModifierListePalettes/>}/>
             <Route exact path="/informations" element={<Informations/>}/>
+            <Route exact path="/publication" element={<Publication/>}/>
             <Route exact path="/connexion" element={
               <Home/>}
             />

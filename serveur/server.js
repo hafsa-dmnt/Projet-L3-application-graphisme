@@ -264,7 +264,7 @@ app.use('/changeuserinfo/:oldpseudo-:newpseudo-:bio-:mdp-:mail', (req, res) => {
 });
 
 app.get('/publicationsatdate/:dateselected', (req, res) => {
-  var sql = "SELECT publication_id, publication_image FROM publication WHERE publication_datedefi = '"+req.params.dateselected+"';";
+  var sql = "SELECT publication_id, publication_image, publication_utilisateurpseudo FROM publication WHERE publication_datedefi = '"+req.params.dateselected+"';";
   basedonnee.getQuery(sql)
   .then(response => {
     res.status(200).send(response);
