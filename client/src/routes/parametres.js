@@ -263,7 +263,7 @@ class ImageForm extends React.Component{
 
         <input id="file" type="file" accept="image/*" onChange={this.handleChange}/>
 
-        <img src={this.state.file}/>
+        <img src={this.state.imageUrl}/>
 
         <div className="subSection">
           <button type="submit" >

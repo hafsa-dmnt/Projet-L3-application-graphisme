@@ -33,7 +33,7 @@ function generateRandString(n) {
 }
 
 
-function generateAccessToken(username) {  
+function generateAccessToken(username) {
   return jwt.sign(username+generateRandString(32), process.env.TOKEN_SECRET, {});
   // le token expire tout les 30 j (donc reconnexion tout les mois)
 }
@@ -141,7 +141,7 @@ app.get('/publicationsofuserpseudo/:pseudo', (req, res) => {
   })
 });
 
-//TODO supprimer 
+//TODO supprimer
 app.get('/pdpuser/:pseudo', (req, res) => {
   var sql = `SELECT utilisateur_pdp FROM utilisateur WHERE utilisateur_pseudo='${req.params.pseudo}';`;
   basedonnee.getQuery(sql)
@@ -408,7 +408,7 @@ app.use('/listpalettes/element/delete/:idList-:idPalette', (req, res) => {
 });
 
 //ajouter nouvelle liste de themes
-app.use('/listthemes/creer/:token-:nom---:icon', (req, res) => {
+app.use('/listthemes/creer/:token---:nom---:icon', (req, res) => {
   console.log(req.params);
   var icon = req.params.icon=="empty" ? "NULL" : `'${req.params.icon}'`;
   var sql = `INSERT INTO theme_list (tl_utilisateurpseudo, tl_nom, tl_icon) `;
@@ -424,7 +424,7 @@ app.use('/listthemes/creer/:token-:nom---:icon', (req, res) => {
 
 
 //ajouter nouvelle liste de palettes
-app.use('/listpalettes/creer/:token-:nom---:icon', (req, res) => {
+app.use('/listpalettes/creer/:token---:nom---:icon', (req, res) => {
   console.log(req.params);
   var icon = req.params.icon=="empty" ? "NULL" : `'${req.params.icon}'`;
   var sql = `INSERT INTO palette_list (pl_utilisateurpseudo, pl_nom, pl_icon) `;
@@ -547,7 +547,7 @@ app.use('/modifierToken/:pseudo-:token', (req, res) => {
 //ajouter une nouvelle publication
 app.use('/nouvellepublication/:date---:token---:datedefi.:imageurl', (req, res) => {
   var datedefi = req.params.datedefi=="empty" ? "NULL" : `'${req.params.datedefi}'`;
-  const sql = `INSERT INTO publication (publication_date, publication_utilisateurpseudo, publication_datedefi, publication_image) 
+  const sql = `INSERT INTO publication (publication_date, publication_utilisateurpseudo, publication_datedefi, publication_image)
   SELECT '${req.params.date}', utilisateur.utilisateur_pseudo, ${datedefi}, '${req.params.imageurl}' FROM utilisateur WHERE utilisateur.utilisateur_token= '${req.params.token}';`;
   console.log(sql);
   basedonnee.getQuery(sql)
@@ -559,9 +559,9 @@ app.use('/nouvellepublication/:date---:token---:datedefi.:imageurl', (req, res) 
   })
 });
 
-//un utilisateur follow un autre utilisateur 
+//un utilisateur follow un autre utilisateur
 app.use('/follow/:alreadyfollowing-:suivi-:suiveur', (req, res) => {
-  let sql = `INSERT INTO abonner (abonner_suiveur, abonner_suivi) 
+  let sql = `INSERT INTO abonner (abonner_suiveur, abonner_suivi)
   VALUES ('${req.params.suiveur}', '${req.params.suivi}');`;
   if(req.params.alreadyfollowing == "true"){
     sql = `DELETE FROM abonner WHERE abonner_suiveur = '${req.params.suiveur}' AND abonner_suivi = '${req.params.suivi}' ;`;
@@ -576,9 +576,9 @@ app.use('/follow/:alreadyfollowing-:suivi-:suiveur', (req, res) => {
   })
 });
 
-//un utilisateur unfollow un autre utilisateur 
+//un utilisateur unfollow un autre utilisateur
 app.get('/followinguser/:pseudosuivi.:pseudosuiveur', (req, res) => {
-  const sql = `SELECT * FROM abonner WHERE abonner_suivi = '${req.params.pseudosuivi}' 
+  const sql = `SELECT * FROM abonner WHERE abonner_suivi = '${req.params.pseudosuivi}'
   AND  abonner_suiveur = '${req.params.pseudosuiveur}' ;`;
   basedonnee.getQuery(sql)
   .then(response => {

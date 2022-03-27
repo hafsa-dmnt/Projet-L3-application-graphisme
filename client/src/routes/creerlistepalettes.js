@@ -13,6 +13,7 @@ class CreerListePalettes extends React.Component{
 
     handleChange(event) {
     const value = event.target.value;
+    console.log(value);
     this.setState({
         // ...this.state c pour garder les 2 autres pas modifiés
         ...this.state,
@@ -24,7 +25,8 @@ class CreerListePalettes extends React.Component{
         const tokenString = localStorage.getItem('token');
         var temp = JSON.parse(tokenString);
         temp = temp.token;
-        const lien="/listpalettes/creer/"+temp+"-"+this.state.nom+"---"+this.state.icon;
+        const lien="/listpalettes/creer/"+temp+"---"+this.state.nom+"---"+this.state.icon;
+        console.log(temp);
         const response = await fetch(lien);
         window.location.href = '/profil/listes?type=themes';
     }

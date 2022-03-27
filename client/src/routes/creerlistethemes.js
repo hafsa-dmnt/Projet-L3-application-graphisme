@@ -24,7 +24,7 @@ class CreerListeThemes extends React.Component{
         const tokenString = localStorage.getItem('token');
         var temp = JSON.parse(tokenString);
         temp = temp.token;
-        const lien="/listthemes/creer/"+temp+"-"+this.state.nom+"---"+this.state.icon;
+        const lien="/listthemes/creer/"+temp+"---"+this.state.nom+"---"+this.state.icon;
         const response = await fetch(lien);
         window.location.href = '/profil/listes?type=themes';
     }
