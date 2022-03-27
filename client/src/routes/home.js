@@ -21,6 +21,10 @@ import {getRandomPalette} from "./getRandPalette.js";
 class AddToFav extends React.Component{
   state = { redirect: null };
   handleClick() {
+      if(this.props.content==''){
+        alert("Appuyez sut GetRandomArt() pour avoir des thèmes et palettes !");
+        return;
+      }
       let redirect = this.state.redirect;
       redirect = `/addToList?type=${this.props.type}&content=${this.props.content}`; //add the content to the url
       this.setState({redirect: redirect});
