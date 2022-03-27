@@ -12,8 +12,6 @@ import {validateEmail,
         isPseudoAlreadyUsed
         } from '../classes/formValidation.js';
 
-//'/changeuserinfo/:oldpseudo-:newpseudo-:bio-:mdp-:mail'
-
 async function changeUser(oldp, newp, bio, mdp, mail){
   const chemin = [
     '/changeuserinfo/'+oldp+'-'+newp+'-'+bio+'-'+mdp+'-'+mail
@@ -76,8 +74,6 @@ class SimpleForm extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-
-    const value = event.target.value;
 
     switch (this.props.type) {
       case 'mail':
