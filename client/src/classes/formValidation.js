@@ -54,7 +54,7 @@ export const isMailAlreadyUsed = (mail) => {
       isUsed = true;
     }
   })
-  
+
   return isUsed;
 }
 
@@ -77,6 +77,6 @@ export const isPseudoAlreadyUsed = (pseudo) => {
       isUsed = true;
     }
   })
-  
+
   return isUsed;
 }

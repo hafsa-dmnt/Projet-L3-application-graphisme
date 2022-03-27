@@ -5,6 +5,8 @@ import {AdvancedImage} from '@cloudinary/react';
 import {Cloudinary} from "@cloudinary/url-gen";
 import {Link} from "react-router-dom";
 import { Navigate } from "react-router-dom";
+import {defaultImage} from "@cloudinary/url-gen/actions/delivery";
+
 
 function checkStatus(response) {
   if (response.ok) {
@@ -71,8 +73,9 @@ class ProfilHead extends React.Component{
       }
     });
     var urlpdp = this.props.pseudo+"_pdp";
-    const myImage = cld.image(urlpdp);
-    return(
+    var myImage = cld.image(urlpdp);
+    myImage.delivery(defaultImage("profil_default.png"));
+      return(
       <header className="profilHead section">
         <div key={this.props.idx} className="profilePic" alt="photo de profil">
           <AdvancedImage cldImg={myImage} />
@@ -117,7 +120,7 @@ class ProfilContent extends React.Component{
         divPubli = tabPublication.map((elt, idx) =>
         <Publication photo = {elt.publication_image} idx = {elt.publication_id} pseudo = {this.props.pseudo}/> );
     }
-      
+
 
     return(
       <section className="section profilContent">
@@ -137,12 +140,12 @@ class Profil extends React.Component{
     super(props);
     var pseudo = "example";
     const queryParams = new URLSearchParams(window.location.search);
-    pseudo = queryParams.get('pseudo');    
+    pseudo = queryParams.get('pseudo');
     this.state = {
       pseudo: pseudo,
       follow: false,
-      data: [], 
-      visiteur: "", 
+      data: [],
+      visiteur: "",
       bio: ""
     };
 
@@ -172,15 +175,15 @@ class Profil extends React.Component{
       }
     }
   }
-  
+
   componentDidMount(){
     const tokenString = localStorage.getItem('token');
     var temp = JSON.parse(tokenString);
     temp = temp.token;
     let chemin = [
-      "/publicationsofuserpseudo/"+this.state.pseudo, 
-      '/pseudouser/'+temp, 
-      '/biouser/'+this.state.pseudo   
+      "/publicationsofuserpseudo/"+this.state.pseudo,
+      '/pseudouser/'+temp,
+      '/biouser/'+this.state.pseudo
     ];
 
     Promise.all(chemin.map(url =>
@@ -195,7 +198,7 @@ class Profil extends React.Component{
         localStorage.removeItem('token');
         window.location.reload(false);
       }
-      
+
       var pseudoActuel = this.state.pseudo.trim();
       var datas = [];
 
@@ -203,22 +206,38 @@ class Profil extends React.Component{
         datas = data[0];
       }
       console.log(data);
-      
+
       this.setState({
+        ...this.state,
+        bio: " "
+      })
+
+      this.setState({
+        ...this.state,
         pseudo: pseudoActuel,
-        data: datas.reverse(), 
-        follow: false, 
-        visiteur: data[1][0].utilisateur_pseudo.trim(), 
-        bio: data[2][0].utilisateur_bio.trim()
+        data: datas.reverse(),
+        follow: false,
+        visiteur: data[1][0].utilisateur_pseudo.trim(),
       })
 
       if(this.state.pseudo == this.state.visiteur){
         return;
       }
 
+      console.log(this.state.bio);
+
+      if(data[2][0].utilisateur_bio.trim()!=undefined && data[2][0].utilisateur_bio.trim()!="undefined"){
+        console.log(data[2][0].utilisateur_bio.trim());
+        this.setState({
+          ...this.state,
+          bio: data[2][0].utilisateur_bio.trim()
+        })
+      }
+
+
 
       chemin = [
-        "/followinguser/"+this.state.pseudo+'.'+this.state.visiteur     
+        "/followinguser/"+this.state.pseudo+'.'+this.state.visiteur
       ];
       Promise.all(chemin.map(url =>
         fetch(url)
@@ -229,7 +248,7 @@ class Profil extends React.Component{
       .then(data => {
         // assign to requested URL as define in array with array index.
         var following = data[0].length > 0;
-       
+
         this.setState({
           ... this.state,
           follow: following

@@ -6,6 +6,8 @@ import { Navigate } from "react-router-dom";
 import {AdvancedImage} from '@cloudinary/react';
 import {Cloudinary} from "@cloudinary/url-gen";
 import { threshold1x1Nondither } from '@cloudinary/url-gen/qualifiers/dither';
+import {defaultImage} from "@cloudinary/url-gen/actions/delivery";
+
 
 function checkStatus(response) {
   if (response.ok) {
@@ -73,6 +75,7 @@ class DisplayOneUser extends React.Component{
     });
     var cheminImage = this.props.pseudo.trim() + "_pdp";
     const myImage = cld.image(cheminImage);
+    myImage.delivery(defaultImage("profil_default.png"));
 
     return(
       <header className="profilHead section">
@@ -101,10 +104,10 @@ class DisplayAbos extends React.Component{
       </section>;
       }else{
         if(this.props.recherche == false){
-          divAbos = tabAbo.map((elt, idx) => 
+          divAbos = tabAbo.map((elt, idx) =>
           <DisplayOneUser pseudo={elt.abonner_suivi} user = {this.props.user}/>  );
         }else{
-          divAbos = tabAbo.map((elt, idx) => 
+          divAbos = tabAbo.map((elt, idx) =>
           <DisplayOneUser pseudo={elt.utilisateur_pseudo} user = {this.props.user}/>  );
         }
       }
@@ -158,7 +161,7 @@ class Abonnements extends React.Component{
 
     this.state = {
         tabAbo : [],
-        pseudo : pseudo, 
+        pseudo : pseudo,
         recherche: false
     }
 
@@ -184,11 +187,11 @@ class Abonnements extends React.Component{
       if(data[0].length > 0){
         datas = data[0];
       }
-      
+
       var pseudoActuel = this.state.pseudo;
       this.setState({
         pseudo: pseudoActuel,
-        tabAbo: datas, 
+        tabAbo: datas,
         recherche: true
       })
     });
