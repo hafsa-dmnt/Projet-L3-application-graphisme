@@ -18,7 +18,7 @@ class ModifierListeThemes extends React.Component{
             .then(res => this.setState({nom: res[0].tl_nom, icon: res[0].tl_icon}))
             .catch(err => console.log(err));
     }
-    
+
     callBackendAPI = async () => {
     const queryParams = new URLSearchParams(window.location.search);
     const id = queryParams.get('idlist')
@@ -26,7 +26,7 @@ class ModifierListeThemes extends React.Component{
     const response = await fetch(lien);
     const body = await response.json();
     if (response.status !== 200) {
-        throw Error(body.message) 
+        throw Error(body.message)
     }
     console.log("requete", body);
     return body;
@@ -65,30 +65,29 @@ class ModifierListeThemes extends React.Component{
                     <h3>Icon :</h3>
                 </label>
                 <select name="icon" id="inconList"onChange={this.handleChange} value={this.state.icon}>
-                  <option value=''>Vide</option>
-                  <option value='bi:tree-fill' >Abeille</option>
-                  <option value="ph:flower-fill">Fleur</option>
-                  <option value="bx:bxs-city">Ville</option>
-                  <option value="emojione-monotone:sparkles">Sparkles</option>
-                  <option value="bx:bxs-cat">Chat</option>
-                  <option value="bi:pencil">Crayon</option>
-                  <option value="pepicons:paint-pallet">Palette</option>
-                  <option value="ant-design:camera-filled">Photo</option>
-                  <option value="eva:people-fill">Personne</option>
-                  <option value="ant-design:home-filled">Maison</option>
-                  <option value="fluent:food-apple-20-filled">Pomme</option>
-                  <option value="fluent:food-pizza-20-filled">Pizza</option>
-                  <option value="akar-icons:face-happy">Sourir</option>
-                  <option value="fluent:animal-turtle-24-regular">Tortue</option>
-                  <option value="charm:heart">Coeur</option>
-                  <option value="whh:flowerpot">Fleur en pot</option>
-                  <option value="fa-solid:paint-brush">Pinceau</option>
-                  <option value="bi:star-fill">Étoile</option>
-                  <option value="fa-solid:skull">Crâne</option>
-                  <option value="mdi:bee-flower">Fleur-Abeille</option>
-                  <option value="fa-solid:frog">Grenouille</option>
-                  <option value="ic:round-format-paint">Peinture</option>
-                  <option value="carbon:spray-paint">Peinture en spray</option>
+                <option value="mdi:bee-flower">Abeille</option>
+                <option value='bi:tree-fill' >Arbre</option>
+                <option value="bx:bxs-cat">Chat</option>
+                <option value="charm:heart">Coeur</option>
+                <option value="fa-solid:skull">Crâne</option>
+                <option value="bi:pencil">Crayon</option>
+                <option value="bi:star-fill">Étoile</option>
+                <option value="ph:flower-fill">Fleur</option>
+                <option value="whh:flowerpot">Fleur en pot</option>
+                <option value="fa-solid:frog">Grenouille</option>
+                <option value="ant-design:home-filled">Maison</option>
+                <option value="pepicons:paint-pallet">Palette</option>
+                <option value="ic:round-format-paint">Peinture</option>
+                <option value="carbon:spray-paint">Peinture en spray</option>
+                <option value="eva:people-fill">Personne</option>
+                <option value="ant-design:camera-filled">Photo</option>
+                <option value="fa-solid:paint-brush">Pinceau</option>
+                <option value="fluent:food-pizza-20-filled">Pizza</option>
+                <option value="fluent:food-apple-20-filled">Pomme</option>
+                <option value="emojione-monotone:sparkles">Sparkles</option>
+                <option value="akar-icons:face-happy">Sourir</option>
+                <option value="fluent:animal-turtle-24-regular">Tortue</option>
+                <option value="bx:bxs-city">Ville</option>
                   </select>
                 </div>
                 <div className="subSection">
