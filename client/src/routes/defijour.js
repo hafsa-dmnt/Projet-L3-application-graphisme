@@ -34,7 +34,7 @@ class AddToFav extends React.Component{
   state = { redirect: null };
   handleClick() {
       let redirect = this.state.redirect;
-      redirect = `/addToList?type=${this.props.type}`; //add the content to the url 
+      redirect = `/addToList?type=${this.props.type}&content=${this.props.content}`; //add the content to the url 
       this.setState({redirect: redirect});
   }
   render() {
@@ -66,7 +66,7 @@ class PaletteHome extends React.Component{
     return(
       <div className="paletteHome">
         <h3>Palette</h3>
-        <AddToFav type="palette" content={this.props.palette}/>
+        <AddToFav content={this.props.palette.replaceAll("#","%23")} type="palette"/>
         <Palette content={this.props.palette}/>
       </div>
     );

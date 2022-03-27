@@ -22,7 +22,7 @@ class Liste extends React.Component{
     }else{
       if(this.props.listePalette.length > 0){
         divListe = Object.keys(tabListePalette).map((keyName, i)  => (
-          <Link to={"/profil/listepalettes?idlist="+tabListePalette[keyName].pl_id+"&nomlist="+tabListePalette[keyName].pl_nom.trim()+"&icon="+(tabListeTheme[keyName].tl_icon == null ? "emojione-monotone:sparkles" : tabListeTheme[keyName].tl_icon.trim())} key= {i} onClick={this.props.changeTab} className="iconlist">
+          <Link to={"/profil/listepalettes?idlist="+tabListePalette[keyName].pl_id+"&nomlist="+tabListePalette[keyName].pl_nom.trim()+"&icon="+(tabListePalette[keyName].pl_icon == null ? "emojione-monotone:sparkles" : tabListePalette[keyName].pl_icon.trim())} key= {i} onClick={this.props.changeTab} className="iconlist">
             <Icon icon={tabListePalette[keyName].pl_icon == null ? "emojione-monotone:sparkles" : tabListePalette[keyName].pl_icon.trim()} />
             <p>{tabListePalette[keyName].pl_nom.trim()}</p>
           </Link>
