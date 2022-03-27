@@ -15,13 +15,13 @@ let url = "publication";
 
 function CreateForm(props){
     const [dateDefi, setDateDefi] = useState(new Date());
-    const [defi, setDefi] = useState(null);
+    const [defi, setDefi] = useState(false);
     const today = new Date();
     const [imageUrl, setImageUrl] = useState();
     const [image, setImage ] = useState("");
     const [urldata, setUrl ] = useState("");
     const queryParams = new URLSearchParams(window.location.search);
-    const pseudo = queryParams.get('pseudo');  
+    const pseudo = queryParams.get('pseudo');
     const tokenString = localStorage.getItem('token');
     var temp = JSON.parse(tokenString);
     temp = temp.token;
@@ -35,9 +35,9 @@ function CreateForm(props){
       url = "publication_"+pseudo;
 
       let chemin = [
-        "/publicationsofuserpseudo/"+pseudo 
+        "/publicationsofuserpseudo/"+pseudo
       ];
-  
+
       Promise.all(chemin.map(url =>
         fetch(url)
         .then(checkStatus)  // check the response of our APIs
@@ -48,7 +48,7 @@ function CreateForm(props){
         // assign to requested URL as define in array with array index.
         url += data[0].length+1;
 
-        //envoi à la bd 
+        //envoi à la bd
         var month = Number(dateDefi.getMonth())+1;
         if(month < 10){
             month = "0"+month;
@@ -96,7 +96,7 @@ function CreateForm(props){
                                                     window.location.reload(false);
                                               }).catch(err => {console.log(err); alert("Une erreur s'est produite. Veuillez réessayer.");});
       })
-  
+
       function checkStatus(response) {
         if (response.ok) {
           return Promise.resolve(response);
@@ -104,7 +104,7 @@ function CreateForm(props){
           return Promise.reject(new Error(response.statusText));
         }
       }
-  
+
       function parseJSON(response) {
         return response.json();
       }
