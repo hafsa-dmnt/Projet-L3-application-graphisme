@@ -33,9 +33,11 @@ class PublicationDrawer extends React.Component{
     return(
       <div className="dessinateur">
         {this.props.pseudo}
-        <Link to={"/visit?pseudo="+this.props.pseudo}>
-          <Icon icon="bi:arrow-right-circle" />
-        </Link>
+        <div className='follow'>
+          <Link to={"/visit?pseudo="+this.props.pseudo}>
+            <Icon icon="bi:arrow-right-circle" />
+          </Link>
+        </div>
       </div>
     );
   }
