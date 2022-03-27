@@ -224,3 +224,15 @@
   color: var(--accentcolor);
   text-align: center;
 }
+
+.creation_btn{
+  background-color: var(--sectioncolor);
+  border: 3px solid #7d4193;
+  border-radius: 10px;
+  font-size: large;
+  font-weight: bold;
+  margin: 20px 0;
+  padding: 20px;
+  height: auto;
+  width: auto;
+}

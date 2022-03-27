@@ -1,8 +1,20 @@
 import React from 'react';
 import '../CSS/listes.css';
 import { Icon } from '@iconify/react';
+import { Navigate } from "react-router-dom";
+
 
 class AddToList extends React.Component{
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.state,
+      redirect : null
+    };
+    this.handleRedirectT = this.handleRedirectT.bind(this);
+    this.handleRedirectP = this.handleRedirectP.bind(this);
+  }
 
   handleClick = async (i, istheme) => {
     function checkStatus(response) {
@@ -58,9 +70,20 @@ class AddToList extends React.Component{
     window.location.href = '/home';
   }
 
+  handleRedirectT(){
+    this.setState({ redirect: "/profil/listethemes/creer" });
+  }
+
+  handleRedirectP(){
+    this.setState({ redirect: "/profil/listepalettes/creer" });
+  }
+
   render(){
     const tabListeTheme = this.props.listeTheme;
     const tabListePalette = this.props.listePalette;
+    if (this.state.redirect) {
+      return <Navigate to={this.state.redirect}/>
+    }
     let divListe = "";
     if(this.props.istheme){
       if(this.props.listeTheme.length > 0){
@@ -71,7 +94,8 @@ class AddToList extends React.Component{
           </button>
       ))
       }else{
-        divListe = <p>Il n'y a rien :( crée une première liste de thèmes !</p>
+        divListe = <div><p>Il n'y a rien :( crée une première liste de thèmes !</p>
+        <button className="creation_btn" onClick={this.handleRedirectT}>Créer une liste</button></div>
       }
     }else{
       if(this.props.listePalette.length > 0){
@@ -82,7 +106,8 @@ class AddToList extends React.Component{
           </button>
       ))
       }else{
-        divListe = <p className="empty">Il n'y a rien :( crée une première liste de palettes !</p>
+        divListe = <div><p>Il n'y a rien :( crée une première liste de palettes !</p>
+        <button className="creation_btn" onClick={this.handleRedirectP}>Créer une liste</button></div>
       }
     }
     let titre = <h3>A quelle liste veux-tu l'ajouter ?</h3>;
