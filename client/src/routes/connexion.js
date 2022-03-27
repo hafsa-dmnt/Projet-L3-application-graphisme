@@ -6,7 +6,12 @@ import PropTypes from 'prop-types';
 
 import {isCompleted} from '../classes/formValidation.js';
 
+
+// TODO faire en sorte qye on puisse pas aller dessus si on est coo
+
 async function loginUser(credentials) {
+  //TODO chemin en bien
+  //
   return fetch('/Connexion/'+credentials.pseudo, {
     method: 'POST',
     headers: {
@@ -50,6 +55,7 @@ export default function Connexion(prop) {
 
   const [pseudo, setPseudo] = useState('');
   const [mdp, setMdp] = useState('');
+  console.log(prop);
 
   const handleChangePseudo = (event) => {
     event.preventDefault();
@@ -68,6 +74,10 @@ export default function Connexion(prop) {
       return;
     }
 
+    // verifier que mdp et pseudo corepondent bd
+    // + l'envoyer vers le composant app jsp comment
+    console.log(pseudo);
+
     var body=await verifyMdp(pseudo);
 
     if(body[0].length==0){
@@ -75,7 +85,10 @@ export default function Connexion(prop) {
       return;
     }
 
+    console.log("ici :",body);
     var mdpbd=body[0][0].utilisateur_mdp;
+    console.log("ici :",mdpbd);
+
     var passwordHash = require('password-hash');
     var mdpEstBon=passwordHash.verify(mdp, mdpbd.trim());
 

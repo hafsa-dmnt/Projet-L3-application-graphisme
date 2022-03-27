@@ -13,6 +13,7 @@ class Informations extends React.Component{
 
 
   render(){
+    //choix du thème aléatoire au début
     return(
       <div className="page informations">
 

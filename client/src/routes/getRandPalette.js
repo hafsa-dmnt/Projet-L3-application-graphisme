@@ -58,7 +58,7 @@ function RGBToHSL(r,g,b) {
   }
 
   h = Math.round(h * 60);
-
+    
   // Make negative hues positive behind 360°
   if (h < 0){
       h += 360;
@@ -69,7 +69,7 @@ function RGBToHSL(r,g,b) {
 
   // Calculate saturation
   s = delta === 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
-
+    
   // Multiply l and s by 100
   s = Math.floor(+(s * 100));
   l = Math.floor(+(l * 100));
@@ -90,7 +90,7 @@ function HSLToRGB(h,s,l) {
   let b = 0;
 
       if (0 <= h && h < 60) {
-        r = c; g = x; b = 0;
+        r = c; g = x; b = 0;  
       } else if (60 <= h && h < 120) {
         r = x; g = c; b = 0;
       } else if (120 <= h && h < 180) {
@@ -105,7 +105,7 @@ function HSLToRGB(h,s,l) {
       r = Math.round((r + m) * 255);
       g = Math.round((g + m) * 255);
       b = Math.round((b + m) * 255);
-
+    
       return [r, g,b];
 }
 
@@ -141,6 +141,7 @@ function analogue(maxbit,minbit,nbColors,couleurAChanger,firstColor){
   var interval=Math.floor((maxbit-minbit)/nbColors);
   var ajout=1;
   if(interval<18){
+    console.log("ici");
     if(minbit>=128){
       ajout=-1;
       interval=25;
@@ -173,14 +174,15 @@ function analogue(maxbit,minbit,nbColors,couleurAChanger,firstColor){
 export function getRandomPalette(){
   //on génère aléatoirement une palette composée de minPalette couleurs à maxPalette couleurs
   let nbColors = Math.floor(Math.random()*(maxPalette-minPalette+1))+minPalette;
-  //on génère aléatoirement un nombre pour savoir quelle méthode utiliser dans la palette
+  //on génère aléatoirement un nombre pour savoir quelle méthode utiliser dans la palette 
   let tabMethode = Math.floor(Math.random()*(5));
+  console.log("methode numero ", tabMethode);
   //la palette à renvoyer à la fin
   let palette = [];
 
   //on choisit d'abord une première couleur, format RGB
   var firstColor = {r:Math.floor(Math.random()*(255)), g:Math.floor(Math.random()*(255)), b:Math.floor(Math.random()*(255))};
-
+  
   switch(tabMethode){
     case 0: //complementaires
       palette=complementaire(firstColor);

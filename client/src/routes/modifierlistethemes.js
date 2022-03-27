@@ -18,7 +18,7 @@ class ModifierListeThemes extends React.Component{
             .then(res => this.setState({nom: res[0].tl_nom, icon: res[0].tl_icon}))
             .catch(err => console.log(err));
     }
-
+    
     callBackendAPI = async () => {
     const queryParams = new URLSearchParams(window.location.search);
     const id = queryParams.get('idlist')
@@ -26,8 +26,9 @@ class ModifierListeThemes extends React.Component{
     const response = await fetch(lien);
     const body = await response.json();
     if (response.status !== 200) {
-        throw Error(body.message)
+        throw Error(body.message) 
     }
+    console.log("requete", body);
     return body;
     };
 

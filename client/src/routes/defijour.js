@@ -34,7 +34,7 @@ class AddToFav extends React.Component{
   state = { redirect: null };
   handleClick() {
       let redirect = this.state.redirect;
-      redirect = `/addToList?type=${this.props.type}`; //add the content to the url
+      redirect = `/addToList?type=${this.props.type}`; //add the content to the url 
       this.setState({redirect: redirect});
   }
   render() {
@@ -75,7 +75,7 @@ class PaletteHome extends React.Component{
 
 class Palette extends React.Component{
   render(){
-    //for avec les bonnes couleurs
+    //for avec les bonnes couleurs 
     const stringtabpalette = this.props.content;
     const tabPalette = stringtabpalette.split(',');
     const divPalette = tabPalette.map((elt) =>    <div className="colorPalette" style={{background:elt}}></div>  );
@@ -98,7 +98,7 @@ class Publication extends React.Component {
         cloudName: 'hzcpqfz4w'
       }
     });
-
+    
     let url = this.props.photo.trim();
     const myImage = cld.image(url);
     let lienPublication = "/publication?pseudo="+this.props.pseudo.trim()+"&type="+this.props.date.trim()+"&publicationname="+this.props.photo.trim();
@@ -137,12 +137,14 @@ class Defijour extends React.Component {
     ))
     .then(data => {
       // assign to requested URL as define in array with array index.
+      console.log(data[0], data[1]);
       var tabNoms = Object.values(data[0]);
       var arrayPublications = [];
       if(data[1] != undefined){
         arrayPublications = data[1].map( Object.values );
       }
 
+      console.log(arrayPublications);
       this.setState({
         day: this.state.day,
         theme: tabNoms[0].theme_nom,
@@ -177,7 +179,7 @@ class Defijour extends React.Component {
       divPubli = this.state.publications.map((elt, idx) =>
                 <Publication photo={elt[1]} idx = {elt[1]+elt[0]} pseudo={elt[2]} date={this.state.day}/>);
     }
-
+    
     return (
       <section className="page defijour">
         <BoutonRetour/>

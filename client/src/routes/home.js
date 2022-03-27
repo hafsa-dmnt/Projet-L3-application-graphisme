@@ -117,6 +117,7 @@ class Home extends React.Component{
     if (response.status !== 200) {
       throw Error(body.message)
     }
+    console.log("requete", body);
     return body;
   };
 

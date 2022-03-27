@@ -16,6 +16,7 @@ class AddToList extends React.Component{
     function parseJSON(response) {
         return response.json();
     }
+    console.log("le content : ",this.props.content);
     if(istheme==1){
         const chemin = [
             "/idduthemes/"+this.props.content
@@ -40,6 +41,7 @@ class AddToList extends React.Component{
                 .catch(error => console.log('There was a problem!', error))
         ))
         idpalette=idpalette[0][0].palette_id;
+        console.log("idpalette : ", idpalette);
     }
 
 

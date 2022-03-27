@@ -60,6 +60,7 @@ class ProfilHead extends React.Component{
   }
 
   render(){
+    console.log("profil head ", this.props.follow);
     let btnAfficher = <Follow pseudo={this.props.pseudo} handleChange = {this.props.handleFollow}/>;
     if(this.props.follow == true){
       btnAfficher = <Unfollow pseudo={this.props.pseudo} handleChange = {this.props.handleFollow}/>;
@@ -116,7 +117,7 @@ class ProfilContent extends React.Component{
         divPubli = tabPublication.map((elt, idx) =>
         <Publication photo = {elt.publication_image} idx = {elt.publication_id} pseudo = {this.props.pseudo}/> );
     }
-
+      
 
     return(
       <section className="section profilContent">
@@ -136,12 +137,12 @@ class Profil extends React.Component{
     super(props);
     var pseudo = "example";
     const queryParams = new URLSearchParams(window.location.search);
-    pseudo = queryParams.get('pseudo');
+    pseudo = queryParams.get('pseudo');    
     this.state = {
       pseudo: pseudo,
       follow: false,
-      data: [],
-      visiteur: "",
+      data: [], 
+      visiteur: "", 
       bio: ""
     };
 
@@ -171,15 +172,15 @@ class Profil extends React.Component{
       }
     }
   }
-
+  
   componentDidMount(){
     const tokenString = localStorage.getItem('token');
     var temp = JSON.parse(tokenString);
     temp = temp.token;
     let chemin = [
-      "/publicationsofuserpseudo/"+this.state.pseudo,
-      '/pseudouser/'+temp,
-      '/biouser/'+this.state.pseudo
+      "/publicationsofuserpseudo/"+this.state.pseudo, 
+      '/pseudouser/'+temp, 
+      '/biouser/'+this.state.pseudo   
     ];
 
     Promise.all(chemin.map(url =>
@@ -194,19 +195,20 @@ class Profil extends React.Component{
         localStorage.removeItem('token');
         window.location.reload(false);
       }
-
+      
       var pseudoActuel = this.state.pseudo.trim();
       var datas = [];
 
       if(data[0].length > 0){
         datas = data[0];
       }
-
+      console.log(data);
+      
       this.setState({
         pseudo: pseudoActuel,
-        data: datas.reverse(),
-        follow: false,
-        visiteur: data[1][0].utilisateur_pseudo.trim(),
+        data: datas.reverse(), 
+        follow: false, 
+        visiteur: data[1][0].utilisateur_pseudo.trim(), 
         bio: data[2][0].utilisateur_bio.trim()
       })
 
@@ -216,7 +218,7 @@ class Profil extends React.Component{
 
 
       chemin = [
-        "/followinguser/"+this.state.pseudo+'.'+this.state.visiteur
+        "/followinguser/"+this.state.pseudo+'.'+this.state.visiteur     
       ];
       Promise.all(chemin.map(url =>
         fetch(url)
@@ -227,7 +229,7 @@ class Profil extends React.Component{
       .then(data => {
         // assign to requested URL as define in array with array index.
         var following = data[0].length > 0;
-
+       
         this.setState({
           ... this.state,
           follow: following
