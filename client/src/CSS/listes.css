@@ -18,6 +18,13 @@
   margin : 0;
 }
 
+.page_listes .addBtn svg{
+  height: 70px;
+  width: 70px;
+  margin: 5px;
+  border: none;
+  border-radius: 10%;
+}
 .page_listes svg{
   height: 70px;
   width: 70px;
@@ -235,4 +242,22 @@
   padding: 20px;
   height: auto;
   width: auto;
+}
+
+
+.page_listes .subSection button svg, .page_listes .subSection button{
+  height: 40px;
+  width: 40px;
+  color : black;
+}
+
+.page_listes .subSection button{
+  border-radius: 0;
+  border: none;
+  padding: 0;
+  vertical-align: middle;
+  background-color: inherit;
+  position: absolute;
+  right: 0;
+  margin-right: 15px;
 }

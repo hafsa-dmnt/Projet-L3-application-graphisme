@@ -31,7 +31,7 @@ class CreerListeThemes extends React.Component{
 
     render(){
         return (
-        <div className="page page_inscription">
+        <div className="page page_listes">
             <div className="section title">
                 <h2>Créer une liste de thèmes</h2>
             </div>
@@ -74,7 +74,7 @@ class CreerListeThemes extends React.Component{
                   </select>
                 </div>
                 <div className="subSection">
-                    <button onClick={this.handleSubmit}>
+                    <button onClick={this.handleSubmit} className='addBtn'>
                         <Icon icon="akar-icons:check-box-fill" />
                     </button>
                 </div>
