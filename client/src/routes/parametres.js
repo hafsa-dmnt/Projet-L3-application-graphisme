@@ -224,7 +224,7 @@ class ImageForm extends React.Component{
     })
   }
 
-  handleSubmit(event) {
+  async handleSubmit(event) {
     event.preventDefault();
 
     var url = this.props.pseudo.trim()+"_pdp";
@@ -236,7 +236,7 @@ class ImageForm extends React.Component{
     formData.append("cloud_name","hzcpqfz4w");
 
     // TODO  : verifier si on envoie nouvo truc avec meme id ca ecrit par dessus ou pas
-    fetch(" https://api.cloudinary.com/v1_1/hzcpqfz4w/image/upload",{
+    await fetch(" https://api.cloudinary.com/v1_1/hzcpqfz4w/image/upload",{
       method:"post",
       body: formData
     }).then(resp =>
@@ -246,7 +246,7 @@ class ImageForm extends React.Component{
                                         url: data.url
                                       })
                                           }).catch(err => console.log(err));
-
+  window.location.reload(false);
   }
 
   render(){

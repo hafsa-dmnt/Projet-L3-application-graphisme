@@ -19,7 +19,7 @@ class InscriptionForm extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {pseudo:'',mail:'', mdp: '',confirm:'', redirect: null};
+    this.state = {pseudo:'',mail:'', mdp: '',confirm:'', redirect: null,bio:"Voici ma bio :)"};
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
